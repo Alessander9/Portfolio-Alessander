@@ -1,0 +1,213 @@
+/* Coverflow Carousel CSS */
+.cf-container {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+}
+
+.cf-frame-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.cf-frame {
+  cursor: grab;
+  overflow: hidden;
+  padding: 2.5rem 0;
+  outline: none;
+  touch-action: pan-y;
+  position: relative;
+  width: 100%;
+}
+
+.cf-frame:active {
+  cursor: grabbing;
+}
+
+.cf-stage {
+  position: relative;
+  user-select: none;
+  height: var(--cf-card, 300px);
+  transform-style: preserve-3d;
+  width: 100%;
+}
+
+.cf-card {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: var(--cf-card, 300px);
+  height: var(--cf-card, 300px);
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  background: var(--surface, #1a1a24);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+  will-change: transform, opacity;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.cf-card:hover {
+  border-color: var(--accent-primary, #00e676);
+}
+
+.cf-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  pointer-events: none;
+  display: block;
+}
+
+.cf-card-link-badge {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(11, 11, 16, 0.75);
+  backdrop-filter: blur(8px);
+  color: var(--accent-primary, #00e676);
+  border: 1px solid rgba(0, 230, 118, 0.3);
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  pointer-events: none;
+}
+
+/* Nav Buttons */
+.cf-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 200;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(26, 26, 36, 0.85);
+  backdrop-filter: blur(12px);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.cf-nav-btn:hover {
+  background: var(--accent-primary, #00e676);
+  color: #000;
+  border-color: var(--accent-primary, #00e676);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.cf-nav-prev {
+  left: 1.5rem;
+}
+
+.cf-nav-next {
+  right: 1.5rem;
+}
+
+/* Captions */
+.cf-caption {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 1.5rem;
+  animation: cfFadeIn 0.35s ease forwards;
+}
+
+@keyframes cfFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cf-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-main, #f3f4f6);
+  margin-bottom: 0.25rem;
+}
+
+.cf-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-muted, #9ca3af);
+  max-width: 500px;
+  line-height: 1.5;
+}
+
+.cf-meta {
+  margin-top: 1.5rem;
+  width: 100%;
+  max-width: 320px;
+  font-size: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 0.75rem;
+}
+
+.cf-meta-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.35rem 0;
+}
+
+.cf-meta-label {
+  color: var(--text-muted, #9ca3af);
+}
+
+.cf-meta-value {
+  font-weight: 600;
+  color: var(--accent-primary, #00e676);
+}
+
+.cf-actions {
+  margin-top: 1.25rem;
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* Pagination */
+.cf-pagination {
+  margin-top: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.cf-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-muted, #9ca3af);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.35;
+}
+
+.cf-dot.active {
+  opacity: 1;
+  width: 24px;
+  border-radius: 12px;
+  background: var(--accent-primary, #00e676);
+  box-shadow: 0 0 10px rgba(0, 230, 118, 0.4);
+}

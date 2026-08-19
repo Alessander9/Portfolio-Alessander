@@ -1,3 +1,15 @@
+/* Contenedor de la sección destacada (CoverflowCarousel) */
+.projects-coverflow-wrapper {
+  width: 100%;
+  padding: 1rem 0 0;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.featured-projects {
+  margin-bottom: 3rem;
+}
+
 .filters {
   display: flex;
   justify-content: center;
@@ -48,6 +60,12 @@
   flex-direction: column;
   height: 100%;
   position: relative;
+  cursor: pointer;
+}
+
+.project-card:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
 }
 
 .project-card::before {
@@ -96,6 +114,33 @@
   inset: 0;
   background: linear-gradient(to top, var(--surface) 0%, transparent 50%);
   pointer-events: none;
+}
+
+.project-card-open {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 50px;
+  background: rgba(0, 230, 118, 0.95);
+  color: #000;
+  font-size: 0.8rem;
+  font-weight: 700;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: var(--transition);
+  box-shadow: 0 4px 15px rgba(0, 230, 118, 0.35);
+  pointer-events: none;
+}
+
+.project-card:hover .project-card-open,
+.project-card:focus-visible .project-card-open {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .project-content {
@@ -150,12 +195,14 @@
 
 .project-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.75rem;
   margin-top: auto;
 }
 
 .project-actions .btn-sm {
-  flex: 1;
+  flex: 1 1 auto;
+  white-space: nowrap;
 }
 
 /* Section subtitle with secondary projects header */
@@ -184,3 +231,4 @@
     grid-template-columns: 1fr;
   }
 }
+

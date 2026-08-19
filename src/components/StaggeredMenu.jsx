@@ -4,10 +4,10 @@ import './StaggeredMenu.css'
 
 const NAV_ITEMS = [
   { label: 'Inicio', link: '#inicio' },
-  { label: 'Sobre mí', link: '#sobre-mi' },
-  { label: 'Skills', link: '#skills' },
   { label: 'Proyectos', link: '#proyectos' },
-  { label: 'En producción', link: '#produccion' },
+  { label: 'Sitios web', link: '#proyectos-web' },
+  // { label: 'Skills', link: '#skills' },
+  { label: 'Sobre mí', link: '#sobre-mi' },
 ]
 
 const SOCIAL_ITEMS = [
@@ -37,7 +37,11 @@ export default function StaggeredMenu() {
   const busyRef = useRef(false)
 
   const position = 'right'
-  const colors = ['#1a1a24', '#252533']
+  const colors = [
+    'linear-gradient(135deg, #14141e 0%, #1d1d2a 100%)',
+    'linear-gradient(135deg, rgba(124, 58, 237, 0.95) 0%, rgba(59, 130, 246, 0.9) 100%)',
+    'linear-gradient(135deg, rgba(0, 230, 118, 0.95) 0%, rgba(34, 197, 94, 0.9) 100%)',
+  ]
   const menuButtonColor = '#f3f4f6'
   const openMenuButtonColor = '#00e676'
   const accentColor = '#00e676'
@@ -267,7 +271,7 @@ export default function StaggeredMenu() {
       data-open={open || undefined}
     >
       <div ref={preLayersRef} className="sm-prelayers" aria-hidden="true">
-        {colors.slice(0, 2).map((c, i) => (
+        {colors.map((c, i) => (
           <div key={i} className="sm-prelayer" style={{ background: c }} />
         ))}
       </div>
@@ -288,16 +292,16 @@ export default function StaggeredMenu() {
           onClick={toggleMenu}
           type="button"
         >
+          <span ref={iconRef} className="sm-icon" aria-hidden="true">
+            <span ref={plusHRef} className="sm-icon-line" />
+            <span ref={plusVRef} className="sm-icon-line sm-icon-line-v" />
+          </span>
           <span ref={textWrapRef} className="sm-toggle-textWrap" aria-hidden="true">
             <span ref={textInnerRef} className="sm-toggle-textInner">
               {textLines.map((l, i) => (
                 <span className="sm-toggle-line" key={i}>{l}</span>
               ))}
             </span>
-          </span>
-          <span ref={iconRef} className="sm-icon" aria-hidden="true">
-            <span ref={plusHRef} className="sm-icon-line" />
-            <span ref={plusVRef} className="sm-icon-line sm-icon-line-v" />
           </span>
         </button>
       </header>

@@ -1,0 +1,28 @@
+.hero-social-dock-container {
+  position: fixed;
+  bottom: 2.25rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  z-index: 95;
+  transition: opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1), transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+  pointer-events: auto;
+}
+
+.hero-social-dock-container.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.hero-social-dock-container.is-hidden {
+  opacity: 0;
+  transform: translateX(-50%) translateY(24px);
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .hero-social-dock-container {
+    bottom: 1.5rem;
+  }
+}

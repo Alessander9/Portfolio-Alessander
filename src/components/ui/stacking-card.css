@@ -1,0 +1,214 @@
+.stacking-cards-root {
+  position: relative;
+  width: 100%;
+  padding-bottom: 8rem;
+}
+
+.stacking-cards-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.stacking-card-item-sticky {
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+}
+
+.stacking-card-body {
+  position: relative;
+  width: min(92%, 1060px);
+  min-height: 480px;
+  background: #11111a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 2.25rem;
+  box-shadow: 
+    0 24px 60px -15px rgba(0, 0, 0, 0.8),
+    0 0 30px rgba(0, 230, 118, 0.08);
+  transform-origin: top center;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  overflow: hidden;
+}
+
+.stacking-card-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 2.5rem;
+  height: 100%;
+  align-items: center;
+}
+
+/* Left Info Column */
+.stacking-card-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.1rem;
+}
+
+.stacking-card-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.8rem;
+  background: rgba(0, 230, 118, 0.1);
+  border: 1px solid rgba(0, 230, 118, 0.25);
+  border-radius: 50px;
+  color: var(--accent-primary, #00e676);
+  font-size: 0.78rem;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.stacking-card-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-primary, #00e676);
+  box-shadow: 0 0 8px #00e676;
+}
+
+.stacking-card-title {
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.stacking-card-desc {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--text-muted, #9ca3af);
+}
+
+.stacking-card-tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.stacking-tech-tag {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.25rem 0.65rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  color: #e5e7eb;
+}
+
+.stacking-card-actions {
+  margin-top: 0.5rem;
+}
+
+.stacking-card-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.4rem;
+  background: linear-gradient(135deg, #00e676, #059669);
+  color: #0b0b10;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 20px rgba(0, 230, 118, 0.3);
+}
+
+.stacking-card-link-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(0, 230, 118, 0.45);
+}
+
+/* Right Image Preview Mockup */
+.stacking-card-preview-wrapper {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  background: #08080d;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+  height: 100%;
+  max-height: 400px;
+}
+
+.stacking-browser-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.6rem 0.9rem;
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.stacking-browser-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.dot-red { background: #ff5f57; }
+.dot-yellow { background: #ffbd2e; }
+.dot-green { background: #28c840; }
+
+.stacking-browser-url {
+  flex: 1;
+  margin-left: 0.4rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 50px;
+  padding: 0.2rem 0.75rem;
+  font-size: 0.72rem;
+  color: #9ca3af;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.stacking-card-image-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  overflow: hidden;
+}
+
+.stacking-card-image-motion {
+  width: 100%;
+  height: 100%;
+  transform-origin: center center;
+}
+
+.stacking-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .stacking-card-body {
+    min-height: auto;
+    padding: 1.5rem;
+  }
+
+  .stacking-card-inner {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .stacking-card-preview-wrapper {
+    max-height: 250px;
+  }
+}

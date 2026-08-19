@@ -5,69 +5,48 @@ import './BentoGrid.css'
 
 /* ── SVG Icons ── */
 const icons = {
-  web: (
+  user: (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 2L2 7l10 5 10-5-10-5z" />
-      <path d="M2 17l10 5 10-5" />
-      <path d="M2 12l10 5 10-5" />
+      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
     </svg>
   ),
-  mobile: (
+  code: (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
-      <line x1="12" y1="18" x2="12.01" y2="18" />
+      <polyline points="16 18 22 12 16 6" />
+      <polyline points="8 6 2 12 8 18" />
     </svg>
   ),
-  backend: (
+  brain: (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
-      <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
-      <line x1="6" y1="6" x2="6.01" y2="6" />
-      <line x1="6" y1="18" x2="6.01" y2="18" />
+      <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-5.04z" />
+      <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-5.04z" />
     </svg>
   ),
-  database: (
+  tool: (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <ellipse cx="12" cy="5" rx="9" ry="3" />
-      <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
-      <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+      <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
     </svg>
   ),
-  design: (
+  heart: (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10" />
-      <circle cx="12" cy="12" r="4" />
-      <line x1="4.93" y1="4.93" x2="9.17" y2="9.17" />
-      <line x1="14.83" y1="14.83" x2="19.07" y2="19.07" />
-      <line x1="14.83" y1="9.17" x2="19.07" y2="4.93" />
-      <line x1="14.83" y1="9.17" x2="18.36" y2="5.64" />
-      <line x1="4.93" y1="19.07" x2="9.17" y2="14.83" />
-    </svg>
-  ),
-  cloud: (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z" />
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
     </svg>
   ),
   rocket: (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
       <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
       <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
       <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
     </svg>
   ),
-  lightning: (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-    </svg>
-  ),
 }
 
-/* ── Card Data ── */
+/* ── Card Data: 5 perfectly fitted Bento Cards (2x4 Grid Block) ── */
 const cards = [
   {
-    id: 'featured',
+    id: 'featured-about',
     span: 'full-tall',
     glow: 'mixed',
     gradient: 'dark',
@@ -76,75 +55,56 @@ const cards = [
     featured: true,
     featuredTitle: (
       <>
-        Construyo soluciones <span className="highlight-green">digitales</span>{' '}
-        que impulsan tu <span className="highlight-violet">negocio</span>
+        Luis Alexander <span className="highlight-green">Fernandez Paz</span>
+        <br />
+        <span className="highlight-violet">Desarrollador de Software</span>
       </>
     ),
-    desc: 'Cada proyecto comienza con una idea clara y termina con un producto funcional, optimizado y listo para crecer contigo.',
-    techs: ['React', 'Node.js', 'TypeScript', 'MongoDB', 'PostgreSQL', 'React Native'],
+    desc: 'Apasionado por transformar requerimientos complejos en software intuitivo, robusto y escalable. Experiencia en desarrollo web moderno, sistemas empresariales, APIs seguras y apps móviles.',
+    techs: ['React', 'Angular', 'TypeScript', 'Spring Boot', 'C# .NET', 'Kotlin', 'MySQL', 'PostgreSQL'],
   },
   {
-    id: 'web',
-    icon: icons.web,
+    id: 'tech-profile',
+    icon: icons.code,
     iconColor: 'green',
     glow: 'green',
     gradient: 'green',
-    title: 'Desarrollo Web',
-    desc: 'Sitios y aplicaciones web modernas, rápidas y responsivas con las mejores tecnologías del mercado.',
-    cta: 'Ver proyectos',
-  },
-  {
-    id: 'mobile',
-    icon: icons.mobile,
-    iconColor: 'violet',
-    glow: 'violet',
-    gradient: 'violet',
-    title: 'Apps Móviles',
-    desc: 'Aplicaciones nativas y multiplataforma para iOS y Android con React Native y Expo.',
-    cta: 'Saber más',
-  },
-  {
-    id: 'backend',
-    icon: icons.backend,
-    iconColor: 'cyan',
-    glow: 'green',
-    gradient: 'green',
-    title: 'APIs y Backend',
-    desc: 'APIs escalables y seguras con Node.js, Express, y bases de datos SQL y NoSQL.',
+    title: 'Perfil Técnico',
+    desc: 'Arquitecturas limpias, principios SOLID, diseño de bases de datos relacionales y desarrollo modular.',
     stats: [
-      { value: '15+', label: 'APIs creadas' },
-      { value: '99.9%', label: 'Uptime' },
+      { value: '15+', label: 'Proyectos realizados' },
+      { value: '4+', label: 'Años programando' },
     ],
   },
   {
-    id: 'database',
-    icon: icons.database,
-    iconColor: 'amber',
+    id: 'soft-skills',
+    icon: icons.brain,
+    iconColor: 'violet',
     glow: 'violet',
     gradient: 'violet',
-    title: 'Bases de Datos',
-    desc: 'Diseño, optimización y administración de bases de datos relacionales y no relacionales.',
-    cta: 'Ver stack',
+    title: 'Habilidades Blandas',
+    desc: 'Comunicación asertiva, pensamiento analítico, adaptabilidad rápida y trabajo en equipo colaborativo.',
+    cta: 'Conocer más',
   },
   {
-    id: 'design',
-    icon: icons.design,
-    iconColor: 'rose',
-    glow: 'mixed',
-    gradient: 'dark',
-    title: 'UI / UX Design',
-    desc: 'Interfaces centradas en el usuario con diseños modernos, accesibles y atractivos.',
-    cta: 'Ver diseño',
-  },
-  {
-    id: 'devops',
-    icon: icons.cloud,
-    iconColor: 'green',
+    id: 'tools-stack',
+    icon: icons.tool,
+    iconColor: 'cyan',
     glow: 'green',
     gradient: 'green',
-    title: 'Cloud & DevOps',
-    desc: 'Despliegues automatizados, infraestructura en la nube y CI/CD con Docker y AWS.',
-    cta: 'Ver proyectos',
+    title: 'Herramientas Diarias',
+    desc: 'Git, GitHub, Docker, Postman, Firebase, AWS S3, Make, Figma, VS Code y Linux/Windows.',
+    cta: 'Ver herramientas',
+  },
+  {
+    id: 'philosophy',
+    icon: icons.heart,
+    iconColor: 'rose',
+    glow: 'violet',
+    gradient: 'violet',
+    title: 'Mi Filosofía',
+    desc: 'La tecnología debe ser simple para el usuario y rentable para el negocio. Tú me cuentas la idea, yo me encargo de todo el código.',
+    cta: 'Contáctame',
   },
 ]
 
@@ -166,7 +126,6 @@ function AnimatedCounter({ value, suffix = '' }) {
 
     const el = ref.current
     if (!el) return
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -228,12 +187,12 @@ function BentoCard({ card, index }) {
         spanClass,
         isTall ? 'bento-card--tall' : '',
       ].filter(Boolean).join(' ')}
-      initial={{ opacity: 0, y: 60 }}
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
+      viewport={{ once: true, margin: '-40px' }}
       transition={{
-        duration: 0.6,
-        delay: 0.08 * index,
+        duration: 0.5,
+        delay: 0.06 * index,
         ease: [0.25, 0.1, 0.25, 1],
       }}
       onMouseMove={handleMouseMove}
@@ -241,35 +200,35 @@ function BentoCard({ card, index }) {
       onMouseLeave={() => setIsHovered(false)}
       whileHover={{ y: -4 }}
     >
-      {/* Glow overlay layer (animated border shimmer) */}
+      {/* Glow overlay layer */}
       <motion.div
         className="bento-card-glow-layer"
         animate={isHovered ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.4 }}
       />
 
       {/* Corner accent */}
       <motion.div
         className={`bento-card-corner bento-card-corner-${card.iconColor || card.glow}`}
         animate={isHovered ? { scale: 1 } : { scale: 0.5 }}
-        transition={{ duration: 0.4, ease: [0.34, 1.56, 0.64, 1] }}
+        transition={{ duration: 0.35, ease: [0.34, 1.56, 0.64, 1] }}
       />
 
       <div className="bento-card-content">
-        {/* Featured card (large hero card) */}
+        {/* Featured card */}
         {card.featured ? (
           <>
             <motion.div
               className="bento-card-icon bento-card-icon-green"
-              style={{ marginBottom: '1.5rem' }}
+              style={{ marginBottom: '1rem' }}
               animate={isHovered ? {
                 rotate: [0, -5, 5, -3, 0],
-                scale: 1.15,
+                scale: 1.12,
               } : {
                 rotate: 0,
                 scale: 1,
               }}
-              transition={{ duration: 0.6, ease: 'easeInOut' }}
+              transition={{ duration: 0.5, ease: 'easeInOut' }}
             >
               {icons.rocket}
             </motion.div>
@@ -282,9 +241,9 @@ function BentoCard({ card, index }) {
                   className="bento-tech-tag"
                   initial={{ opacity: 1, y: 0 }}
                   animate={isHovered ? {
-                    y: -3,
+                    y: -2,
                     opacity: 1,
-                    transition: { delay: 0.03 * i, duration: 0.3 },
+                    transition: { delay: 0.02 * i, duration: 0.25 },
                   } : {
                     y: 0,
                     opacity: 1,
@@ -302,26 +261,26 @@ function BentoCard({ card, index }) {
             <motion.div
               className={`bento-card-icon bento-card-icon-${card.iconColor}`}
               animate={isHovered ? {
-                scale: 1.12,
+                scale: 1.1,
                 rotate: [0, -3, 3, -2, 0],
               } : {
                 scale: 1,
                 rotate: 0,
               }}
-              transition={{ duration: 0.5, ease: 'easeInOut' }}
+              transition={{ duration: 0.4, ease: 'easeInOut' }}
             >
               {card.icon}
             </motion.div>
 
-            {/* Title with letter-spacing animation */}
+            {/* Title */}
             <motion.h4
               className="bento-card-title"
               animate={isHovered ? {
-                letterSpacing: '0.02em',
+                letterSpacing: '0.01em',
               } : {
                 letterSpacing: '-0.01em',
               }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.25 }}
             >
               {card.title}
             </motion.h4>
@@ -330,11 +289,11 @@ function BentoCard({ card, index }) {
             <motion.p
               className="bento-card-desc"
               animate={isHovered ? {
-                color: 'rgba(243, 244, 246, 0.8)',
+                color: 'rgba(243, 244, 246, 0.85)',
               } : {
                 color: 'var(--text-muted)',
               }}
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 0.3 }}
             >
               {card.desc}
             </motion.p>
@@ -346,11 +305,11 @@ function BentoCard({ card, index }) {
                   <motion.div
                     key={stat.label}
                     className="bento-stat"
-                    animate={isHovered ? { scale: 1.05 } : { scale: 1 }}
-                    transition={{ duration: 0.3 }}
+                    animate={isHovered ? { scale: 1.04 } : { scale: 1 }}
+                    transition={{ duration: 0.25 }}
                   >
                     <div className="bento-stat-value">
-                      <AnimatedCounter value={stat.value}                  suffix={typeof stat.value === 'string' && stat.value.includes('%') ? '%' : ''} />
+                      <AnimatedCounter value={stat.value} suffix={typeof stat.value === 'string' && stat.value.includes('%') ? '%' : ''} />
                     </div>
                     <div className="bento-stat-label">{stat.label}</div>
                   </motion.div>
@@ -362,16 +321,16 @@ function BentoCard({ card, index }) {
             {card.cta && (
               <motion.span
                 className="bento-card-cta"
-                animate={isHovered ? { gap: '0.75rem' } : { gap: '0.5rem' }}
-                transition={{ duration: 0.3 }}
+                animate={isHovered ? { gap: '0.65rem' } : { gap: '0.45rem' }}
+                transition={{ duration: 0.25 }}
               >
                 {card.cta}
                 <motion.svg
                   width="14" height="14" viewBox="0 0 24 24"
                   fill="none" stroke="currentColor"
                   strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-                  animate={isHovered ? { x: 4 } : { x: 0 }}
-                  transition={{ duration: 0.3 }}
+                  animate={isHovered ? { x: 3 } : { x: 0 }}
+                  transition={{ duration: 0.25 }}
                 >
                   <line x1="5" y1="12" x2="19" y2="12" />
                   <polyline points="12 5 19 12 12 19" />
@@ -390,14 +349,14 @@ export default function BentoGrid() {
   const [ref, visible] = useScrollReveal(0.08)
 
   return (
-    <section id="servicios" className="bento-section">
+    <section id="sobre-mi" className="bento-section">
       <div className="container">
         <div ref={ref} className={`bento-header${visible ? ' reveal visible' : ' reveal'}`}>
           <h2 className="section-title">
-            ¿Qué puedo <span className="text-gradient">hacer</span> por ti?
+            Sobre <span className="text-gradient">mí</span>
           </h2>
           <p className="section-subtitle">
-            Transformo tus ideas en soluciones digitales funcionales, desde la idea hasta el despliegue.
+            Conoce mi perfil técnico, trayectoria, metodología de trabajo y habilidades clave.
           </p>
         </div>
 

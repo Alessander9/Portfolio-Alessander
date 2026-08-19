@@ -20,15 +20,6 @@ export default function WhatsAppButton() {
         }
       }
 
-      // Check if footer is visible
-      if (footer) {
-        const footerTop = footer.offsetTop
-        if (scrollY + windowHeight > footerTop + 100) {
-          setVisible(false)
-          return
-        }
-      }
-
       setVisible(true)
     }
 

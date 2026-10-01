@@ -79,6 +79,8 @@ export type JourneyItem = {
   year: string;
   month: Month;
   content: string;
+  image?: string;
+  imageAlt?: string;
 };
 
 type SplitTextInstance = InstanceType<typeof SplitText>;
@@ -92,6 +94,7 @@ export type TimelineProps = {
   backgroundColor?: string;
   imageUrl?: string;
   imageAlt?: string;
+  items?: JourneyItem[];
   /** Reveal animation duration, in seconds. */
   duration?: number;
   /** Fallback reveal duration when `duration` is omitted, in seconds. */
@@ -133,24 +136,32 @@ const topJourneyData: JourneyItem[] = [
     year: "2020",
     month: "March",
     content: "Signal research turns scattered notes into a clear product thesis",
+    image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=800&auto=format&fit=crop",
+    imageAlt: "Investigación y conceptualización inicial",
   },
   {
     id: "2021-july",
     year: "2021",
     month: "July",
     content: "Founding release ships with the first live customer journeys",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
+    imageAlt: "Primer lanzamiento y despliegue de producto",
   },
   {
     id: "2023-april",
     year: "2023",
     month: "April",
     content: "Automation layer connects insight, publishing, and sales motion",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
+    imageAlt: "Arquitectura de automatización y flujos de datos",
   },
   {
     id: "2026-may",
     year: "2026",
     month: "May",
     content: "New markets open with localized launches and faster onboarding",
+    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop",
+    imageAlt: "Expansión global y despliegues en la nube",
   },
 ];
 
@@ -160,18 +171,24 @@ const bottomJourneyData: JourneyItem[] = [
     year: "2020",
     month: "November",
     content: "Prototype sprint validates the experience with real operators",
+    image: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=800&auto=format&fit=crop",
+    imageAlt: "Prototipado interactivo y validación con usuarios",
   },
   {
     id: "2022-october",
     year: "2022",
     month: "October",
     content: "Community feedback reshapes the roadmap into sharper releases",
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop",
+    imageAlt: "Colaboración en equipo y roadmap de producto",
   },
   {
     id: "2025-september",
     year: "2025",
     month: "September",
     content: "Companion mobile workflows make the timeline travel-ready",
+    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800&auto=format&fit=crop",
+    imageAlt: "Desarrollo multiplataforma y flujos móviles",
   },
 ];
 
@@ -271,6 +288,7 @@ export default function Timeline({
       items.forEach((item) => {
         gsap.set(`.jl-${item.id}`, { scaleY: 1 });
         gsap.set(`.jd-${item.id}`, { scale: 1 });
+        gsap.set(`.img-${item.id}`, { opacity: 1, scale: 1, y: 0 });
         gsap.set(`.title-${item.id}`, { opacity: 1, clearProps: "transform" });
         gsap.set(`.description-${item.id}`, {
           opacity: 1,
@@ -281,11 +299,17 @@ export default function Timeline({
     }
 
     items.forEach((item) => {
+      const isTop = topJourneyData.some((topItem) => topItem.id === item.id);
       gsap.set(`.jl-${item.id}`, {
         scaleY: 0,
         transformOrigin: "bottom bottom",
       });
       gsap.set(`.jd-${item.id}`, { scale: 0 });
+      gsap.set(`.img-${item.id}`, {
+        opacity: 0,
+        scale: 0.88,
+        y: isTop ? -16 : 16,
+      });
       gsap.set(`.title-${item.id}`, { opacity: 1 });
       gsap.set(`.description-${item.id}`, { opacity: 1 });
     });
@@ -316,6 +340,7 @@ export default function Timeline({
     ) => {
       const lineSelector = `.jl-${item.id}`;
       const dotSelector = `.jd-${item.id}`;
+      const imgSelector = `.img-${item.id}`;
       const titleLines = titleSplits[item.id]?.lines?.length 
         ? titleSplits[item.id]!.lines 
         : [`.title-${item.id}`];
@@ -350,6 +375,22 @@ export default function Timeline({
             duration: normalizedDuration * 0.4,
           },
           "<",
+        )
+        .fromTo(
+          imgSelector,
+          {
+            opacity: 0,
+            scale: 0.88,
+            y: isTop ? -16 : 16,
+          },
+          {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            duration: normalizedDuration * 0.65,
+            ease: "power2.out",
+          },
+          "<0.05",
         )
         .fromTo(
           titleLines,
@@ -480,14 +521,24 @@ export default function Timeline({
                       ></div>
                     </div>
 
-                    <div className="timeline-item-copy-top mt-[-1vw] space-y-[1vw] max-[600px]:mt-[-2vw]">
+                    <div className="timeline-item-copy-top mt-[-1vw] space-y-[0.8vw] max-[600px]:mt-[-2vw]">
+                      {item.image && (
+                        <div className={`timeline-item-img-card img-${item.id}`}>
+                          <img
+                            src={item.image}
+                            alt={item.imageAlt || `${item.year} ${item.month}`}
+                            loading="lazy"
+                            className="timeline-item-img"
+                          />
+                        </div>
+                      )}
                       <h4
-                        className={`title-${item.id} timeline-item-title text-[2.5vw] leading-none max-[600px]:text-[6.4vw]`}
+                        className={`title-${item.id} timeline-item-title text-[2.2vw] leading-none max-[600px]:text-[5.8vw]`}
                       >
                         {item.year} {item.month}
                       </h4>
                       <p
-                        className={`description-${item.id} timeline-item-desc w-[90%] text-[1.5vw] leading-[1.15] max-[600px]:w-[90%] max-[600px]:text-[4.8vw]`}
+                        className={`description-${item.id} timeline-item-desc w-[90%] text-[1.3vw] leading-[1.25] max-[600px]:w-[90%] max-[600px]:text-[4.2vw]`}
                         style={mutedTextStyle}
                       >
                         {item.content}
@@ -525,14 +576,24 @@ export default function Timeline({
                       ></div>
                     </div>
 
-                    <div className="timeline-item-copy-bottom flex h-full w-full flex-col justify-end space-y-[1vw]">
+                    <div className="timeline-item-copy-bottom flex h-full w-full flex-col justify-end space-y-[0.8vw]">
+                      {item.image && (
+                        <div className={`timeline-item-img-card img-${item.id}`}>
+                          <img
+                            src={item.image}
+                            alt={item.imageAlt || `${item.year} ${item.month}`}
+                            loading="lazy"
+                            className="timeline-item-img"
+                          />
+                        </div>
+                      )}
                       <h4
-                        className={`title-${item.id} timeline-item-title text-[2.5vw] leading-none max-[600px]:text-[6.4vw]`}
+                        className={`title-${item.id} timeline-item-title text-[2.2vw] leading-none max-[600px]:text-[5.8vw]`}
                       >
                         {item.year} {item.month}
                       </h4>
                       <p
-                        className={`description-${item.id} timeline-item-desc w-[90%] text-[1.5vw] leading-[1.15] max-[600px]:w-[90%] max-[600px]:text-[4.8vw]`}
+                        className={`description-${item.id} timeline-item-desc w-[90%] text-[1.3vw] leading-[1.25] max-[600px]:w-[90%] max-[600px]:text-[4.2vw]`}
                         style={mutedTextStyle}
                       >
                         {item.content}

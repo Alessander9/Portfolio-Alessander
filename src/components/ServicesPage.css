@@ -3,9 +3,15 @@
    ══════════════════════════════════════════════════════════════════ */
 
 .services-page {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
   padding-top: 6.5rem;
-  padding-bottom: 5rem;
+  padding-bottom: 6rem;
+  padding-left: clamp(1.25rem, 3.5vw, 3.5rem);
+  padding-right: clamp(1.25rem, 3.5vw, 3.5rem);
   min-height: 100vh;
+  box-sizing: border-box;
 }
 
 /* Botón Volver */
@@ -142,47 +148,56 @@
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   Grid de Tarjetas de Producto con Video
+   Grid de Tarjetas de Producto con Video (2 por fila en desktop)
    ══════════════════════════════════════════════════════════════════ */
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-  gap: 2.2rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.25rem;
+  width: 100%;
   margin-bottom: 6rem;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 1024px) {
   .products-grid {
     grid-template-columns: 1fr;
+    gap: 2rem;
   }
 }
 
-/* Tarjeta individual de Producto */
+/* ══════════════════════════════════════════════════════════════════
+   Tarjeta Individual de Producto (Referencia Visual Exacta)
+   ══════════════════════════════════════════════════════════════════ */
 .product-card {
   position: relative;
-  background: #101016;
+  background: #0D0E15;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 18px;
+  border-radius: 24px;
+  padding: 1.25rem 1.25rem 1.65rem 1.25rem;
   display: flex;
   flex-direction: column;
+  gap: 1.25rem;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.35s ease,
+              box-shadow 0.35s ease;
   overflow: hidden;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
 }
 
 .product-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(0, 230, 118, 0.35);
-  box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 230, 118, 0.12);
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85);
 }
 
-/* Contenedor Superior de Video */
+/* 1. Contenedor Superior del Video (Ratio 16:9 Exacto) */
 .product-video-wrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 10;
-  background: #060609;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
   overflow: hidden;
+  background: #05060A;
   cursor: pointer;
 }
 
@@ -191,238 +206,300 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .product-card:hover .product-video-element {
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
-/* Overlay sutil */
+/* Overlay para contraste óptimo de controles */
 .product-video-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, transparent 40%, rgba(16, 16, 22, 0.8) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.45) 0%,
+    rgba(0, 0, 0, 0) 30%,
+    rgba(0, 0, 0, 0) 65%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
   pointer-events: none;
 }
 
-/* Badge de Video Demo */
+/* Badge de Video Demo (Esquina superior izquierda) */
 .product-video-badge {
   position: absolute;
   top: 1rem;
   left: 1rem;
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0.3rem 0.75rem;
-  border-radius: 50px;
-  background: rgba(11, 11, 16, 0.85);
-  backdrop-filter: blur(8px);
+  gap: 0.55rem;
+  padding: 0.38rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(12, 13, 18, 0.82);
+  backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  font-family: monospace;
   font-size: 0.72rem;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.08em;
-  color: #ffffff;
+  color: #FFFFFF;
   z-index: 2;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  user-select: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 .product-video-dot {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: #00E676;
-  animation: pulseDot 1.8s infinite ease-in-out;
+  animation: pulseDot 2s infinite ease-in-out;
 }
 
-/* Controles de Video en la esquina inferior */
-.product-video-controls {
+/* Botón Central de Play cuando está en pausa */
+.product-video-center-play {
   position: absolute;
-  bottom: 0.85rem;
-  right: 0.85rem;
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  z-index: 3;
-}
-
-.video-ctrl-btn {
-  width: 32px;
-  height: 32px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
-  background: rgba(15, 15, 22, 0.8);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  color: #ffffff;
+  background: rgba(12, 13, 18, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s ease;
+  z-index: 3;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.product-video-center-play:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: rgba(0, 230, 118, 0.9);
+  color: #0B0E14;
+  border-color: #00E676;
+}
+
+/* Controles de Video Flotantes (Esquina inferior derecha) */
+.product-video-controls {
+  position: absolute;
+  bottom: 0.9rem;
+  right: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 3;
+}
+
+.video-ctrl-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(12, 13, 18, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .video-ctrl-btn:hover {
-  background: #00E676;
-  color: #0B0B10;
-  border-color: #00E676;
-  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.08);
 }
 
-.video-ctrl-btn.expand-btn:hover {
-  background: #7C3AED;
-  color: #ffffff;
-  border-color: #7C3AED;
+/* Barra de progreso de reproducción en el borde inferior */
+.product-video-progress-track {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.12);
+  z-index: 2;
 }
 
-/* Cuerpo de la Tarjeta */
+.product-video-progress-fill {
+  height: 100%;
+  transition: width 0.15s linear;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   Cuerpo / Contenido de la Tarjeta
+   ══════════════════════════════════════════════════════════════════ */
 .product-card-body {
-  padding: 1.5rem 1.6rem 1.6rem;
   display: flex;
   flex-direction: column;
+  gap: 1.15rem;
   flex-grow: 1;
 }
 
+/* Encabezado: Número y Categoría */
 .product-meta-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.85rem;
+  gap: 0.9rem;
 }
 
 .product-num-tag {
-  font-family: monospace;
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.4);
+  color: #64748B;
+  letter-spacing: 0.05em;
+  font-family: inherit;
 }
 
 .product-category-tag {
-  font-family: monospace;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 0.25rem 0.65rem;
-  border-radius: 50px;
-  border: 1px solid;
+  letter-spacing: 0.06em;
+  border-width: 1px;
+  border-style: solid;
 }
 
+/* Título */
 .product-card-title {
-  font-size: 1.25rem;
+  font-size: clamp(1.4rem, 1.85vw, 1.8rem);
   font-weight: 700;
   line-height: 1.25;
-  color: #ffffff;
-  margin-bottom: 0.65rem;
-  letter-spacing: -0.01em;
+  color: #FFFFFF;
+  letter-spacing: -0.015em;
+  margin: 0;
 }
 
+/* Descripción */
 .product-card-desc {
-  font-size: 0.9rem;
+  font-size: 0.94rem;
   color: #9CA3AF;
-  line-height: 1.55;
-  margin-bottom: 1.25rem;
-  flex-grow: 1;
+  line-height: 1.6;
+  margin: 0;
 }
 
-/* Métricas destacadas */
-.product-stats-row {
+/* Métricas Destacadas (2 columnas como en la referencia) */
+.product-metrics-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
-  padding: 0.85rem 0;
-  margin-bottom: 1.1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  gap: 1.5rem;
+  padding: 0.2rem 0;
 }
 
-.product-stat-box {
+.product-metric-col {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
 }
 
-.product-stat-val {
-  font-size: 1.25rem;
+.product-metric-val {
+  font-size: clamp(1.45rem, 1.8vw, 1.7rem);
   font-weight: 800;
-  line-height: 1;
-  font-family: monospace;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
 }
 
-.product-stat-lbl {
-  font-size: 0.78rem;
+.product-metric-lbl {
+  font-size: 0.84rem;
   color: #9CA3AF;
   font-weight: 500;
 }
 
-/* Tags de Stack y Features */
-.product-tags-list {
+/* Tags / Chips de Características */
+.product-features-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-bottom: 1.4rem;
+  gap: 0.55rem;
 }
 
-.product-tag-pill {
-  font-size: 0.74rem;
-  padding: 0.2rem 0.55rem;
-  border-radius: 6px;
+.product-feature-chip {
+  padding: 0.38rem 0.85rem;
+  border-radius: 8px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #D1D5DB;
+  font-size: 0.82rem;
   font-weight: 500;
+  color: #D1D5DB;
+  transition: all 0.2s ease;
 }
 
-/* Fila de Acciones */
-.product-actions-row {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+.product-feature-chip:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #FFFFFF;
+}
+
+/* Acciones Principales */
+.product-actions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
   margin-top: auto;
+  padding-top: 0.4rem;
 }
 
-.product-btn-primary {
-  flex: 1;
+@media (max-width: 520px) {
+  .product-actions-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.product-btn-quote {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.82rem 1.25rem;
+  border-radius: 12px;
+  font-size: 0.94rem;
+  font-weight: 600;
+  color: #00E676;
+  background: rgba(0, 230, 118, 0.03);
+  border: 1.5px solid #00E676;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.product-btn-quote:hover {
+  background: #00E676;
+  color: #0B0E14;
+  box-shadow: 0 4px 22px rgba(0, 230, 118, 0.35);
+  transform: translateY(-2px);
+}
+
+.product-btn-demo {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  border-radius: 10px;
-  background: rgba(0, 230, 118, 0.12);
-  border: 1px solid rgba(0, 230, 118, 0.35);
-  color: #00E676;
-  font-size: 0.88rem;
-  font-weight: 700;
-  text-decoration: none;
-  transition: all 0.25s ease;
-}
-
-.product-btn-primary:hover {
-  background: #00E676;
-  color: #0B0B10;
-  box-shadow: 0 4px 20px rgba(0, 230, 118, 0.4);
-  transform: translateY(-2px);
-}
-
-.product-btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.75rem 0.95rem;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-  font-size: 0.84rem;
+  padding: 0.82rem 1.25rem;
+  border-radius: 12px;
+  font-size: 0.94rem;
   font-weight: 600;
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
-  transition: all 0.25s ease;
+  cursor: pointer;
 }
 
-.product-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.25);
+.product-btn-demo:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #FFFFFF;
   transform: translateY(-2px);
 }
 

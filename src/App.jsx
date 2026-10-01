@@ -14,10 +14,16 @@ import Footer from './components/Footer'
 import { PROJECT_ROUTE_PREFIX, SITE_TITLE } from './data/projects'
 
 export const SERVICES_ROUTE = '#/servicios'
+export const PRODUCTS_ROUTE = '#/productos'
 
 function getRoute() {
   const hash = window.location.hash
-  if (hash === SERVICES_ROUTE || hash.startsWith('#/servicios')) {
+  if (
+    hash === SERVICES_ROUTE ||
+    hash.startsWith('#/servicios') ||
+    hash === PRODUCTS_ROUTE ||
+    hash.startsWith('#/productos')
+  ) {
     return { view: 'services' }
   }
   if (hash.startsWith(PROJECT_ROUTE_PREFIX)) {

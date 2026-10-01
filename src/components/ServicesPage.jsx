@@ -234,23 +234,39 @@ const CATEGORY_FILTERS = [
   { id: 'edtech', label: 'LMS & Consultoría', count: 2 },
 ]
 
-/* ── Tarjeta de Producto con Video ── */
-function ProductVideoCard({ product, onExpand }) {
+/* ── Componente Reutilizable: Tarjeta de Producto con Video 16:9 ── */
+export function ProductCard({
+  id,
+  num,
+  title,
+  category,
+  description,
+  video,
+  poster,
+  metrics = [],
+  features = [],
+  primaryAction,
+  secondaryAction,
+  accent = '#00E676',
+  demoUrl,
+  whatsappUrl,
+  onExpand,
+}) {
   const videoRef = useRef(null)
   const [isPlaying, setIsPlaying] = useState(true)
   const [isMuted, setIsMuted] = useState(true)
+  const [progress, setProgress] = useState(0)
 
   useEffect(() => {
     const videoEl = videoRef.current
     if (!videoEl) return
 
-    // IntersectionObserver para pausar videos que estén fuera de pantalla (ahorro de recursos)
+    // Pausar videos fuera del viewport para optimizar recursos y reanudar al entrar
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            videoEl.play().catch(() => {})
-            setIsPlaying(true)
+            videoEl.play().then(() => setIsPlaying(true)).catch(() => {})
           } else {
             videoEl.pause()
             setIsPlaying(false)
@@ -265,7 +281,7 @@ function ProductVideoCard({ product, onExpand }) {
   }, [])
 
   const togglePlay = (e) => {
-    e.stopPropagation()
+    if (e) e.stopPropagation()
     const videoEl = videoRef.current
     if (!videoEl) return
 
@@ -278,44 +294,80 @@ function ProductVideoCard({ product, onExpand }) {
   }
 
   const toggleMute = (e) => {
-    e.stopPropagation()
+    if (e) e.stopPropagation()
     const videoEl = videoRef.current
     if (!videoEl) return
     videoEl.muted = !videoEl.muted
     setIsMuted(videoEl.muted)
   }
 
-  const whatsappUrl = `https://wa.me/51999999999/?text=${encodeURIComponent(product.quoteMsg)}`
+  const handleTimeUpdate = () => {
+    const videoEl = videoRef.current
+    if (videoEl && videoEl.duration) {
+      setProgress((videoEl.currentTime / videoEl.duration) * 100)
+    }
+  }
+
+  const handleToggleFullscreen = (e) => {
+    if (e) e.stopPropagation()
+    if (onExpand) {
+      onExpand()
+    } else if (videoRef.current) {
+      if (videoRef.current.requestFullscreen) {
+        videoRef.current.requestFullscreen()
+      } else if (videoRef.current.webkitRequestFullscreen) {
+        videoRef.current.webkitRequestFullscreen()
+      }
+    }
+  }
+
+  const defaultWhatsapp = whatsappUrl || (primaryAction?.url ?? '#')
+  const defaultDemo = demoUrl || (secondaryAction?.url ?? null)
 
   return (
-    <article className="product-card" id={product.id}>
-      {/* Contenedor Superior de Video */}
+    <article className="product-card" id={id} style={{ '--card-accent': accent }}>
+      {/* 1. Video Principal (Proporción exacta 16:9) */}
       <div className="product-video-wrapper" onClick={togglePlay}>
         <video
           ref={videoRef}
-          src={product.video}
-          poster={product.poster}
+          src={video}
+          poster={poster}
           autoPlay
           loop
           muted={isMuted}
           playsInline
           preload="metadata"
           className="product-video-element"
+          onTimeUpdate={handleTimeUpdate}
+          onPlay={() => setIsPlaying(true)}
+          onPause={() => setIsPlaying(false)}
         />
 
-        {/* Gradiente ambiental sobre el video */}
+        {/* Overlay sutil para legibilidad de badges y controles */}
         <div className="product-video-overlay" />
 
-        {/* Badge en vivo */}
+        {/* 2. Badge de Categoría / Demo en Video */}
         <div className="product-video-badge">
           <span
             className="product-video-dot"
-            style={{ backgroundColor: product.accentColor, boxShadow: `0 0 10px ${product.accentColor}` }}
+            style={{ backgroundColor: accent, boxShadow: `0 0 10px ${accent}` }}
           />
           <span>VIDEO DEMO</span>
         </div>
 
-        {/* Controles mínimos flotantes */}
+        {/* Botón central de Play cuando está en pausa */}
+        {!isPlaying && (
+          <button
+            type="button"
+            className="product-video-center-play"
+            onClick={togglePlay}
+            aria-label="Reproducir video"
+          >
+            <PlayIcon />
+          </button>
+        )}
+
+        {/* Controles funcionales del video */}
         <div className="product-video-controls" onClick={(e) => e.stopPropagation()}>
           <button
             type="button"
@@ -340,79 +392,109 @@ function ProductVideoCard({ product, onExpand }) {
           <button
             type="button"
             className="video-ctrl-btn expand-btn"
-            onClick={() => onExpand(product)}
-            title="Ver video en pantalla completa"
+            onClick={handleToggleFullscreen}
+            title="Pantalla completa"
             aria-label="Ver video en pantalla completa"
           >
             <ExpandIcon />
           </button>
         </div>
+
+        {/* Línea de progreso de reproducción */}
+        <div className="product-video-progress-track">
+          <div
+            className="product-video-progress-fill"
+            style={{ width: `${progress}%`, backgroundColor: accent }}
+          />
+        </div>
       </div>
 
-      {/* Cuerpo de la tarjeta de producto */}
+      {/* Contenido / Cuerpo de la Tarjeta */}
       <div className="product-card-body">
-        {/* Encabezado: Número y Categoría */}
+        {/* Meta Header: Número de orden y Categoría */}
         <div className="product-meta-header">
-          <span className="product-num-tag">{product.num}</span>
-          <span
-            className="product-category-tag"
-            style={{ color: product.accentColor, borderColor: `${product.accentColor}33`, background: `${product.accentColor}12` }}
-          >
-            {product.category}
-          </span>
-        </div>
-
-        {/* Título de la Solución */}
-        <h2 className="product-card-title">{product.title}</h2>
-
-        {/* Descripción concisa */}
-        <p className="product-card-desc">{product.desc}</p>
-
-        {/* Métricas destacadas */}
-        <div className="product-stats-row">
-          <div className="product-stat-box">
-            <span className="product-stat-val" style={{ color: product.accentColor }}>
-              {product.stat1.value}
+          {num && <span className="product-num-tag">{num}</span>}
+          {category && (
+            <span
+              className="product-category-tag"
+              style={{
+                color: accent,
+                borderColor: `${accent}44`,
+                backgroundColor: `${accent}12`,
+              }}
+            >
+              {category}
             </span>
-            <span className="product-stat-lbl">{product.stat1.label}</span>
-          </div>
-          <div className="product-stat-box">
-            <span className="product-stat-val" style={{ color: product.accentColor }}>
-              {product.stat2.value}
-            </span>
-            <span className="product-stat-lbl">{product.stat2.label}</span>
-          </div>
+          )}
         </div>
 
-        {/* Etiquetas de características y stack */}
-        <div className="product-tags-list">
-          {product.tags.map((tag, idx) => (
-            <span key={idx} className="product-tag-pill">{tag}</span>
-          ))}
-        </div>
+        {/* 3. Título del Producto */}
+        <h2 className="product-card-title">{title}</h2>
 
-        {/* Acciones de la Tarjeta */}
-        <div className="product-actions-row">
+        {/* 4. Descripción clara y orientada a beneficios */}
+        <p className="product-card-desc">{description}</p>
+
+        {/* 5. Métricas / Valores Destacados (2 columnas) */}
+        {metrics && metrics.length >= 2 && (
+          <div className="product-metrics-row">
+            <div className="product-metric-col">
+              <span className="product-metric-val" style={{ color: accent }}>
+                {metrics[0].value}
+              </span>
+              <span className="product-metric-lbl">{metrics[0].label}</span>
+            </div>
+            <div className="product-metric-col">
+              <span className="product-metric-val" style={{ color: accent }}>
+                {metrics[1].value}
+              </span>
+              <span className="product-metric-lbl">{metrics[1].label}</span>
+            </div>
+          </div>
+        )}
+
+        {/* 6. Tags / Chips de características */}
+        {features && features.length > 0 && (
+          <div className="product-features-row">
+            {features.map((feat, idx) => (
+              <span key={idx} className="product-feature-chip">
+                {feat}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* 7. Acciones Principales */}
+        <div className="product-actions-grid">
           <a
-            href={whatsappUrl}
+            href={defaultWhatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="product-btn-primary"
-            style={{ '--accent-glow': product.accentColor }}
+            className="product-btn-quote"
           >
             <WhatsAppIcon />
-            <span>Cotizar solución</span>
+            <span>{primaryAction?.label || 'Cotizar solución'}</span>
           </a>
 
-          {product.url && (
+          {defaultDemo ? (
             <a
-              href={product.url}
+              href={defaultDemo}
               target="_blank"
               rel="noopener noreferrer"
-              className="product-btn-secondary"
-              title="Abrir demo funcional"
+              className="product-btn-demo"
+              title="Abrir demo en vivo"
             >
-              <span>Demo en vivo</span>
+              <span>{secondaryAction?.label || 'Demo en vivo'}</span>
+              <ExternalLinkIcon />
+            </a>
+          ) : (
+            <a
+              href={defaultWhatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="product-btn-demo product-btn-info"
+              title="Solicitar información"
+            >
+              <span>{secondaryAction?.label || 'Ver detalles'}</span>
               <ExternalLinkIcon />
             </a>
           )}
@@ -503,7 +585,7 @@ export default function ServicesPage() {
     : PRODUCTS_DATA.filter((p) => p.filterCategory === activeFilter)
 
   return (
-    <div className="services-page container">
+    <div className="services-page">
       {/* Botón Volver */}
       <a href="#inicio" className="services-back">
         <ArrowLeftIcon />
@@ -539,15 +621,38 @@ export default function ServicesPage() {
         </div>
       </header>
 
-      {/* Grid de Tarjetas de Producto con Video */}
-      <section className="products-grid" aria-label="Catálogo de soluciones con video">
-        {filteredProducts.map((product) => (
-          <ProductVideoCard
-            key={product.id}
-            product={product}
-            onExpand={(p) => setModalProduct(p)}
-          />
-        ))}
+      {/* Grid de Tarjetas de Producto con Video (2 por fila en desktop) */}
+      <section className="products-grid" aria-label="Catálogo de productos con video">
+        {filteredProducts.map((product) => {
+          const whatsappUrl = `https://wa.me/51999999999/?text=${encodeURIComponent(product.quoteMsg)}`
+          return (
+            <ProductCard
+              key={product.id}
+              id={product.id}
+              num={product.num}
+              title={product.title}
+              category={product.category}
+              description={product.desc}
+              video={product.video}
+              poster={product.poster}
+              metrics={[product.stat1, product.stat2]}
+              features={product.tags}
+              primaryAction={{
+                label: 'Cotizar solución',
+                url: whatsappUrl,
+              }}
+              secondaryAction={
+                product.url
+                  ? { label: 'Demo en vivo', url: product.url }
+                  : { label: 'Ver detalles', url: whatsappUrl }
+              }
+              accent={product.accentColor}
+              demoUrl={product.url}
+              whatsappUrl={whatsappUrl}
+              onExpand={() => setModalProduct(product)}
+            />
+          )
+        })}
       </section>
 
       {/* Modal Cinema de Pantalla Completa */}

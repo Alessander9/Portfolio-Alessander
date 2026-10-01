@@ -1,96 +1,461 @@
-/* ======================================================
-   Sobre Mí Section — Github Calendar Showcase
-   ====================================================== */
+/* ==========================================================================
+   Sobre Mí Timeline Styles (Exact Replication of Hyperiux Vault / 21st.dev)
+   ========================================================================== */
 
-.bento-section {
-  padding: 6rem 0;
+.timeline-demo-root {
+  background-color: var(--bg-color, #0B0B10);
+  color: var(--text-main, #F3F4F6);
+  width: 100%;
+  position: relative;
+  overflow: clip;
+}
+
+/* ── Lead-in Section ── */
+.timeline-leadin {
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 4rem 1.5rem;
+  text-align: center;
   position: relative;
 }
 
-/* Header */
-.bento-header {
-  margin-bottom: 2.5rem;
-}
-
-.sobre-mi-badge-row {
-  margin-bottom: 0.85rem;
-}
-
-.sobre-mi-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.3rem 0.85rem;
-  border-radius: 50px;
+.timeline-leadin-badge {
+  font-family: monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: #00E676;
   background: rgba(0, 230, 118, 0.08);
   border: 1px solid rgba(0, 230, 118, 0.25);
-  font-size: 0.72rem;
+  padding: 0.35rem 1rem;
+  border-radius: 50px;
+}
+
+.timeline-leadin-title {
+  max-width: 22ch;
+  font-size: clamp(2rem, 5vw, 3.75rem);
   font-weight: 700;
-  letter-spacing: 0.06em;
-  color: #00E676;
-  text-transform: uppercase;
-  font-family: monospace;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin: 0 auto;
 }
 
-.badge-pulse-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #00E676;
-  box-shadow: 0 0 8px #00E676;
-  animation: pulseDot 1.8s infinite ease-in-out;
-}
-
-@keyframes pulseDot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.8); }
-}
-
-.bento-header .section-subtitle {
-  max-width: 540px;
-  color: #9CA3AF;
+.timeline-leadin-desc {
+  max-width: 32rem;
+  font-size: clamp(0.9rem, 1.2vw, 1.05rem);
   line-height: 1.6;
-}
-
-/* Switcher */
-.github-user-switcher {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.25rem;
-  background: #14141e;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
-  margin-top: 1.25rem;
-}
-
-.github-user-btn {
-  padding: 0.35rem 0.85rem;
-  border-radius: 7px;
-  border: none;
-  background: transparent;
   color: #9CA3AF;
-  font-size: 0.82rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: monospace;
+  margin: 0 auto;
 }
 
-.github-user-btn:hover {
-  color: #F3F4F6;
-}
-
-.github-user-btn.active {
-  background: rgba(0, 230, 118, 0.15);
+.timeline-leadin-arrow {
+  margin-top: 0.5rem;
+  font-size: 1.5rem;
   color: #00E676;
-  border: 1px solid rgba(0, 230, 118, 0.35);
-  box-shadow: 0 0 12px rgba(0, 230, 118, 0.2);
+  animation: timelineBounce 2s infinite ease-in-out;
 }
 
-/* Calendar wrapper */
-.github-calendar-showcase-wrapper {
-  display: flex;
-  justify-content: center;
+@keyframes timelineBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+/* ── Main Timeline Pinned Section ── */
+.timeline-section {
+  height: 200vw;
   width: 100%;
+  position: relative;
+  background-color: transparent;
+}
+
+@media (max-width: 600px) {
+  .timeline-section {
+    height: 400vh;
+  }
+}
+
+.timeline-sticky-viewport {
+  height: 100vh;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  padding-top: 8vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .timeline-sticky-viewport {
+    top: 5%;
+    padding-top: 0;
+  }
+}
+
+.timeline-slider-track {
+  margin-right: 2vw;
+  display: flex;
+  height: 30vw;
+  width: 240vw;
+  align-items: center;
+  gap: 5vw;
+  padding: 0 5vw;
+  will-change: transform;
+}
+
+@media (max-width: 600px) {
+  .timeline-slider-track {
+    height: 80vh;
+    width: 800vw;
+    padding: 0 7vw;
+  }
+}
+
+/* ── Left Visual Card ── */
+.timeline-image-card {
+  height: 100%;
+  width: 30vw;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 1vw;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #111;
+}
+
+@media (max-width: 600px) {
+  .timeline-image-card {
+    height: 65vw;
+    width: 85vw;
+    border-radius: 5vw;
+  }
+}
+
+.timeline-image-card img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Axis & Milestones Canvas ── */
+.timeline-canvas {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+/* Central Horizontal Journey Line */
+.timeline-central-axis {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 49%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  height: max-content;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.timeline-axis-dot {
+  height: 0.8vw;
+  width: 0.8vw;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .timeline-axis-dot {
+    height: 2vw;
+    width: 2vw;
+  }
+}
+
+.timeline-axis-line {
+  height: 1px;
+  width: 0%;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+/* ── Top Journey Half ── */
+.timeline-top-half {
+  display: flex;
+  height: 50%;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5vw;
+}
+
+.timeline-title-col {
+  height: 100%;
+  width: 20%;
+  padding-top: 2vw;
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .timeline-title-col {
+    height: max-content;
+    padding-top: 5vw;
+  }
+}
+
+.timeline-title-heading {
+  width: 65%;
+  font-size: 3vw;
+  line-height: 0.95;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+@media (max-width: 600px) {
+  .timeline-title-heading {
+    font-size: 8.5vw;
+  }
+}
+
+.timeline-top-items-row {
+  width: 100%;
+  display: flex;
+  height: 100%;
+  column-gap: 15vw;
+}
+
+@media (max-width: 600px) {
+  .timeline-top-items-row {
+    column-gap: 40vw;
+  }
+}
+
+.timeline-top-item {
+  position: relative;
+  height: 100%;
+  width: 30vw;
+  padding: 0 3vw;
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .timeline-top-item {
+    display: flex;
+    flex-direction: column;
+    width: 70vw;
+    padding: 0 7vw;
+  }
+}
+
+.timeline-stem-wrapper-top {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  height: 100%;
+  pointer-events: none;
+}
+
+.timeline-item-dot-top {
+  width: 1vw;
+  height: 1vw;
+  transform: translateX(-50%);
+  position: relative;
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+}
+
+@media (max-width: 600px) {
+  .timeline-item-dot-top {
+    width: 2.5vw;
+    height: 2.5vw;
+  }
+}
+
+.timeline-item-stem-top {
+  height: 94%;
+  width: 1px;
+  transform-origin: bottom center;
+  border-radius: 9999px;
+}
+
+.timeline-item-copy-top {
+  margin-top: -1vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+}
+
+@media (max-width: 600px) {
+  .timeline-item-copy-top {
+    margin-top: -2vw;
+  }
+}
+
+.timeline-item-title {
+  font-size: 2.5vw;
+  line-height: 1;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .timeline-item-title {
+    font-size: 6.4vw;
+  }
+}
+
+.timeline-item-desc {
+  width: 90%;
+  font-size: 1.5vw;
+  line-height: 1.15;
+  color: #9CA3AF;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .timeline-item-desc {
+    width: 90%;
+    font-size: 4.8vw;
+  }
+}
+
+/* ── Bottom Journey Half ── */
+.timeline-bottom-half {
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.timeline-period-col {
+  width: 34%;
+  padding-top: 2vw;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .timeline-period-col {
+    padding-top: 5vw;
+    width: 30%;
+  }
+}
+
+.timeline-period-label {
+  font-size: 1.65vw;
+  line-height: 1;
+  font-family: monospace;
+  color: #9CA3AF;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 600px) {
+  .timeline-period-label {
+    font-size: 4.2vw;
+  }
+}
+
+.timeline-bottom-items-row {
+  width: 100%;
+  display: flex;
+  height: 100%;
+  column-gap: 20vw;
+  margin-left: 7vw;
+}
+
+@media (max-width: 600px) {
+  .timeline-bottom-items-row {
+    column-gap: 40vw;
+    margin-left: 7vw;
+  }
+}
+
+.timeline-bottom-item {
+  position: relative;
+  height: 100%;
+  width: 25vw;
+  padding: 0 3vw;
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .timeline-bottom-item {
+    width: 70vw;
+    padding: 0 7vw;
+  }
+}
+
+.timeline-stem-wrapper-bottom {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: -1%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.timeline-item-stem-bottom {
+  height: 94%;
+  transform-origin: top center;
+  width: 1px;
+  border-radius: 9999px;
+}
+
+@media (max-width: 600px) {
+  .timeline-item-stem-bottom {
+    height: 100%;
+  }
+}
+
+.timeline-item-dot-bottom {
+  width: 1vw;
+  height: 1vw;
+  transform: translateX(-50%);
+  position: relative;
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+}
+
+@media (max-width: 600px) {
+  .timeline-item-dot-bottom {
+    width: 2.5vw;
+    height: 2.5vw;
+  }
+}
+
+.timeline-item-copy-bottom {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 1vw;
+}
+
+/* ── Lead-out Section ── */
+.timeline-leadout {
+  min-height: 45vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  font-size: clamp(0.95rem, 1.2vw, 1.15rem);
+  color: #9CA3AF;
+  letter-spacing: 0.02em;
 }

@@ -91,6 +91,7 @@ export default function BentoGrid() {
         duration={1.2}
       />
 
+      {/* 
       <div className="container" style={{ marginTop: '2rem' }}>
         <div className="bento-header reveal visible" style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <div className="sobre-mi-badge-row" style={{ justifyContent: 'center' }}>
@@ -134,6 +135,7 @@ export default function BentoGrid() {
           />
         </div>
       </div>
+      */}
     </section>
   )
 }

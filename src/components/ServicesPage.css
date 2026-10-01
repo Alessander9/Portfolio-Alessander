@@ -153,31 +153,33 @@
 .products-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2.25rem;
+  gap: 1.5rem;
   width: 100%;
-  margin-bottom: 6rem;
+  max-width: 1260px;
+  margin: 0 auto 5rem;
 }
 
 @media (max-width: 1024px) {
   .products-grid {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
+    max-width: 640px;
   }
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   Tarjeta Individual de Producto (Referencia Visual Exacta)
+   Tarjeta Individual de Producto (Diseño Compacto y Proporcional)
    ══════════════════════════════════════════════════════════════════ */
 .product-card {
   position: relative;
   background: #0D0E15;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 24px;
-  padding: 1.25rem 1.25rem 1.65rem 1.25rem;
+  border-radius: 20px;
+  padding: 0.85rem 0.85rem 1.05rem 0.85rem;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+  gap: 0.75rem;
+  box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.7);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
               border-color 0.35s ease,
               box-shadow 0.35s ease;
@@ -187,15 +189,16 @@
 .product-card:hover {
   transform: translateY(-4px);
   border-color: rgba(255, 255, 255, 0.16);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85);
+  box-shadow: 0 22px 45px -10px rgba(0, 0, 0, 0.85);
 }
 
-/* 1. Contenedor Superior del Video (Ratio 16:9 Exacto) */
+/* 1. Contenedor Superior del Video (Ratio 16:9 con altura optimizada) */
 .product-video-wrapper {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  border-radius: 16px;
+  max-height: 235px;
+  border-radius: 14px;
   overflow: hidden;
   background: #05060A;
   cursor: pointer;
@@ -230,17 +233,17 @@
 /* Badge de Video Demo (Esquina superior izquierda) */
 .product-video-badge {
   position: absolute;
-  top: 1rem;
-  left: 1rem;
+  top: 0.65rem;
+  left: 0.65rem;
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  padding: 0.38rem 0.85rem;
+  gap: 0.45rem;
+  padding: 0.26rem 0.65rem;
   border-radius: 999px;
-  background: rgba(12, 13, 18, 0.82);
+  background: rgba(12, 13, 18, 0.85);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  font-size: 0.72rem;
+  font-size: 0.66rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   color: #FFFFFF;
@@ -250,8 +253,8 @@
 }
 
 .product-video-dot {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   animation: pulseDot 2s infinite ease-in-out;
 }
@@ -262,8 +265,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 56px;
-  height: 56px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   background: rgba(12, 13, 18, 0.85);
   backdrop-filter: blur(12px);
@@ -275,7 +278,7 @@
   cursor: pointer;
   z-index: 3;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
 }
 
 .product-video-center-play:hover {
@@ -288,19 +291,19 @@
 /* Controles de Video Flotantes (Esquina inferior derecha) */
 .product-video-controls {
   position: absolute;
-  bottom: 0.9rem;
-  right: 0.9rem;
+  bottom: 0.65rem;
+  right: 0.65rem;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.35rem;
   z-index: 3;
 }
 
 .video-ctrl-btn {
-  width: 36px;
-  height: 36px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  background: rgba(12, 13, 18, 0.8);
+  background: rgba(12, 13, 18, 0.82);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.18);
   color: #FFFFFF;
@@ -309,6 +312,11 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.video-ctrl-btn svg {
+  width: 14px;
+  height: 14px;
 }
 
 .video-ctrl-btn:hover {
@@ -334,12 +342,12 @@
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   Cuerpo / Contenido de la Tarjeta
+   Cuerpo / Contenido de la Tarjeta (Compacto & Elegante)
    ══════════════════════════════════════════════════════════════════ */
 .product-card-body {
   display: flex;
   flex-direction: column;
-  gap: 1.15rem;
+  gap: 0.6rem;
   flex-grow: 1;
 }
 
@@ -347,11 +355,11 @@
 .product-meta-header {
   display: flex;
   align-items: center;
-  gap: 0.9rem;
+  gap: 0.65rem;
 }
 
 .product-num-tag {
-  font-size: 0.95rem;
+  font-size: 0.82rem;
   font-weight: 700;
   color: #64748B;
   letter-spacing: 0.05em;
@@ -361,9 +369,9 @@
 .product-category-tag {
   display: inline-flex;
   align-items: center;
-  padding: 0.3rem 0.85rem;
+  padding: 0.2rem 0.65rem;
   border-radius: 999px;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -373,7 +381,7 @@
 
 /* Título */
 .product-card-title {
-  font-size: clamp(1.4rem, 1.85vw, 1.8rem);
+  font-size: clamp(1.15rem, 1.35vw, 1.35rem);
   font-weight: 700;
   line-height: 1.25;
   color: #FFFFFF;
@@ -381,37 +389,41 @@
   margin: 0;
 }
 
-/* Descripción */
+/* Descripción (máximo 2 líneas para uniformidad perfecta) */
 .product-card-desc {
-  font-size: 0.94rem;
+  font-size: 0.84rem;
   color: #9CA3AF;
-  line-height: 1.6;
+  line-height: 1.45;
   margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-/* Métricas Destacadas (2 columnas como en la referencia) */
+/* Métricas Destacadas (2 columnas compactas) */
 .product-metrics-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  padding: 0.2rem 0;
+  gap: 1rem;
+  padding: 0.1rem 0;
 }
 
 .product-metric-col {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.15rem;
 }
 
 .product-metric-val {
-  font-size: clamp(1.45rem, 1.8vw, 1.7rem);
+  font-size: clamp(1.2rem, 1.4vw, 1.35rem);
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.05;
   letter-spacing: -0.01em;
 }
 
 .product-metric-lbl {
-  font-size: 0.84rem;
+  font-size: 0.74rem;
   color: #9CA3AF;
   font-weight: 500;
 }
@@ -420,15 +432,15 @@
 .product-features-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.55rem;
+  gap: 0.35rem;
 }
 
 .product-feature-chip {
-  padding: 0.38rem 0.85rem;
-  border-radius: 8px;
+  padding: 0.22rem 0.55rem;
+  border-radius: 6px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  font-size: 0.82rem;
+  font-size: 0.74rem;
   font-weight: 500;
   color: #D1D5DB;
   transition: all 0.2s ease;
@@ -444,9 +456,9 @@
 .product-actions-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.85rem;
+  gap: 0.65rem;
   margin-top: auto;
-  padding-top: 0.4rem;
+  padding-top: 0.2rem;
 }
 
 @media (max-width: 520px) {
@@ -459,10 +471,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.55rem;
-  padding: 0.82rem 1.25rem;
-  border-radius: 12px;
-  font-size: 0.94rem;
+  gap: 0.5rem;
+  padding: 0.6rem 0.95rem;
+  border-radius: 10px;
+  font-size: 0.86rem;
   font-weight: 600;
   color: #00E676;
   background: rgba(0, 230, 118, 0.03);
@@ -475,7 +487,7 @@
 .product-btn-quote:hover {
   background: #00E676;
   color: #0B0E14;
-  box-shadow: 0 4px 22px rgba(0, 230, 118, 0.35);
+  box-shadow: 0 4px 18px rgba(0, 230, 118, 0.35);
   transform: translateY(-2px);
 }
 
@@ -483,10 +495,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.82rem 1.25rem;
-  border-radius: 12px;
-  font-size: 0.94rem;
+  gap: 0.45rem;
+  padding: 0.6rem 0.95rem;
+  border-radius: 10px;
+  font-size: 0.86rem;
   font-weight: 600;
   color: #FFFFFF;
   background: rgba(255, 255, 255, 0.03);

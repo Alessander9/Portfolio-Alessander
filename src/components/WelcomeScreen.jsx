@@ -79,6 +79,9 @@ export default function WelcomeScreen({ onDismiss }) {
   const handleDismiss = () => {
     if (!canDismiss || dismissedRef.current) return
     dismissedRef.current = true
+    try {
+      sessionStorage.setItem('welcome_dismissed', 'true')
+    } catch {}
     setDismissing(true)
     document.body.style.overflow = ''
     setTimeout(() => onDismiss(), 500)

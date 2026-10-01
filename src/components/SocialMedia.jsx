@@ -7,23 +7,27 @@ export default function SocialMedia() {
   const lastScrollY = useRef(0)
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY
-      if (currentScrollY <= 80) {
-        // En la parte superior del Hero: siempre visible
-        setVisible(true)
-      } else if (currentScrollY > lastScrollY.current + 8) {
-        // Al hacer scroll hacia abajo: desaparece
+    const checkVisibility = () => {
+      const heroEl = document.getElementById('inicio')
+      if (!heroEl) {
         setVisible(false)
-      } else if (currentScrollY < lastScrollY.current - 8) {
-        // Al hacer scroll hacia arriba: aparece
-        setVisible(true)
+        return
       }
-      lastScrollY.current = currentScrollY
+      const rect = heroEl.getBoundingClientRect()
+      // Solo visible mientras el usuario se encuentre en la sección Hero
+      setVisible(rect.bottom > 140)
     }
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    checkVisibility()
+    window.addEventListener('scroll', checkVisibility, { passive: true })
+    window.addEventListener('resize', checkVisibility, { passive: true })
+    window.addEventListener('hashchange', checkVisibility, { passive: true })
+
+    return () => {
+      window.removeEventListener('scroll', checkVisibility)
+      window.removeEventListener('resize', checkVisibility)
+      window.removeEventListener('hashchange', checkVisibility)
+    }
   }, [])
 
   return (

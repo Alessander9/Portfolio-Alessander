@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import './StaggeredMenu.css'
 
@@ -6,6 +6,7 @@ const NAV_ITEMS = [
   { label: 'Inicio', link: '#inicio' },
   { label: 'Proyectos', link: '#proyectos' },
   { label: 'Sitios web', link: '#proyectos-web' },
+  { label: 'Servicios', link: '#/servicios' },
   // { label: 'Skills', link: '#skills' },
   { label: 'Sobre mí', link: '#sobre-mi' },
 ]
@@ -35,6 +36,31 @@ export default function StaggeredMenu() {
   const colorTweenRef = useRef(null)
   const toggleBtnRef = useRef(null)
   const busyRef = useRef(false)
+  const [inHero, setInHero] = useState(true)
+
+  useEffect(() => {
+    const checkHero = () => {
+      const heroEl = document.getElementById('inicio')
+      if (!heroEl) {
+        setInHero(false)
+        return
+      }
+      const rect = heroEl.getBoundingClientRect()
+      // Visible when the bottom of hero is still visible near top of screen
+      setInHero(rect.bottom > 90)
+    }
+
+    checkHero()
+    window.addEventListener('scroll', checkHero, { passive: true })
+    window.addEventListener('hashchange', checkHero, { passive: true })
+    window.addEventListener('resize', checkHero, { passive: true })
+
+    return () => {
+      window.removeEventListener('scroll', checkHero)
+      window.removeEventListener('hashchange', checkHero)
+      window.removeEventListener('resize', checkHero)
+    }
+  }, [])
 
   const position = 'right'
   const colors = [
@@ -277,11 +303,16 @@ export default function StaggeredMenu() {
       </div>
 
       <header className="staggered-menu-header" aria-label="Main navigation header">
-        <div className="sm-logo" aria-label="Logo">
+        <a
+          href="#inicio"
+          className={`sm-logo ${!inHero ? 'hidden-outside-hero' : ''}`}
+          aria-label="Logo"
+          onClick={() => closeMenu()}
+        >
           <span className="sm-logo-text">
             Luis<span className="sm-logo-accent">.</span>
           </span>
-        </div>
+        </a>
 
         <button
           ref={toggleBtnRef}

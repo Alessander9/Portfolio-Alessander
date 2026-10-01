@@ -9,11 +9,17 @@ import Projects from './components/Projects'
 import WebSites from './components/WebSites'
 import BentoGrid from './components/BentoGrid'
 import ProjectPage from './components/ProjectPage'
+import ServicesPage from './components/ServicesPage'
 import Footer from './components/Footer'
 import { PROJECT_ROUTE_PREFIX, SITE_TITLE } from './data/projects'
 
+export const SERVICES_ROUTE = '#/servicios'
+
 function getRoute() {
   const hash = window.location.hash
+  if (hash === SERVICES_ROUTE || hash.startsWith('#/servicios')) {
+    return { view: 'services' }
+  }
   if (hash.startsWith(PROJECT_ROUTE_PREFIX)) {
     try {
       return {
@@ -29,14 +35,18 @@ function getRoute() {
 
 function App() {
   const [route, setRoute] = useState(getRoute)
-  const [showWelcome, setShowWelcome] = useState(() => getRoute().view !== 'project')
+  const [showWelcome, setShowWelcome] = useState(() => {
+    if (typeof window !== 'undefined' && sessionStorage.getItem('welcome_dismissed')) return false
+    const v = getRoute().view
+    return v !== 'project' && v !== 'services'
+  })
   const prevViewRef = useRef(route.view)
 
   useEffect(() => {
     const onHashChange = () => {
       const next = getRoute()
       setRoute(next)
-      if (next.view === 'project') setShowWelcome(false)
+      if (next.view === 'project' || next.view === 'services') setShowWelcome(false)
     }
     window.addEventListener('hashchange', onHashChange)
     return () => window.removeEventListener('hashchange', onHashChange)
@@ -47,15 +57,15 @@ function App() {
     const prev = prevViewRef.current
     prevViewRef.current = route.view
 
-    if (route.view === 'project') {
+    if (route.view === 'project' || route.view === 'services') {
       window.scrollTo(0, 0)
       return
     }
 
     document.title = SITE_TITLE
-    // When coming back from a project subpage, the sections were unmounted,
+    // When coming back from a subpage, the sections were unmounted,
     // so the browser cannot do the native anchor scroll: do it manually.
-    if (prev === 'project') {
+    if (prev === 'project' || prev === 'services') {
       const hash = window.location.hash
       if (hash && !hash.startsWith('#/')) {
         requestAnimationFrame(() => {
@@ -77,6 +87,19 @@ function App() {
         if (el) el.scrollIntoView()
       })
     }
+  }
+
+  if (route.view === 'services') {
+    return (
+      <>
+        <Navbar />
+        <main>
+          <ServicesPage />
+        </main>
+        <Footer />
+        <WhatsAppButton />
+      </>
+    )
   }
 
   if (route.view === 'project') {

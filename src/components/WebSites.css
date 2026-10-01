@@ -1,193 +1,822 @@
-.websites {
+/* ══════════════════════════════════════════════════════════════════
+   WebSites.css — Showcase de Soluciones Destacadas & Sitios Web
+   Adaptado con la paleta oficial del Portfolio:
+   Fondo: #0B0B10, Superficie: #1A1A24, Primario: #00E676 (Verde Neón),
+   Secundario: #7C3AED (Violeta), Texto: #F3F4F6, Muted: #9CA3AF
+   ══════════════════════════════════════════════════════════════════ */
+
+.websites-showcase-section {
+  position: relative;
+  padding: 3rem 1.5rem;
   background: transparent;
+  overflow: hidden;
+  max-width: 1360px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
 }
 
-.websites-grid {
+/* Contenedor principal de la tarjeta de showcase */
+.showcase-card {
+  position: relative;
+  border-radius: 18px;
+  background-color: #0B0B10;
+  background-image: 
+    linear-gradient(rgba(0, 230, 118, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 230, 118, 0.035) 1px, transparent 1px);
+  background-size: 32px 32px;
+  border: 1px solid rgba(0, 230, 118, 0.2);
+  box-shadow: 
+    0 25px 60px -15px rgba(0, 0, 0, 0.85),
+    0 0 35px rgba(0, 230, 118, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+/* Efecto de resplandor ambiental con la paleta Verde Neón y Violeta */
+.showcase-card::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  left: -100px;
+  width: 340px;
+  height: 340px;
+  background: radial-gradient(circle, rgba(0, 230, 118, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.showcase-card::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  right: -80px;
+  width: 340px;
+  height: 340px;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.14) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Top Header Bar ── */
+.showcase-top-bar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.8rem;
+  border-bottom: 1px solid rgba(0, 230, 118, 0.12);
+  background: rgba(11, 11, 16, 0.7);
+  backdrop-filter: blur(12px);
+}
+
+.showcase-top-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #00E676;
+  background: rgba(0, 230, 118, 0.08);
+  border: 1px solid rgba(0, 230, 118, 0.3);
+  box-shadow: 0 0 10px rgba(0, 230, 118, 0.15);
+}
+
+.showcase-top-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00E676;
+  box-shadow: 0 0 8px #00E676;
+  animation: showcasePulse 2s infinite ease-in-out;
+}
+
+@keyframes showcasePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* Controles de navegación derecha (contador + flechas) */
+.showcase-controls {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.showcase-counter {
+  font-family: monospace, 'Courier New', Courier, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.showcase-counter-current {
+  color: #00E676;
+  text-shadow: 0 0 10px rgba(0, 230, 118, 0.4);
+}
+
+.showcase-counter-total {
+  color: #9CA3AF;
+}
+
+.showcase-nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.showcase-nav-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  color: #F3F4F6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.showcase-nav-btn:hover {
+  background: rgba(0, 230, 118, 0.12);
+  border-color: rgba(0, 230, 118, 0.45);
+  color: #00E676;
+  transform: translateY(-1px);
+  box-shadow: 0 0 12px rgba(0, 230, 118, 0.25);
+}
+
+.showcase-nav-btn:active {
+  transform: scale(0.95);
+}
+
+/* ── Main Showcase Body ── */
+.showcase-body {
+  position: relative;
+  z-index: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.75rem;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  gap: 2.2rem;
+  align-items: center;
+  padding: 1.5rem 2rem 1.6rem;
+  min-height: auto;
+  box-sizing: border-box;
 }
 
-.website-card {
+/* ── Columna Izquierda: Información ── */
+.showcase-info {
   display: flex;
   flex-direction: column;
-  background: #111119;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  overflow: hidden;
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  align-items: flex-start;
+  animation: showcaseFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  min-width: 0;
 }
 
-.website-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(0, 230, 118, 0.35);
-  box-shadow:
-    0 16px 45px rgba(0, 0, 0, 0.5),
-    0 0 25px rgba(0, 230, 118, 0.12);
+@keyframes showcaseFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Barra simulada de navegador */
-.website-browser-bar {
+/* Badges de Categoría y En Vivo */
+.showcase-badges-row {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+}
+
+.showcase-cat-pill {
+  display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.65rem 1rem;
+  padding: 0.28rem 0.75rem;
+  border-radius: 7px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #F3F4F6;
   background: rgba(255, 255, 255, 0.04);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.website-dot {
-  width: 9px;
-  height: 9px;
+.showcase-cat-pill svg {
+  color: #00E676;
+}
+
+.showcase-live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.28rem 0.75rem;
+  border-radius: 7px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.28);
+}
+
+.live-pulse-dot {
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  flex-shrink: 0;
+  background: #ef4444;
+  box-shadow: 0 0 8px #ef4444;
+  animation: redBlink 1.6s infinite ease-in-out;
 }
 
-.website-dot-red { background: #ff5f57; }
-.website-dot-yellow { background: #ffbd2e; }
-.website-dot-green { background: #28c840; }
+@keyframes redBlink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.8); }
+}
 
-.website-url {
-  flex: 1;
-  margin-left: 0.5rem;
-  background: rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 50px;
-  padding: 0.2rem 0.75rem;
-  font-size: 0.75rem;
-  color: #9ca3af;
+/* Título de la Solución */
+.showcase-heading {
+  font-size: clamp(1.4rem, 2vw, 2.05rem);
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  color: #F3F4F6;
+  margin-bottom: 0.65rem;
+  word-break: break-word;
+}
+
+.showcase-heading-accent {
+  display: block;
+  background: linear-gradient(135deg, #00E676 0%, #7C3AED 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: none;
+}
+
+/* Descripción */
+.showcase-desc {
+  font-size: 0.92rem;
+  color: #9CA3AF;
+  line-height: 1.5;
+  margin-bottom: 1.15rem;
+  max-width: 520px;
+}
+
+/* Stats / Métricas (2 Cajas con estilo Surface) */
+.showcase-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+  width: 100%;
+  max-width: 480px;
+  margin-bottom: 1.25rem;
+}
+
+.showcase-stat-card {
+  padding: 0.65rem 0.95rem;
+  border-radius: 10px;
+  background: #1A1A24;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  transition: all 0.25s ease;
+}
+
+.showcase-stat-card:hover {
+  border-color: rgba(0, 230, 118, 0.35);
+  box-shadow: 0 4px 15px rgba(0, 230, 118, 0.08);
+}
+
+.showcase-stat-num {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #00E676;
+  line-height: 1.1;
+  text-shadow: 0 0 12px rgba(0, 230, 118, 0.3);
+}
+
+.showcase-stat-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #F3F4F6;
+}
+
+.showcase-stat-sub {
+  font-size: 0.72rem;
+  color: #9CA3AF;
+  line-height: 1.3;
+}
+
+/* Botones de Acción con Paleta del Portafolio */
+.showcase-buttons-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.btn-showcase-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.68rem 1.4rem;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0B0B10;
+  background: #00E676;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.22s ease;
+  box-shadow: 0 0 20px rgba(0, 230, 118, 0.35);
+}
+
+.btn-showcase-primary:hover {
+  background: #6ee7b7;
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(0, 230, 118, 0.6);
+  color: #000000;
+}
+
+.btn-showcase-primary svg {
+  transition: transform 0.2s ease;
+}
+
+.btn-showcase-primary:hover svg {
+  transform: translateX(4px);
+}
+
+.btn-showcase-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.68rem 1.35rem;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #F3F4F6;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.22s ease;
+}
+
+.btn-showcase-secondary:hover {
+  background: rgba(0, 230, 118, 0.08);
+  border-color: rgba(0, 230, 118, 0.4);
+  color: #00E676;
+  transform: translateY(-2px);
+}
+
+/* ── Columna Derecha: Visualización con Mockup y Circuitos ── */
+.showcase-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 360px;
+  width: 100%;
+  height: 100%;
+}
+
+/* Fondo de circuitos electrónicos brillantes */
+.showcase-circuits-bg {
+  position: absolute;
+  inset: -15px;
+  border-radius: 16px;
+  background: radial-gradient(circle at 50% 50%, rgba(0, 230, 118, 0.1) 0%, rgba(124, 58, 237, 0.08) 50%, rgba(11, 11, 16, 0.85) 80%);
+  border: 1px solid rgba(0, 230, 118, 0.18);
   overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Captura de pantalla adaptada */
-.website-shot {
+.circuit-lines-svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Marco del Dispositivo (Smartphone) */
+.showcase-device-frame {
+  position: relative;
+  z-index: 2;
+  width: 225px;
+  max-width: 88%;
+  aspect-ratio: 9 / 18.5;
+  background: #000000;
+  border-radius: 30px;
+  border: 3px solid #1A1A24;
+  box-shadow: 
+    0 0 0 1px rgba(0, 230, 118, 0.35),
+    0 20px 45px rgba(0, 0, 0, 0.85),
+    0 0 30px rgba(0, 230, 118, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+}
+
+.showcase-device-frame:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 
+    0 0 0 1px rgba(0, 230, 118, 0.55),
+    0 25px 55px rgba(0, 0, 0, 0.95),
+    0 0 40px rgba(0, 230, 118, 0.35);
+}
+
+.phone-speaker-notch {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 3px;
+  background: #252533;
+  border-radius: 3px;
+  z-index: 4;
+}
+
+.phone-camera-hole {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 7px;
+  height: 7px;
+  background: #0B0B10;
+  border: 1px solid #252533;
+  border-radius: 50%;
+  z-index: 4;
+}
+
+.showcase-screen-content {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9.8;
-  background: #09090f;
+  height: 100%;
+  background: #0B0B10;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.website-shot-fallback {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-  font-weight: 800;
-  color: rgba(0, 230, 118, 0.25);
-  background: linear-gradient(135deg, rgba(0, 230, 118, 0.06), rgba(124, 58, 237, 0.06));
+.showcase-browser-frame .showcase-screen-content {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
 }
 
-.website-shot img {
-  position: relative;
+.showcase-screen-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: top center;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.5s ease;
 }
 
-.website-card:hover .website-shot img {
-  transform: scale(1.03);
+.showcase-device-frame:hover .showcase-screen-img {
+  transform: scale(1.04);
 }
 
-.website-body {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1.5rem;
-}
-
-.website-favicon {
+/* Marco Android Landscape / Tablet 16:9 */
+.showcase-android-frame {
   position: relative;
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background: var(--surface-light);
-  flex-shrink: 0;
-  overflow: hidden;
-}
-
-.website-favicon-fallback {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: var(--accent-primary);
-}
-
-.website-favicon img {
-  position: relative;
+  z-index: 2;
   width: 100%;
-  height: 100%;
-  object-fit: contain;
-  padding: 10px;
-}
-
-.website-info {
+  max-width: 680px;
+  aspect-ratio: 16 / 9;
+  background: #000000;
+  border-radius: 16px;
+  border: 2px solid rgba(0, 230, 118, 0.45);
+  box-shadow: 
+    0 0 0 1px rgba(0, 230, 118, 0.25),
+    0 25px 60px rgba(0, 0, 0, 0.95),
+    0 0 35px rgba(0, 230, 118, 0.22);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  min-width: 0;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
 }
 
-.website-name {
+.showcase-android-frame:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 0 0 1px rgba(0, 230, 118, 0.6),
+    0 30px 70px rgba(0, 0, 0, 0.98),
+    0 0 45px rgba(0, 230, 118, 0.35);
+}
+
+.showcase-android-frame .showcase-screen-content {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16 / 9;
+  position: absolute;
+  inset: 0;
+  background: #000000;
+}
+
+/* Barra superior Android flotante sobre el video */
+.android-frame-topbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.55rem 0.9rem;
+  background: linear-gradient(180deg, rgba(11, 11, 16, 0.88) 0%, rgba(11, 11, 16, 0.35) 60%, transparent 100%);
+  pointer-events: none;
+}
+
+.android-frame-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #F3F4F6;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.android-camera-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #050508;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 4px rgba(0, 230, 118, 0.5);
+}
+
+.android-frame-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.android-tag-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  font-family: monospace;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #9CA3AF;
+  letter-spacing: 0.04em;
+}
+
+.android-tag-badge.store {
+  background: rgba(0, 230, 118, 0.15);
+  border-color: rgba(0, 230, 118, 0.4);
+  color: #00E676;
+}
+
+/* Pantalla alternativa estilo Browser Desktop para proyectos web */
+.showcase-browser-frame {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 680px;
+  background: #0B0B10;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 230, 118, 0.28);
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.9),
+    0 0 35px rgba(0, 230, 118, 0.18);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+}
+
+.showcase-browser-frame:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 30px 70px rgba(0, 0, 0, 0.95),
+    0 0 45px rgba(0, 230, 118, 0.3);
+}
+
+.browser-mockup-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.8rem;
+  background: #14141e;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.browser-mockup-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+.browser-mockup-dot.red { background: #ef4444; }
+.browser-mockup-dot.yellow { background: #f59e0b; }
+.browser-mockup-dot.green { background: #00E676; }
+
+.browser-mockup-url {
+  flex: 1;
+  margin-left: 0.45rem;
+  font-size: 0.68rem;
+  color: #9CA3AF;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 50px;
+  padding: 0.15rem 0.65rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.phone-bottom-bar {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 3px;
+  z-index: 4;
+}
+
+/* ── Bottom Carousel / Tabs Bar ── */
+.showcase-bottom-tabs {
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid rgba(0, 230, 118, 0.12);
+  background: rgba(11, 11, 16, 0.7);
+  backdrop-filter: blur(14px);
+  padding: 0.65rem 1.25rem;
+}
+
+.showcase-tabs-track {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 0.15rem 0.15rem;
+}
+
+.showcase-tabs-track::-webkit-scrollbar {
+  display: none;
+}
+
+.showcase-tab-btn {
+  flex: 1 0 auto;
+  min-width: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.55rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.22s ease;
+  user-select: none;
+}
+
+.showcase-tab-btn:hover {
+  background: rgba(0, 230, 118, 0.04);
+  border-color: rgba(0, 230, 118, 0.25);
+  transform: translateY(-1px);
+}
+
+.showcase-tab-num {
+  font-family: monospace, 'Courier New', Courier, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #9CA3AF;
+  margin-bottom: 0.15rem;
+  transition: color 0.22s ease;
+}
+
+.showcase-tab-label {
+  font-size: 0.82rem;
   font-weight: 600;
-  font-size: 1rem;
-  line-height: 1.3;
+  color: #9CA3AF;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  transition: color 0.22s ease;
 }
 
-.website-domain {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+/* Estado activo del Tab con Verde Neón del portafolio */
+.showcase-tab-btn.active {
+  background: rgba(0, 230, 118, 0.08);
+  border-color: #00E676;
+  box-shadow: 
+    0 0 14px rgba(0, 230, 118, 0.25),
+    inset 0 0 6px rgba(0, 230, 118, 0.06);
+  transform: translateY(-1px);
 }
 
-.website-arrow {
-  margin-left: auto;
-  flex-shrink: 0;
-  color: var(--accent-primary);
-  opacity: 0;
-  transform: translate(-6px, 6px);
-  transition: var(--transition);
+.showcase-tab-btn.active .showcase-tab-num {
+  color: #00E676;
+  text-shadow: 0 0 8px rgba(0, 230, 118, 0.4);
 }
 
-.website-card:hover .website-arrow {
-  opacity: 1;
-  transform: translate(0, 0);
+.showcase-tab-btn.active .showcase-tab-label {
+  color: #F3F4F6;
+  font-weight: 700;
 }
 
-.website-desc {
-  margin: 0;
-  padding: 0 1.5rem 1.5rem;
-  color: var(--text-muted);
-  font-size: 0.88rem;
-  line-height: 1.6;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .websites-showcase-section {
+    width: 96% !important;
+  }
 
-@media (max-width: 768px) {
-  .websites-grid {
+  .showcase-body {
     grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 1.8rem 1.4rem;
+  }
+
+  .showcase-visual {
+    order: -1;
+    min-height: 260px;
+  }
+
+  .showcase-device-frame {
+    width: 190px;
+  }
+
+  .showcase-browser-frame {
+    width: 100%;
+  }
+
+  .showcase-heading {
+    font-size: 1.85rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .websites-showcase-section {
+    padding: 2rem 0 2.5rem;
+    width: 98% !important;
+  }
+
+  .showcase-top-bar {
+    padding: 0.75rem 1rem;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .showcase-body {
+    padding: 1.4rem 1rem 1.6rem;
+  }
+
+  .showcase-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .showcase-buttons-row {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-showcase-primary,
+  .btn-showcase-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .showcase-bottom-tabs {
+    padding: 0.55rem 0.85rem;
+  }
+
+  .showcase-tab-btn {
+    min-width: 100px;
+    padding: 0.45rem 0.75rem;
   }
 }

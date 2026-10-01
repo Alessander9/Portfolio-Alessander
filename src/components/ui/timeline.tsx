@@ -394,25 +394,27 @@ export default function Timeline({
         )
         .fromTo(
           titleLines,
-          { y: 100 },
+          { y: isTop ? -14 : 14, opacity: 0 },
           {
             y: 0,
-            delay: -0.8 * normalizedDuration,
-            duration: normalizedDuration,
+            opacity: 1,
+            delay: -0.6 * normalizedDuration,
+            duration: normalizedDuration * 0.75,
             stagger: 0.02,
             ease: "power2.out",
           },
         )
         .fromTo(
           descriptionLines,
-          { y: 100 },
+          { y: isTop ? -10 : 10, opacity: 0 },
           {
             y: 0,
-            duration: normalizedDuration,
+            opacity: 1,
+            duration: normalizedDuration * 0.75,
             stagger: 0.02,
             ease: "power2.out",
           },
-          "<",
+          "<0.05",
         );
 
       return timeline;
@@ -467,12 +469,9 @@ export default function Timeline({
       className="timeline-section h-[200vw] max-[600px]:h-[400vh] w-full relative"
       style={sectionStyle}
     >
-      <div className="timeline-sticky-viewport h-screen w-screen sticky top-[0%] pt-[10%] overflow-hidden max-[600px]:top-[5%]">
-        <div
-          ref={wholeSliderRef}
-          className="timeline-slider-track mr-[2vw] flex h-[30vw] w-[240vw] items-center gap-[5vw] px-[5vw] max-[600px]:h-[80vh] max-[600px]:w-[800vw] max-[600px]:px-[7vw]"
-        >
-          <div className="timeline-image-card h-full w-[30vw] overflow-hidden rounded-[1vw] max-[600px]:h-[65vw] max-[600px]:w-[85vw] max-[600px]:rounded-[5vw]">
+      <div className="timeline-sticky-viewport">
+        <div ref={wholeSliderRef} className="timeline-slider-track">
+          <div className="timeline-image-card">
             <img
               src={imageUrl}
               alt={imageAlt}
@@ -481,47 +480,36 @@ export default function Timeline({
             />
           </div>
 
-          <div className="timeline-canvas relative h-full w-full">
-            <div className="timeline-central-axis w-full absolute left-0 top-[49%] -translate-y-1/2 flex items-center h-fit">
+          <div className="timeline-canvas">
+            <div className="timeline-central-axis">
+              <div className="timeline-axis-dot" style={activeStyle}></div>
               <div
-                className="timeline-axis-dot h-[.8vw] max-[600px]:h-[2vw] max-[600px]:w-[2vw] w-[.8vw] rounded-full"
+                className="timeline-axis-line journey-line"
                 style={activeStyle}
               ></div>
-              <div
-                className="timeline-axis-line h-px w-[0%] rounded-full journey-line"
-                style={activeStyle}
-              ></div>
-              <div
-                className="timeline-axis-dot h-[.8vw] max-[600px]:h-[2vw] max-[600px]:w-[2vw] w-[.8vw] rounded-full"
-                style={activeStyle}
-              ></div>
+              <div className="timeline-axis-dot" style={activeStyle}></div>
             </div>
 
-            <div className="timeline-top-half flex h-1/2 w-full items-center justify-start gap-[.5vw]">
-              <div className="timeline-title-col h-full w-[20%] pt-[2vw] max-[600px]:h-fit max-[600px]:pt-[5vw]">
-                <h2 className="timeline-title-heading w-[65%] text-[3vw] leading-[0.95] max-[600px]:text-[8.5vw]">
-                  {title}
-                </h2>
+            <div className="timeline-top-half">
+              <div className="timeline-title-col">
+                <h2 className="timeline-title-heading">{title}</h2>
               </div>
 
-              <div className="timeline-top-items-row w-full flex h-full gap-x-[15vw] max-[600px]:gap-x-[40vw]">
+              <div className="timeline-top-items-row">
                 {topJourneyData.map((item) => (
-                  <div
-                    key={`top-${item.id}`}
-                    className="timeline-top-item relative h-full w-[30vw] px-[3vw] max-[600px]:flex max-[600px]:w-[70vw] max-[600px]:flex-col max-[600px]:px-[7vw]"
-                  >
-                    <div className="timeline-stem-wrapper-top w-full absolute left-0 bottom-0 top-0 h-full">
+                  <div key={`top-${item.id}`} className="timeline-top-item">
+                    <div className="timeline-stem-wrapper-top">
                       <div
-                        className={`timeline-item-dot-top size-[1vw] max-[600px]:size-[2.5vw] -translate-x-1/2 relative aspect-square rounded-full jd-${item.id}`}
+                        className={`timeline-item-stem-top jl-${item.id}`}
                         style={activeStyle}
                       ></div>
                       <div
-                        className={`timeline-item-stem-top h-[94%] w-px origin-bottom rounded-full jl-${item.id}`}
+                        className={`timeline-item-dot-top jd-${item.id}`}
                         style={activeStyle}
                       ></div>
                     </div>
 
-                    <div className="timeline-item-copy-top mt-[-1vw] space-y-[0.8vw] max-[600px]:mt-[-2vw]">
+                    <div className="timeline-item-copy-top">
                       {item.image && (
                         <div className={`timeline-item-img-card img-${item.id}`}>
                           <img
@@ -532,13 +520,13 @@ export default function Timeline({
                           />
                         </div>
                       )}
-                      <h4
-                        className={`title-${item.id} timeline-item-title text-[2.2vw] leading-none max-[600px]:text-[5.8vw]`}
-                      >
-                        {item.year} {item.month}
+                      <h4 className={`title-${item.id} timeline-item-title`}>
+                        <span className="timeline-item-year">{item.year}</span>
+                        <span className="timeline-item-dot-sep">·</span>
+                        <span className="timeline-item-month">{item.month}</span>
                       </h4>
                       <p
-                        className={`description-${item.id} timeline-item-desc w-[90%] text-[1.3vw] leading-[1.25] max-[600px]:w-[90%] max-[600px]:text-[4.2vw]`}
+                        className={`description-${item.id} timeline-item-desc`}
                         style={mutedTextStyle}
                       >
                         {item.content}
@@ -549,34 +537,28 @@ export default function Timeline({
               </div>
             </div>
 
-            <div className="timeline-bottom-half h-1/2 flex items-center justify-start w-full">
-              <div className="timeline-period-col w-[34%] pt-[2vw] max-[600px]:pt-[5vw] max-[600px]:w-[30%] h-full">
-                <p
-                  className="timeline-period-label text-[1.65vw] leading-none max-[600px]:text-[4.2vw]"
-                  style={mutedTextStyle}
-                >
+            <div className="timeline-bottom-half">
+              <div className="timeline-period-col">
+                <p className="timeline-period-label" style={mutedTextStyle}>
                   {periodLabel}
                 </p>
               </div>
 
-              <div className="timeline-bottom-items-row w-full flex h-full gap-x-[20vw] ml-[7vw] max-[600px]:gap-x-[40vw] max-[600px]:ml-[7vw]">
+              <div className="timeline-bottom-items-row">
                 {bottomJourneyData.map((item) => (
-                  <div
-                    key={`bottom-${item.id}`}
-                    className="timeline-bottom-item relative h-full w-[25vw] px-[3vw] max-[600px]:w-[70vw] max-[600px]:px-[7vw]"
-                  >
-                    <div className="timeline-stem-wrapper-bottom w-full absolute left-0 bottom-[-1%] h-full">
+                  <div key={`bottom-${item.id}`} className="timeline-bottom-item">
+                    <div className="timeline-stem-wrapper-bottom">
                       <div
-                        className={`timeline-item-stem-bottom h-[94%] origin-top w-px rounded-full max-[600px]:h-full jl-${item.id}`}
+                        className={`timeline-item-dot-bottom jd-${item.id}`}
                         style={activeStyle}
                       ></div>
                       <div
-                        className={`timeline-item-dot-bottom size-[1vw] max-[600px]:size-[2.5vw] -translate-x-1/2 relative w-auto aspect-square rounded-full jd-${item.id}`}
+                        className={`timeline-item-stem-bottom jl-${item.id}`}
                         style={activeStyle}
                       ></div>
                     </div>
 
-                    <div className="timeline-item-copy-bottom flex h-full w-full flex-col justify-end space-y-[0.8vw]">
+                    <div className="timeline-item-copy-bottom">
                       {item.image && (
                         <div className={`timeline-item-img-card img-${item.id}`}>
                           <img
@@ -587,13 +569,13 @@ export default function Timeline({
                           />
                         </div>
                       )}
-                      <h4
-                        className={`title-${item.id} timeline-item-title text-[2.2vw] leading-none max-[600px]:text-[5.8vw]`}
-                      >
-                        {item.year} {item.month}
+                      <h4 className={`title-${item.id} timeline-item-title`}>
+                        <span className="timeline-item-year">{item.year}</span>
+                        <span className="timeline-item-dot-sep">·</span>
+                        <span className="timeline-item-month">{item.month}</span>
                       </h4>
                       <p
-                        className={`description-${item.id} timeline-item-desc w-[90%] text-[1.3vw] leading-[1.25] max-[600px]:w-[90%] max-[600px]:text-[4.2vw]`}
+                        className={`description-${item.id} timeline-item-desc`}
                         style={mutedTextStyle}
                       >
                         {item.content}

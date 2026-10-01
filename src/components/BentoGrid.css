@@ -71,7 +71,7 @@
 
 /* ── Main Timeline Pinned Section ── */
 .timeline-section {
-  height: 200vw;
+  height: 220vw;
   width: 100%;
   position: relative;
   background-color: transparent;
@@ -79,7 +79,7 @@
 
 @media (max-width: 600px) {
   .timeline-section {
-    height: 400vh;
+    height: 420vh;
   }
 }
 
@@ -88,46 +88,39 @@
   width: 100%;
   position: sticky;
   top: 0;
-  padding-top: 8vh;
+  padding-top: 0;
   overflow: hidden;
   display: flex;
   align-items: center;
   box-sizing: border-box;
 }
 
-@media (max-width: 600px) {
-  .timeline-sticky-viewport {
-    top: 5%;
-    padding-top: 0;
-  }
-}
-
 .timeline-slider-track {
   margin-right: 2vw;
   display: flex;
-  height: clamp(520px, 38vw, 680px);
-  width: 270vw;
+  height: clamp(560px, 82vh, 720px);
+  width: 280vw;
   align-items: center;
-  gap: 5vw;
-  padding: 0 5vw;
+  gap: 4vw;
+  padding: 0 4vw;
   will-change: transform;
 }
 
 @media (max-width: 600px) {
   .timeline-slider-track {
-    height: 85vh;
+    height: 88vh;
     width: 820vw;
-    padding: 0 7vw;
+    padding: 0 6vw;
   }
 }
 
 /* ── Left Visual Card ── */
 .timeline-image-card {
-  height: 100%;
-  width: 30vw;
+  height: clamp(340px, 50vh, 480px);
+  width: clamp(240px, 24vw, 340px);
   flex-shrink: 0;
   overflow: hidden;
-  border-radius: 1vw;
+  border-radius: 16px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: #111;
@@ -135,9 +128,9 @@
 
 @media (max-width: 600px) {
   .timeline-image-card {
-    height: 65vw;
-    width: 85vw;
-    border-radius: 5vw;
+    height: 60vw;
+    width: 82vw;
+    border-radius: 4vw;
   }
 }
 
@@ -160,31 +153,23 @@
   width: 100%;
   position: absolute;
   left: 0;
-  top: 49%;
+  top: 50%;
   transform: translateY(-50%);
   display: flex;
   align-items: center;
-  height: max-content;
   pointer-events: none;
   z-index: 10;
 }
 
 .timeline-axis-dot {
-  height: 0.8vw;
-  width: 0.8vw;
+  height: 10px;
+  width: 10px;
   border-radius: 50%;
   flex-shrink: 0;
 }
 
-@media (max-width: 600px) {
-  .timeline-axis-dot {
-    height: 2vw;
-    width: 2vw;
-  }
-}
-
 .timeline-axis-line {
-  height: 1px;
+  height: 2px;
   width: 0%;
   border-radius: 9999px;
   flex-shrink: 0;
@@ -195,134 +180,207 @@
   display: flex;
   height: 50%;
   width: 100%;
-  align-items: center;
+  align-items: flex-end;
   justify-content: flex-start;
   gap: 0.5vw;
 }
 
 .timeline-title-col {
   height: 100%;
-  width: 20%;
-  padding-top: 2vw;
+  width: clamp(160px, 16vw, 220px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 3.5rem;
+  padding-left: 1.5vw;
   flex-shrink: 0;
 }
 
-@media (max-width: 600px) {
-  .timeline-title-col {
-    height: max-content;
-    padding-top: 5vw;
-  }
-}
-
 .timeline-title-heading {
-  width: 65%;
-  font-size: 3vw;
-  line-height: 0.95;
+  width: 100%;
+  font-size: clamp(1.8rem, 2.5vw, 3rem);
+  line-height: 1;
   font-weight: 700;
   color: #ffffff;
-}
-
-@media (max-width: 600px) {
-  .timeline-title-heading {
-    font-size: 8.5vw;
-  }
+  margin: 0;
 }
 
 .timeline-top-items-row {
   width: 100%;
   display: flex;
   height: 100%;
-  column-gap: 15vw;
-}
-
-@media (max-width: 600px) {
-  .timeline-top-items-row {
-    column-gap: 40vw;
-  }
+  column-gap: clamp(100px, 12vw, 180px);
 }
 
 .timeline-top-item {
   position: relative;
   height: 100%;
-  width: 30vw;
-  padding: 0 3vw;
+  width: clamp(250px, 22vw, 310px);
+  padding: 0 1vw;
+  padding-bottom: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   flex-shrink: 0;
 }
 
 @media (max-width: 600px) {
   .timeline-top-item {
-    display: flex;
-    flex-direction: column;
-    width: 70vw;
-    padding: 0 7vw;
+    width: 72vw;
+    padding-bottom: 2.5rem;
   }
 }
 
 .timeline-stem-wrapper-top {
-  width: 100%;
   position: absolute;
   left: 0;
   bottom: 0;
   top: 0;
-  height: 100%;
+  width: 1px;
   pointer-events: none;
 }
 
-.timeline-item-dot-top {
-  width: 1vw;
-  height: 1vw;
-  transform: translateX(-50%);
-  position: relative;
-  border-radius: 50%;
-  aspect-ratio: 1 / 1;
-}
-
-@media (max-width: 600px) {
-  .timeline-item-dot-top {
-    width: 2.5vw;
-    height: 2.5vw;
-  }
-}
-
 .timeline-item-stem-top {
-  height: 94%;
-  width: 1px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 1.5px;
+  height: 100%;
   transform-origin: bottom center;
   border-radius: 9999px;
 }
 
+.timeline-item-dot-top {
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  border-radius: 50%;
+  z-index: 12;
+}
+
 .timeline-item-copy-top {
-  margin-top: -1vw;
   display: flex;
   flex-direction: column;
-  gap: 1vw;
+  gap: 0.65rem;
+  padding-left: 1.4rem;
+}
+
+/* ── Bottom Journey Half ── */
+.timeline-bottom-half {
+  height: 50%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.timeline-period-col {
+  height: 100%;
+  width: clamp(160px, 16vw, 220px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 3.5rem;
+  padding-left: 1.5vw;
+  flex-shrink: 0;
+}
+
+.timeline-period-label {
+  font-size: clamp(1rem, 1.3vw, 1.4rem);
+  line-height: 1;
+  font-family: monospace;
+  color: #9CA3AF;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.timeline-bottom-items-row {
+  width: 100%;
+  display: flex;
+  height: 100%;
+  column-gap: clamp(120px, 15vw, 200px);
+  margin-left: 6vw;
+}
+
+.timeline-bottom-item {
+  position: relative;
+  height: 100%;
+  width: clamp(250px, 22vw, 310px);
+  padding: 0 1vw;
+  padding-top: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-shrink: 0;
 }
 
 @media (max-width: 600px) {
-  .timeline-item-copy-top {
-    margin-top: -2vw;
+  .timeline-bottom-item {
+    width: 72vw;
+    padding-top: 2.5rem;
   }
 }
 
+.timeline-stem-wrapper-bottom {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  pointer-events: none;
+}
+
+.timeline-item-stem-bottom {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1.5px;
+  height: 100%;
+  transform-origin: top center;
+  border-radius: 9999px;
+}
+
+.timeline-item-dot-bottom {
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  z-index: 12;
+}
+
+.timeline-item-copy-bottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.65rem;
+  padding-left: 1.4rem;
+}
+
+/* ── Milestone Image Cards ── */
 .timeline-item-img-card {
   width: 100%;
-  max-width: clamp(200px, 20vw, 290px);
-  aspect-ratio: 16 / 10;
-  border-radius: clamp(8px, 0.75vw, 12px);
+  max-width: 260px;
+  height: 140px;
+  border-radius: 10px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
   background: #141419;
   position: relative;
-  margin-bottom: 0.6vw;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
   will-change: transform, opacity;
 }
 
 .timeline-item-img-card:hover {
   transform: translateY(-4px) scale(1.03);
-  border-color: rgba(0, 230, 118, 0.55);
-  box-shadow: 0 12px 30px rgba(0, 230, 118, 0.22);
+  border-color: rgba(0, 230, 118, 0.6);
+  box-shadow: 0 12px 30px rgba(0, 230, 118, 0.25);
 }
 
 .timeline-item-img {
@@ -334,153 +392,57 @@
 
 @media (max-width: 600px) {
   .timeline-item-img-card {
-    max-width: 58vw;
-    border-radius: 3vw;
-    margin-bottom: 2vw;
+    max-width: 60vw;
+    height: 34vw;
+    border-radius: 2.5vw;
   }
 }
 
+/* ── Milestone Typography ── */
 .timeline-item-title {
-  font-size: clamp(1.1rem, 2.2vw, 1.85rem);
-  line-height: 1.1;
+  font-size: clamp(1.15rem, 1.45vw, 1.35rem);
+  line-height: 1.2;
   font-weight: 700;
   color: #ffffff;
+  letter-spacing: -0.01em;
   margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
 }
 
-@media (max-width: 600px) {
-  .timeline-item-title {
-    font-size: 5.8vw;
-  }
+.timeline-item-year {
+  color: #00E676;
+  font-family: monospace;
+  font-size: 0.95em;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.timeline-item-dot-sep {
+  color: rgba(255, 255, 255, 0.3);
+  font-weight: 400;
+}
+
+.timeline-item-month {
+  color: #ffffff;
+  font-weight: 600;
 }
 
 .timeline-item-desc {
-  width: 95%;
-  font-size: clamp(0.78rem, 1.25vw, 0.98rem);
-  line-height: 1.35;
+  width: 100%;
+  max-width: 260px;
+  font-size: clamp(0.82rem, 0.9vw, 0.88rem);
+  line-height: 1.5;
   color: #9CA3AF;
   margin: 0;
 }
 
 @media (max-width: 600px) {
   .timeline-item-desc {
-    width: 95%;
-    font-size: 3.8vw;
+    max-width: 62vw;
+    font-size: 3.5vw;
   }
-}
-
-/* ── Bottom Journey Half ── */
-.timeline-bottom-half {
-  height: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-}
-
-.timeline-period-col {
-  width: 34%;
-  padding-top: 2vw;
-  height: 100%;
-  flex-shrink: 0;
-}
-
-@media (max-width: 600px) {
-  .timeline-period-col {
-    padding-top: 5vw;
-    width: 30%;
-  }
-}
-
-.timeline-period-label {
-  font-size: 1.65vw;
-  line-height: 1;
-  font-family: monospace;
-  color: #9CA3AF;
-  letter-spacing: 0.05em;
-}
-
-@media (max-width: 600px) {
-  .timeline-period-label {
-    font-size: 4.2vw;
-  }
-}
-
-.timeline-bottom-items-row {
-  width: 100%;
-  display: flex;
-  height: 100%;
-  column-gap: 20vw;
-  margin-left: 7vw;
-}
-
-@media (max-width: 600px) {
-  .timeline-bottom-items-row {
-    column-gap: 40vw;
-    margin-left: 7vw;
-  }
-}
-
-.timeline-bottom-item {
-  position: relative;
-  height: 100%;
-  width: 25vw;
-  padding: 0 3vw;
-  flex-shrink: 0;
-}
-
-@media (max-width: 600px) {
-  .timeline-bottom-item {
-    width: 70vw;
-    padding: 0 7vw;
-  }
-}
-
-.timeline-stem-wrapper-bottom {
-  width: 100%;
-  position: absolute;
-  left: 0;
-  bottom: -1%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.timeline-item-stem-bottom {
-  height: 94%;
-  transform-origin: top center;
-  width: 1px;
-  border-radius: 9999px;
-}
-
-@media (max-width: 600px) {
-  .timeline-item-stem-bottom {
-    height: 100%;
-  }
-}
-
-.timeline-item-dot-bottom {
-  width: 1vw;
-  height: 1vw;
-  transform: translateX(-50%);
-  position: relative;
-  border-radius: 50%;
-  aspect-ratio: 1 / 1;
-}
-
-@media (max-width: 600px) {
-  .timeline-item-dot-bottom {
-    width: 2.5vw;
-    height: 2.5vw;
-  }
-}
-
-.timeline-item-copy-bottom {
-  display: flex;
-  height: 100%;
-  width: 100%;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: 1vw;
 }
 
 /* ── Lead-out Section ── */

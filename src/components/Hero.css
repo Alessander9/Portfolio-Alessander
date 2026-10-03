@@ -11,6 +11,9 @@
 .hero-container {
   position: relative;
   width: 100%;
+  max-width: 1400px !important;
+  padding-left: clamp(1.25rem, 4.5vw, 3.5rem) !important;
+  padding-right: clamp(1.25rem, 4.5vw, 3.5rem) !important;
   /* Push content below the navbar */
   padding-top: 80px;
 }

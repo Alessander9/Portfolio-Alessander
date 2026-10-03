@@ -52,7 +52,7 @@ export default function Hero() {
               </span>
               <span className="hero-title-line text-gradient">
                 <DecryptedText
-                  text="Luis Alexander"
+                  text="Luis Fernandez"
                   animateOn="view"
                   sequential
                   revealDirection="start"

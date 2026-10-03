@@ -16,63 +16,95 @@
     <priority>0.9</priority>
   </url>
 
-  <!-- Subpáginas de los 9 Servicios -->
+  <!-- 10 Subpáginas de Servicios -->
   <url>
-    <loc>https://alessanderdev.com/#/servicio/landing-page</loc>
+    <loc>https://alessanderdev.com/#/servicio/citas-medicas</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://alessanderdev.com/#/servicio/automatizacion-redes</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://alessanderdev.com/#/servicio/app-movil-empresas</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://alessanderdev.com/#/servicio/sistema-cms</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://alessanderdev.com/#/servicio/sistema-erp</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://alessanderdev.com/#/servicio/software-restaurantes</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://alessanderdev.com/#/servicio/sistema-veterinario</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://alessanderdev.com/#/servicio/manejo-redes-sociales</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://alessanderdev.com/#/servicio/sistema-citas</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://alessanderdev.com/#/servicio/sistema-colegios</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Páginas de Proyectos Destacados -->
+  <url>
+    <loc>https://alessanderdev.com/#/proyecto/insteip</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://alessanderdev.com/#/servicio/sistema-web</loc>
+    <loc>https://alessanderdev.com/#/proyecto/bot-telegram-gestion</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://alessanderdev.com/#/servicio/app-android</loc>
+    <loc>https://alessanderdev.com/#/proyecto/pro-sales-enterprise</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://alessanderdev.com/#/servicio/e-commerce</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://alessanderdev.com/#/servicio/automatizacion-ia</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://alessanderdev.com/#/servicio/cursos-online</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://alessanderdev.com/#/servicio/consultoria</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://alessanderdev.com/#/servicio/catalogo-productos</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://alessanderdev.com/#/servicio/chatbot-ai</loc>
+    <loc>https://alessanderdev.com/#/proyecto/clinica-dental</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- Páginas Legales -->
+  <!-- Páginas Legales y de Privacidad -->
   <url>
     <loc>https://alessanderdev.com/#/privacidad</loc>
     <lastmod>2026-10-03</lastmod>

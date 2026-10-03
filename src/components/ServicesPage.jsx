@@ -318,24 +318,24 @@ export default function ServicesPage() {
     <div className="services-page">
       {/* Botón Volver */}
       <div className="services-top-nav">
-        <a href="#inicio" className="services-back-link">
+        <a href="#inicio" className="services-back">
           <ArrowLeftIcon />
           <span>Volver al inicio</span>
         </a>
       </div>
 
-      {/* Header Principal */}
-      <header className="services-hero-header">
-        <div className="services-hero-badge">
-          <span className="services-badge-pulse" />
+      {/* Header Principal Centrado */}
+      <header className="services-hero">
+        <div className="services-badge">
+          <span className="services-badge-dot" />
           <span>SOLUCIONES DIGITALES EXPLICADAS SIMPLE</span>
         </div>
 
-        <h1 className="services-page-title">
+        <h1 className="services-title">
           Servicios diseñados para que tu negocio <span className="text-gradient">venda más</span> y trabaje en automático.
         </h1>
 
-        <p className="services-page-subtitle">
+        <p className="services-subtitle">
           Sin términos técnicos ni confusiones. Mira los videos demostrativos de cada herramienta, descubre qué soluciona para tu empresa y cotiza en un clic.
         </p>
 

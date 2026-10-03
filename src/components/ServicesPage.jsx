@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
+import { SERVICES_DATA, SERVICES_ROUTE_PREFIX } from '../data/servicesData'
 import { SITE_TITLE } from '../data/projects'
 import './ServicesPage.css'
 
@@ -20,221 +21,25 @@ function WhatsAppIcon() {
   )
 }
 
-function ExternalLinkIcon() {
+function ArrowUpRightIcon() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-      <polyline points="15 3 21 3 21 9" />
-      <line x1="10" y1="14" x2="21" y2="3" />
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="7" y1="17" x2="17" y2="7" />
+      <polyline points="7 7 17 7 17 17" />
     </svg>
   )
 }
-
-function VolumeMuteIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-      <line x1="23" y1="9" x2="17" y2="15" />
-      <line x1="17" y1="9" x2="23" y2="15" />
-    </svg>
-  )
-}
-
-function VolumeHighIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
-    </svg>
-  )
-}
-
-function ExpandIcon() {
-  return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="15 3 21 3 21 9" />
-      <polyline points="9 21 3 21 3 15" />
-      <line x1="21" y1="3" x2="14" y2="10" />
-      <line x1="3" y1="21" x2="10" y2="14" />
-    </svg>
-  )
-}
-
-function PlayIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-      <polygon points="5 3 19 12 5 21 5 3" />
-    </svg>
-  )
-}
-
-function PauseIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-      <rect x="6" y="4" width="4" height="16" />
-      <rect x="14" y="4" width="4" height="16" />
-    </svg>
-  )
-}
-
-/* ── 9 Soluciones y Productos con Video (Copiados de Soluciones Destacadas) ── */
-const PRODUCTS_DATA = [
-  {
-    id: 'landing-page',
-    num: '01',
-    category: 'LANDING PAGE DE ALTO IMPACTO',
-    filterCategory: 'web',
-    title: 'Landing Pages de Alta Conversión',
-    desc: 'Landing page moderna con animaciones interactivas, diseño visual premium y optimización técnica para captar clientes potenciales y ventas.',
-    accentColor: '#00E676',
-    video: 'https://res.cloudinary.com/piun1mwb/video/upload/v1790824448/Landing-Alex.mp4',
-    poster: '/production/ninjahouse.jpg',
-    stat1: { value: '+95%', label: 'Rendimiento & UX' },
-    stat2: { value: '100%', label: 'Conversión Directa' },
-    tags: ['UI/UX Premium', 'Animaciones GSAP', 'SEO Optimizado', 'WhatsApp CTA'],
-    url: 'https://ninja-house-app.vercel.app/',
-    quoteMsg: 'Hola Luis, me interesa cotizar una Landing Page moderna de alto impacto para mi proyecto.',
-  },
-  {
-    id: 'sistema-web',
-    num: '02',
-    category: 'PLATAFORMA & DEPORTES',
-    filterCategory: 'web',
-    title: 'Plataforma Web con Pizarra Táctica Digital',
-    desc: 'Sistema web de periodismo deportivo y análisis táctico con pizarra interactiva en tiempo real, seguimiento de partidos y panel multimedia.',
-    accentColor: '#7C3AED',
-    video: 'https://res.cloudinary.com/piun1mwb/video/upload/v1790825922/sistemas_web.mp4',
-    poster: '/production/charlaTactica.jpg',
-    stat1: { value: '<1.1s', label: 'Carga Ultrarrápida' },
-    stat2: { value: '100%', label: 'Pizarra Táctica' },
-    tags: ['Arquitectura SPA', 'Pizarra Táctil', 'Realtime', 'Panel Admin'],
-    url: 'https://charlatactica.vercel.app/',
-    quoteMsg: 'Hola Luis, me gustaría cotizar un sistema web interactivo a medida.',
-  },
-  {
-    id: 'app-android',
-    num: '03',
-    category: 'APPS PARA CELULARES',
-    filterCategory: 'mobile',
-    title: 'Aplicación Móvil para Teléfonos Android',
-    desc: 'Lleva tu negocio al bolsillo de tus clientes con una app rápida, fácil de usar y publicada en Google Play con sincronización en la nube.',
-    accentColor: '#00E676',
-    video: 'https://res.cloudinary.com/piun1mwb/video/upload/v1790826013/Android.mp4',
-    poster: '/production/DelasGradas.jpg',
-    stat1: { value: '+85%', label: 'Fidelización' },
-    stat2: { value: '100%', label: 'Google Play Ready' },
-    tags: ['Kotlin', 'Android Studio', 'Sincronización Cloud', 'Notificaciones Push'],
-    url: null,
-    quoteMsg: 'Hola Luis, tengo la idea para una app móvil Android y quisiera cotizarla.',
-  },
-  {
-    id: 'e-commerce',
-    num: '04',
-    category: 'VENTAS ONLINE & CONVERSIÓN',
-    filterCategory: 'ecommerce',
-    title: 'Tienda Virtual & E-Commerce de Alto Impacto',
-    desc: 'Tienda online moderna y escalable con catálogo interactivo, pasarela de pagos integrada, carrito de compras ágil y diseño optimizado para máxima conversión.',
-    accentColor: '#7C3AED',
-    video: 'https://res.cloudinary.com/piun1mwb/video/upload/v1790831432/e-commerce_brutal.mp4',
-    poster: '/production/VitalDent.jpg',
-    stat1: { value: '+120%', label: 'Ventas Online' },
-    stat2: { value: '100%', label: 'Control de Stock' },
-    tags: ['Pasarela de Pagos', 'Carrito Ágil', 'Gestión de Inventario', 'Checkout Seguro'],
-    url: null,
-    quoteMsg: 'Hola Luis, me gustaría cotizar una tienda online o plataforma de E-Commerce moderna para mi negocio.',
-  },
-  {
-    id: 'automatizacion-ia',
-    num: '05',
-    category: 'INTELIGENCIA ARTIFICIAL & AUTOMATIZACIÓN',
-    filterCategory: 'ai',
-    title: 'Flujos Inteligentes & Automatización con IA',
-    desc: 'Optimizamos y conectamos tus tareas repetitivas mediante agentes de Inteligencia Artificial, integraciones con WhatsApp, CRM, bots y flujos de trabajo autónomos 24/7.',
-    accentColor: '#00E676',
-    video: 'https://res.cloudinary.com/piun1mwb/video/upload/v1790839392/automatizacion_2.mp4',
-    poster: '/production/Charol.jpg',
-    stat1: { value: '80%', label: 'Ahorro de Tiempo' },
-    stat2: { value: '10x', label: 'Productividad' },
-    tags: ['Agentes Autónomos', 'Integración CRM', 'Operación 24/7', 'Flujos WhatsApp'],
-    url: null,
-    quoteMsg: 'Hola Luis, me interesa automatizar tareas y procesos de mi negocio con Inteligencia Artificial.',
-  },
-  {
-    id: 'cursos-online',
-    num: '06',
-    category: 'EDTECH & E-LEARNING LMS',
-    filterCategory: 'edtech',
-    title: 'Campus Virtual & Plataforma de Cursos Online',
-    desc: 'Plataforma LMS moderna para venta de cursos, membresías y capacitaciones con aulas virtuales, exámenes interactivos, emisión de certificados y pasarelas de pago integradas.',
-    accentColor: '#7C3AED',
-    video: 'https://res.cloudinary.com/piun1mwb/video/upload/v1790841621/LMS_comercial.mp4',
-    poster: '/production/Insteip.jpg',
-    stat1: { value: '+1,500', label: 'Estudiantes Activos' },
-    stat2: { value: '100%', label: 'Automatizado' },
-    tags: ['Aula Virtual', 'Emisión Certificados', 'Cobros Recurrentes', 'Panel Docente'],
-    url: null,
-    quoteMsg: 'Hola Luis, me interesa cotizar una plataforma web de cursos online y campus virtual.',
-  },
-  {
-    id: 'consultoria',
-    num: '07',
-    category: 'ASESORÍA & ARQUITECTURA DIGITAL',
-    filterCategory: 'edtech',
-    title: 'Transformación Digital & Consultoría Tecnológica',
-    desc: 'Asesoría técnica y estratégica para empresas y startups: diagnóstico de arquitectura, selección de stack tecnológico, optimización de infraestructura cloud y escalabilidad.',
-    accentColor: '#00E676',
-    video: 'https://res.cloudinary.com/piun1mwb/video/upload/v1790841685/consultoria_Tech.mp4',
-    poster: '/production/SolucionesTecnologicas.png',
-    stat1: { value: '100%', label: 'Diagnóstico Integral' },
-    stat2: { value: '3x', label: 'Aceleración Técnica' },
-    tags: ['Auditoría Cloud', 'Stack Escalable', 'Arquitectura Segura', 'Asesoría 1 a 1'],
-    url: null,
-    quoteMsg: 'Hola Luis, me interesa agendar una consultoría técnica o de arquitectura de software para mi proyecto.',
-  },
-  {
-    id: 'catalogo-productos',
-    num: '08',
-    category: 'CATÁLOGO VIRTUAL & VENTAS WHATSAPP',
-    filterCategory: 'ecommerce',
-    title: 'Catálogo de Productos con Pedidos a WhatsApp',
-    desc: 'Catálogo interactivo optimizado para móviles donde tus clientes seleccionan productos, arman su pedido y lo envían detallado directo a tu WhatsApp en un solo toque.',
-    accentColor: '#7C3AED',
-    video: 'https://res.cloudinary.com/piun1mwb/video/upload/v1790842142/catalogo_ventas_wsp.mp4',
-    poster: '/production/AgujasAcupuntura.png',
-    stat1: { value: '+90%', label: 'Cierre de Pedidos' },
-    stat2: { value: '100%', label: 'Autogestionable' },
-    tags: ['Envío a WhatsApp', 'Móvil First', 'Autogestión de Precios', 'Sin Comisiones'],
-    url: null,
-    quoteMsg: 'Hola Luis, me gustaría cotizar un catálogo virtual de productos con pedidos automáticos a WhatsApp.',
-  },
-  {
-    id: 'chatbot-ai',
-    num: '09',
-    category: 'ATENCIÓN AL CLIENTE & CHATBOTS',
-    filterCategory: 'ai',
-    title: 'Chatbots Inteligentes con IA Generativa',
-    desc: 'Agentes conversacionales inteligentes entrenados con la información de tu negocio para responder dudas, calificar leads, agendar citas y cerrar ventas en WhatsApp y web en tiempo real.',
-    accentColor: '#00E676',
-    video: 'https://res.cloudinary.com/piun1mwb/video/upload/v1790842189/chatbot_ia.mp4',
-    poster: '/production/SolucionesTecnologicas.png',
-    stat1: { value: '24/7', label: 'Atención Continua' },
-    stat2: { value: '+300%', label: 'Capacidad de Cierre' },
-    tags: ['IA Generativa', 'Bot para WhatsApp', 'Captación de Leads', 'Respuestas en Segundos'],
-    url: null,
-    quoteMsg: 'Hola Luis, me gustaría cotizar un Chatbot con Inteligencia Artificial para mi empresa.',
-  },
-]
 
 const CATEGORY_FILTERS = [
   { id: 'all', label: 'Todos', count: 9 },
-  { id: 'web', label: 'Web & Landings', count: 2 },
-  { id: 'mobile', label: 'Apps Móviles', count: 1 },
-  { id: 'ecommerce', label: 'E-Commerce & Catálogos', count: 2 },
+  { id: 'web', label: 'Páginas Web', count: 2 },
+  { id: 'mobile', label: 'Apps Celulares', count: 1 },
+  { id: 'ecommerce', label: 'Tiendas & Catálogos', count: 2 },
   { id: 'ai', label: 'Inteligencia Artificial', count: 2 },
-  { id: 'edtech', label: 'LMS & Consultoría', count: 2 },
+  { id: 'edtech', label: 'Cursos & Asesoría', count: 2 },
 ]
 
-/* ── Componente Reutilizable: Tarjeta de Producto con Video 16:9 ── */
+/* ── Componente: Tarjeta de Solución Explicada Fácil con 2 Botones ── */
 export function ProductCard({
   id,
   num,
@@ -245,173 +50,41 @@ export function ProductCard({
   poster,
   metrics = [],
   features = [],
-  primaryAction,
-  secondaryAction,
   accent = '#00E676',
-  demoUrl,
   whatsappUrl,
-  onExpand,
+  detailUrl,
 }) {
-  const videoRef = useRef(null)
-  const [isPlaying, setIsPlaying] = useState(true)
-  const [isMuted, setIsMuted] = useState(true)
-  const [progress, setProgress] = useState(0)
-
-  useEffect(() => {
-    const videoEl = videoRef.current
-    if (!videoEl) return
-
-    // Pausar videos fuera del viewport para optimizar recursos y reanudar al entrar
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            videoEl.play().then(() => setIsPlaying(true)).catch(() => {})
-          } else {
-            videoEl.pause()
-            setIsPlaying(false)
-          }
-        })
-      },
-      { threshold: 0.25 }
-    )
-
-    observer.observe(videoEl)
-    return () => observer.disconnect()
-  }, [])
-
-  const togglePlay = (e) => {
-    if (e) e.stopPropagation()
-    const videoEl = videoRef.current
-    if (!videoEl) return
-
-    if (videoEl.paused) {
-      videoEl.play().then(() => setIsPlaying(true)).catch(() => {})
-    } else {
-      videoEl.pause()
-      setIsPlaying(false)
-    }
-  }
-
-  const toggleMute = (e) => {
-    if (e) e.stopPropagation()
-    const videoEl = videoRef.current
-    if (!videoEl) return
-    videoEl.muted = !videoEl.muted
-    setIsMuted(videoEl.muted)
-  }
-
-  const handleTimeUpdate = () => {
-    const videoEl = videoRef.current
-    if (videoEl && videoEl.duration) {
-      setProgress((videoEl.currentTime / videoEl.duration) * 100)
-    }
-  }
-
-  const handleToggleFullscreen = (e) => {
-    if (e) e.stopPropagation()
-    if (onExpand) {
-      onExpand()
-    } else if (videoRef.current) {
-      if (videoRef.current.requestFullscreen) {
-        videoRef.current.requestFullscreen()
-      } else if (videoRef.current.webkitRequestFullscreen) {
-        videoRef.current.webkitRequestFullscreen()
-      }
-    }
-  }
-
-  const defaultWhatsapp = whatsappUrl || (primaryAction?.url ?? '#')
-  const defaultDemo = demoUrl || (secondaryAction?.url ?? null)
+  const defaultWhatsapp = whatsappUrl || '#'
+  const targetDetailUrl = detailUrl || `${SERVICES_ROUTE_PREFIX}${id}`
 
   return (
     <article className="product-card" id={id} style={{ '--card-accent': accent }}>
-      {/* 1. Video Principal (Proporción exacta 16:9) */}
-      <div className="product-video-wrapper" onClick={togglePlay}>
+      {/* 1. Video Principal (Autoplay, Loop, Muted, Sin Controles) */}
+      <div className="product-video-wrapper">
         <video
-          ref={videoRef}
           src={video}
           poster={poster}
           autoPlay
           loop
-          muted={isMuted}
+          muted
           playsInline
           preload="metadata"
           className="product-video-element"
-          onTimeUpdate={handleTimeUpdate}
-          onPlay={() => setIsPlaying(true)}
-          onPause={() => setIsPlaying(false)}
         />
 
-        {/* Overlay sutil para legibilidad de badges y controles */}
         <div className="product-video-overlay" />
 
-        {/* 2. Badge de Categoría / Demo en Video */}
         <div className="product-video-badge">
           <span
             className="product-video-dot"
             style={{ backgroundColor: accent, boxShadow: `0 0 10px ${accent}` }}
           />
-          <span>VIDEO DEMO</span>
-        </div>
-
-        {/* Botón central de Play cuando está en pausa */}
-        {!isPlaying && (
-          <button
-            type="button"
-            className="product-video-center-play"
-            onClick={togglePlay}
-            aria-label="Reproducir video"
-          >
-            <PlayIcon />
-          </button>
-        )}
-
-        {/* Controles funcionales del video */}
-        <div className="product-video-controls" onClick={(e) => e.stopPropagation()}>
-          <button
-            type="button"
-            className="video-ctrl-btn"
-            onClick={togglePlay}
-            title={isPlaying ? 'Pausar video' : 'Reproducir video'}
-            aria-label={isPlaying ? 'Pausar video' : 'Reproducir video'}
-          >
-            {isPlaying ? <PauseIcon /> : <PlayIcon />}
-          </button>
-
-          <button
-            type="button"
-            className="video-ctrl-btn"
-            onClick={toggleMute}
-            title={isMuted ? 'Activar sonido' : 'Silenciar'}
-            aria-label={isMuted ? 'Activar sonido' : 'Silenciar'}
-          >
-            {isMuted ? <VolumeMuteIcon /> : <VolumeHighIcon />}
-          </button>
-
-          <button
-            type="button"
-            className="video-ctrl-btn expand-btn"
-            onClick={handleToggleFullscreen}
-            title="Pantalla completa"
-            aria-label="Ver video en pantalla completa"
-          >
-            <ExpandIcon />
-          </button>
-        </div>
-
-        {/* Línea de progreso de reproducción */}
-        <div className="product-video-progress-track">
-          <div
-            className="product-video-progress-fill"
-            style={{ width: `${progress}%`, backgroundColor: accent }}
-          />
+          <span>MIRA EL VIDEO</span>
         </div>
       </div>
 
-      {/* Contenido / Cuerpo de la Tarjeta */}
+      {/* Contenido de la Tarjeta */}
       <div className="product-card-body">
-        {/* Meta Header: Número de orden y Categoría */}
         <div className="product-meta-header">
           {num && <span className="product-num-tag">{num}</span>}
           {category && (
@@ -428,13 +101,10 @@ export function ProductCard({
           )}
         </div>
 
-        {/* 3. Título del Producto */}
         <h2 className="product-card-title">{title}</h2>
 
-        {/* 4. Descripción clara y orientada a beneficios */}
         <p className="product-card-desc">{description}</p>
 
-        {/* 5. Métricas / Valores Destacados (2 columnas) */}
         {metrics && metrics.length >= 2 && (
           <div className="product-metrics-row">
             <div className="product-metric-col">
@@ -452,7 +122,6 @@ export function ProductCard({
           </div>
         )}
 
-        {/* 6. Tags / Chips de características */}
         {features && features.length > 0 && (
           <div className="product-features-row">
             {features.map((feat, idx) => (
@@ -463,117 +132,39 @@ export function ProductCard({
           </div>
         )}
 
-        {/* 7. Acciones Principales */}
+        {/* EXACTAMENTE 2 BOTONES: Cotizar solucion - Ver detalle */}
         <div className="product-actions-grid">
           <a
             href={defaultWhatsapp}
             target="_blank"
             rel="noopener noreferrer"
             className="product-btn-quote"
+            title="Cotizar esta solución por WhatsApp"
           >
             <WhatsAppIcon />
-            <span>{primaryAction?.label || 'Cotizar solución'}</span>
+            <span>Cotizar solucion</span>
           </a>
 
-          {defaultDemo ? (
-            <a
-              href={defaultDemo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="product-btn-demo"
-              title="Abrir demo en vivo"
-            >
-              <span>{secondaryAction?.label || 'Demo en vivo'}</span>
-              <ExternalLinkIcon />
-            </a>
-          ) : (
-            <a
-              href={defaultWhatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="product-btn-demo product-btn-info"
-              title="Solicitar información"
-            >
-              <span>{secondaryAction?.label || 'Ver detalles'}</span>
-              <ExternalLinkIcon />
-            </a>
-          )}
+          <a
+            href={targetDetailUrl}
+            className="product-btn-demo"
+            title={`Ver información y detalles de ${title}`}
+          >
+            <span>Ver detalle</span>
+            <ArrowUpRightIcon />
+          </a>
         </div>
       </div>
     </article>
   )
 }
 
-/* ── Modal Cinema para ver Video en Grande ── */
-function VideoCinemaModal({ product, onClose }) {
-  const videoRef = useRef(null)
-
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape') onClose()
-    }
-    window.addEventListener('keydown', handleKeyDown)
-    document.body.style.overflow = 'hidden'
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown)
-      document.body.style.overflow = ''
-    }
-  }, [onClose])
-
-  if (!product) return null
-
-  const whatsappUrl = `https://wa.me/51999999999/?text=${encodeURIComponent(product.quoteMsg)}`
-
-  return (
-    <div className="cinema-modal-backdrop" onClick={onClose}>
-      <div className="cinema-modal-box" onClick={(e) => e.stopPropagation()}>
-        <button type="button" className="cinema-close-btn" onClick={onClose} aria-label="Cerrar modal">
-          &times;
-        </button>
-
-        <div className="cinema-video-container">
-          <video
-            ref={videoRef}
-            src={product.video}
-            poster={product.poster}
-            autoPlay
-            controls
-            playsInline
-            className="cinema-video-player"
-          />
-        </div>
-
-        <div className="cinema-modal-info">
-          <div className="cinema-header-row">
-            <div>
-              <span className="cinema-category-badge">{product.category}</span>
-              <h3 className="cinema-title">{product.title}</h3>
-            </div>
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="cinema-whatsapp-btn"
-            >
-              <WhatsAppIcon />
-              <span>Cotizar ahora</span>
-            </a>
-          </div>
-          <p className="cinema-desc">{product.desc}</p>
-        </div>
-      </div>
-    </div>
-  )
-}
-
 /* ── Página Principal de Servicios ── */
 export default function ServicesPage() {
   const [activeFilter, setActiveFilter] = useState('all')
-  const [modalProduct, setModalProduct] = useState(null)
 
   useEffect(() => {
-    document.title = 'Servicios & Soluciones Digitales | Luis Alexander Fernandez Paz'
+    document.title = 'Servicios y Soluciones Digitales | Luis Alexander Fernandez Paz'
     window.scrollTo(0, 0)
     return () => {
       document.title = SITE_TITLE
@@ -581,8 +172,8 @@ export default function ServicesPage() {
   }, [])
 
   const filteredProducts = activeFilter === 'all'
-    ? PRODUCTS_DATA
-    : PRODUCTS_DATA.filter((p) => p.filterCategory === activeFilter)
+    ? SERVICES_DATA
+    : SERVICES_DATA.filter((p) => p.filterCategory === activeFilter)
 
   return (
     <div className="services-page">
@@ -596,13 +187,13 @@ export default function ServicesPage() {
       <header className="services-hero">
         <div className="services-badge">
           <span className="services-badge-dot" />
-          Catálogo de Productos & Soluciones
+          Servicios para tu Negocio
         </div>
         <h1 className="services-title">
-          Soluciones digitales diseñadas para <span className="text-gradient">generar impacto</span>
+          Soluciones digitales para <span className="text-gradient">vender más</span> y trabajar mejor
         </h1>
         <p className="services-subtitle">
-          Explora cada producto con su video interactivo en tiempo real. Desde landing pages de alta conversión y sistemas a medida hasta aplicaciones móviles, e-commerce y automatización con IA.
+          Elige la solución que tu negocio necesita. Puedes ver los videos demostrativos, revisar qué incluye cada servicio y cotizar directamente por WhatsApp sin rodeos.
         </p>
 
         {/* Filtros de Categoría */}
@@ -621,7 +212,7 @@ export default function ServicesPage() {
         </div>
       </header>
 
-      {/* Grid de Tarjetas de Producto con Video (2 por fila en desktop) */}
+      {/* Grid de Tarjetas de Producto con Video */}
       <section className="products-grid" aria-label="Catálogo de productos con video">
         {filteredProducts.map((product) => {
           const whatsappUrl = `https://wa.me/51999999999/?text=${encodeURIComponent(product.quoteMsg)}`
@@ -637,73 +228,55 @@ export default function ServicesPage() {
               poster={product.poster}
               metrics={[product.stat1, product.stat2]}
               features={product.tags}
-              primaryAction={{
-                label: 'Cotizar solución',
-                url: whatsappUrl,
-              }}
-              secondaryAction={
-                product.url
-                  ? { label: 'Demo en vivo', url: product.url }
-                  : { label: 'Ver detalles', url: whatsappUrl }
-              }
               accent={product.accentColor}
-              demoUrl={product.url}
               whatsappUrl={whatsappUrl}
-              onExpand={() => setModalProduct(product)}
+              detailUrl={`${SERVICES_ROUTE_PREFIX}${product.id}`}
             />
           )
         })}
       </section>
 
-      {/* Modal Cinema de Pantalla Completa */}
-      {modalProduct && (
-        <VideoCinemaModal
-          product={modalProduct}
-          onClose={() => setModalProduct(null)}
-        />
-      )}
-
-      {/* Metodología de Trabajo */}
-      <section className="services-process-section" aria-label="Proceso de trabajo">
+      {/* Metodología de Trabajo Explicada Simple */}
+      <section className="services-process-section" aria-label="Cómo trabajamos">
         <div className="services-process-header">
           <h2 className="section-title">
-            ¿Cómo es el <span className="text-gradient">proceso</span> de trabajo?
+            ¿Cómo trabajamos <span className="text-gradient">juntos</span>?
           </h2>
           <p className="section-subtitle">
-            Un flujo transparente y estructurado para garantizar que tu producto se desarrolle sin contratiempos.
+            Un camino claro y sin complicaciones técnicas para que disfrutes ver nacer tu proyecto.
           </p>
         </div>
 
         <div className="services-process-grid">
           <div className="process-step-card">
             <div className="process-step-number">01</div>
-            <h3 className="process-step-title">Descubrimiento & Análisis</h3>
+            <h3 className="process-step-title">1. Me cuentas tu idea</h3>
             <p className="process-step-desc">
-              Analizamos tus objetivos, requerimientos técnicos, público objetivo y alcance para definir la mejor estrategia y tecnología.
+              Conversamos sobre lo que vendes, a quién quieres llegar y qué necesitas para darte la solución más adecuada.
             </p>
           </div>
 
           <div className="process-step-card">
             <div className="process-step-number">02</div>
-            <h3 className="process-step-title">Diseño & Planificación</h3>
+            <h3 className="process-step-title">2. Te muestro la propuesta</h3>
             <p className="process-step-desc">
-              Estructuración de la arquitectura del proyecto, flujos de usuario y prototipos visuales para asegurar una experiencia atractiva.
+              Diseñamos una vista previa visual para que veas cómo lucirá tu proyecto antes de escribir código.
             </p>
           </div>
 
           <div className="process-step-card">
             <div className="process-step-number">03</div>
-            <h3 className="process-step-title">Desarrollo Ágil</h3>
+            <h3 className="process-step-title">3. Lo construimos</h3>
             <p className="process-step-desc">
-              Construcción con código limpio, testeado y componentes reutilizables, compartiendo avances periódicos para tu retroalimentación.
+              Programamos todo para que abra rapidísimo en celulares, reciba pagos y funcione sin fallos.
             </p>
           </div>
 
           <div className="process-step-card">
             <div className="process-step-number">04</div>
-            <h3 className="process-step-title">Lanzamiento & Soporte</h3>
+            <h3 className="process-step-title">4. ¡Lanzamiento y apoyo!</h3>
             <p className="process-step-desc">
-              Pruebas finales, optimización de velocidad, despliegue en el servidor o tiendas de aplicaciones y soporte post-lanzamiento.
+              Publicamos tu proyecto en internet, te enseño paso a paso a usarlo y te acompaño en cada duda.
             </p>
           </div>
         </div>
@@ -713,10 +286,10 @@ export default function ServicesPage() {
       <section className="services-cta-banner" aria-label="Llamada a la acción">
         <div className="services-cta-content">
           <h2 className="services-cta-title">
-            ¿Tienes un proyecto o idea en mente?
+            ¿Tienes una idea o proyecto en mente?
           </h2>
           <p className="services-cta-desc">
-            Cuéntame qué necesitas y hablemos de cómo podemos materializarlo. Te responderé en el menor tiempo posible con una propuesta personalizada y cotización sin compromiso.
+            Escríbeme por WhatsApp, cuéntame qué necesitas y te responderé con una propuesta clara, sin enredos y con cotización sin compromiso.
           </p>
           <div className="services-cta-actions">
             <a
@@ -729,7 +302,7 @@ export default function ServicesPage() {
               Hablemos por WhatsApp
             </a>
             <a href="#inicio" className="btn-home-cta">
-              Explorar portafolio
+              Ver portafolio
             </a>
           </div>
         </div>

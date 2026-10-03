@@ -242,8 +242,8 @@ export default function Footer() {
               <li><a href="#inicio">Inicio</a></li>
               <li><a href="#proyectos">Proyectos</a></li>
               <li><a href="#proyectos-web">Sitios web</a></li>
-              {/* <li><a href="#skills">Habilidades</a></li> */}
-              <li><a href="#sobre-mi">Sobre mí</a></li>
+              <li><a href="#/servicios">Servicios</a></li>
+              <li><a href="#proceso">Proceso</a></li>
             </ul>
           </div>
 
@@ -257,8 +257,13 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="footer-bottom-bar">
           <p>
-            © {currentYear} Luis Alexander Fernandez Paz. Hecho con <span className="footer-heart">♥</span>
+            © {currentYear} Luis Alexander Fernandez Paz. <a href="https://alessanderdev.com" style={{ color: 'inherit', textDecoration: 'none' }}>alessanderdev.com</a>
           </p>
+          <div className="footer-legal-links" style={{ display: 'flex', gap: '1.25rem', fontSize: '0.82rem' }}>
+            <a href="#/privacidad" style={{ color: '#94A3B8', textDecoration: 'none', transition: 'color 0.2s' }}>Privacidad</a>
+            <span style={{ color: 'rgba(255,255,255,0.2)' }}>•</span>
+            <a href="#/terminos" style={{ color: '#94A3B8', textDecoration: 'none', transition: 'color 0.2s' }}>Términos</a>
+          </div>
           <div className="footer-location-tag">
             <span>Lima, Perú</span>
             <span>•</span>

@@ -1,0 +1,16 @@
+{
+  "name": "Luis Alexander Fernandez Paz - Soluciones Digitales",
+  "short_name": "alessanderdev",
+  "description": "Desarrollo de páginas web, tiendas online, apps Android y automatización con IA",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0E14",
+  "theme_color": "#00E676",
+  "icons": [
+    {
+      "src": "/production/ninjahouse.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}

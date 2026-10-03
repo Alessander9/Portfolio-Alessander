@@ -10,14 +10,53 @@ import WebSites from './components/WebSites'
 import BentoGrid from './components/BentoGrid'
 import ProjectPage from './components/ProjectPage'
 import ServicesPage from './components/ServicesPage'
+import ServiceDetailPage from './components/ServiceDetailPage'
+import SitePolicy from './components/SitePolicy'
+import SiteTerms from './components/SiteTerms'
+import NotFoundPage from './components/NotFoundPage'
+import SiteConsent from './components/SiteConsent'
 import Footer from './components/Footer'
 import { PROJECT_ROUTE_PREFIX, SITE_TITLE } from './data/projects'
+import { SERVICES_ROUTE_PREFIX } from './data/servicesData'
 
 export const SERVICES_ROUTE = '#/servicios'
 export const PRODUCTS_ROUTE = '#/productos'
+export const PRIVACY_ROUTE = '#/privacidad'
+export const TERMS_ROUTE = '#/terminos'
 
 function getRoute() {
   const hash = window.location.hash
+  
+  if (!hash || hash === '#' || hash === '#inicio' || !hash.startsWith('#/')) {
+    return { view: 'home' }
+  }
+
+  if (hash === PRIVACY_ROUTE) {
+    return { view: 'privacy' }
+  }
+
+  if (hash === TERMS_ROUTE) {
+    return { view: 'terms' }
+  }
+
+  if (hash.startsWith(SERVICES_ROUTE_PREFIX)) {
+    try {
+      const id = decodeURIComponent(hash.slice(SERVICES_ROUTE_PREFIX.length))
+      if (id) return { view: 'service-detail', id }
+    } catch {
+      return { view: 'services' }
+    }
+  }
+
+  if (hash.startsWith('#/servicios/')) {
+    try {
+      const id = decodeURIComponent(hash.slice('#/servicios/'.length))
+      if (id) return { view: 'service-detail', id }
+    } catch {
+      return { view: 'services' }
+    }
+  }
+
   if (
     hash === SERVICES_ROUTE ||
     hash.startsWith('#/servicios') ||
@@ -26,6 +65,7 @@ function getRoute() {
   ) {
     return { view: 'services' }
   }
+  
   if (hash.startsWith(PROJECT_ROUTE_PREFIX)) {
     try {
       return {
@@ -36,7 +76,8 @@ function getRoute() {
       return { view: 'home' }
     }
   }
-  return { view: 'home' }
+
+  return { view: 'not-found' }
 }
 
 function App() {
@@ -44,7 +85,7 @@ function App() {
   const [showWelcome, setShowWelcome] = useState(() => {
     if (typeof window !== 'undefined' && sessionStorage.getItem('welcome_dismissed')) return false
     const v = getRoute().view
-    return v !== 'project' && v !== 'services'
+    return v === 'home'
   })
   const prevViewRef = useRef(route.view)
 
@@ -52,7 +93,9 @@ function App() {
     const onHashChange = () => {
       const next = getRoute()
       setRoute(next)
-      if (next.view === 'project' || next.view === 'services') setShowWelcome(false)
+      if (next.view !== 'home') {
+        setShowWelcome(false)
+      }
     }
     window.addEventListener('hashchange', onHashChange)
     return () => window.removeEventListener('hashchange', onHashChange)
@@ -63,15 +106,13 @@ function App() {
     const prev = prevViewRef.current
     prevViewRef.current = route.view
 
-    if (route.view === 'project' || route.view === 'services') {
+    if (route.view !== 'home') {
       window.scrollTo(0, 0)
       return
     }
 
     document.title = SITE_TITLE
-    // When coming back from a subpage, the sections were unmounted,
-    // so the browser cannot do the native anchor scroll: do it manually.
-    if (prev === 'project' || prev === 'services') {
+    if (prev !== 'home') {
       const hash = window.location.hash
       if (hash && !hash.startsWith('#/')) {
         requestAnimationFrame(() => {
@@ -95,40 +136,37 @@ function App() {
     }
   }
 
-  if (route.view === 'services') {
+  const renderContent = () => {
+    if (route.view === 'privacy') {
+      return <SitePolicy />
+    }
+
+    if (route.view === 'terms') {
+      return <SiteTerms />
+    }
+
+    if (route.view === 'not-found') {
+      return <NotFoundPage />
+    }
+
+    if (route.view === 'service-detail') {
+      return <ServiceDetailPage key={route.id} serviceId={route.id} />
+    }
+
+    if (route.view === 'services') {
+      return <ServicesPage />
+    }
+
+    if (route.view === 'project') {
+      return <ProjectPage key={route.slug} slug={route.slug} />
+    }
+
+    if (showWelcome) {
+      return <WelcomeScreen onDismiss={dismissWelcome} />
+    }
+
     return (
       <>
-        <Navbar />
-        <main>
-          <ServicesPage />
-        </main>
-        <Footer />
-        <WhatsAppButton />
-      </>
-    )
-  }
-
-  if (route.view === 'project') {
-    return (
-      <>
-        <Navbar />
-        <main>
-          <ProjectPage key={route.slug} slug={route.slug} />
-        </main>
-        <Footer />
-        <WhatsAppButton />
-      </>
-    )
-  }
-
-  if (showWelcome) {
-    return <WelcomeScreen onDismiss={dismissWelcome} />
-  }
-
-  return (
-    <>
-      <Navbar />
-      <main>
         <Hero />
         <TechStack />
         <div className="section-divider" />
@@ -139,9 +177,19 @@ function App() {
         {/* <Skills />
         <div className="section-divider" /> */}
         <BentoGrid />
+      </>
+    )
+  }
+
+  return (
+    <>
+      <Navbar />
+      <main id="main-content" tabIndex="-1">
+        {renderContent()}
       </main>
       <Footer />
       <WhatsAppButton />
+      <SiteConsent />
     </>
   )
 }

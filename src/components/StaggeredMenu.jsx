@@ -8,7 +8,7 @@ const NAV_ITEMS = [
   { label: 'Sitios web', link: '#proyectos-web' },
   { label: 'Servicios', link: '#/servicios' },
   // { label: 'Skills', link: '#skills' },
-  { label: 'Sobre mí', link: '#sobre-mi' },
+  { label: 'Proceso', link: '#proceso' },
 ]
 
 const SOCIAL_ITEMS = [

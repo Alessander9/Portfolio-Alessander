@@ -1,5 +1,5 @@
 .techstack {
-  padding: 5rem 0;
+  padding: 2.75rem 0;
   background: linear-gradient(
     to bottom,
     transparent,
@@ -10,7 +10,7 @@
 }
 
 .techstack .section-subtitle {
-  margin-bottom: 3rem;
+  margin-bottom: 1.75rem;
 }
 
 .techstack-loop-wrapper {
@@ -41,11 +41,19 @@
 }
 
 @media (max-width: 768px) {
+  .techstack {
+    padding: 1.75rem 0;
+  }
+
+  .techstack .section-subtitle {
+    margin-bottom: 1.25rem;
+  }
+
   .techstack-loop-wrapper {
-    height: 70px;
+    height: 56px;
   }
 
   .techstack-loop-wrapper .logoloop__node {
-    font-size: 36px;
+    font-size: 32px;
   }
 }

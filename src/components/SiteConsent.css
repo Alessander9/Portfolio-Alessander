@@ -1,0 +1,118 @@
+.site-consent-banner {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  right: 1.5rem;
+  max-width: 760px;
+  margin: 0 auto;
+  z-index: 9999;
+  animation: slideUpConsent 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideUpConsent {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.site-consent-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1rem 1.4rem;
+  background: rgba(11, 14, 20, 0.94);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 230, 118, 0.1);
+}
+
+.site-consent-text {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #CBD5E1;
+}
+
+.site-consent-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.site-consent-text p {
+  margin: 0;
+}
+
+.site-consent-link {
+  color: #00E676;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 500;
+}
+
+.site-consent-link:hover {
+  color: #6ee7b7;
+}
+
+.site-consent-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+
+.btn-site-consent-decline {
+  padding: 0.55rem 1rem;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #94A3B8;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-site-consent-decline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+}
+
+.btn-site-consent-accept {
+  padding: 0.55rem 1.15rem;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #0B0E14;
+  background: #00E676;
+  border: 1px solid #00E676;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 230, 118, 0.3);
+  transition: all 0.2s ease;
+}
+
+.btn-site-consent-accept:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 640px) {
+  .site-consent-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .site-consent-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}

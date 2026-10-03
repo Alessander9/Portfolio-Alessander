@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap oficial del dominio
+Sitemap: https://alessanderdev.com/sitemap.xml

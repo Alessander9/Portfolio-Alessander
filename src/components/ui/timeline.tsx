@@ -57,30 +57,14 @@ function useGSAP(
   }, deps);
 }
 
-const monthOrder = {
-  January: 1,
-  February: 2,
-  March: 3,
-  April: 4,
-  May: 5,
-  June: 6,
-  July: 7,
-  August: 8,
-  September: 9,
-  October: 10,
-  November: 11,
-  December: 12,
-} as const;
-
-type Month = keyof typeof monthOrder;
-
 export type JourneyItem = {
   id: string;
   year: string;
-  month: Month;
+  month: string;
   content: string;
   image?: string;
   imageAlt?: string;
+  order: number;
 };
 
 type SplitTextInstance = InstanceType<typeof SplitText>;
@@ -132,84 +116,87 @@ function usePrefersReducedMotion() {
 
 const topJourneyData: JourneyItem[] = [
   {
-    id: "2020-march",
-    year: "2020",
-    month: "March",
-    content: "Signal research turns scattered notes into a clear product thesis",
+    id: "fase-1-contacto",
+    year: "FASE 01",
+    month: "Contacto & Tu Idea",
+    content: "Conversamos sobre tu negocio, a quién quieres llegar y lo que necesitas para definir juntos la mejor solución.",
     image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=800&auto=format&fit=crop",
-    imageAlt: "Investigación y conceptualización inicial",
+    imageAlt: "Contacto inicial y conceptualización de la idea",
+    order: 1,
   },
   {
-    id: "2021-july",
-    year: "2021",
-    month: "July",
-    content: "Founding release ships with the first live customer journeys",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
-    imageAlt: "Primer lanzamiento y despliegue de producto",
+    id: "fase-3-diseno",
+    year: "FASE 03",
+    month: "Diseño Visual",
+    content: "Diseñamos una vista previa interactiva para que veas y apruebes exactamente cómo lucirá antes de programar.",
+    image: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=800&auto=format&fit=crop",
+    imageAlt: "Diseño visual y prototipado interactivo",
+    order: 3,
   },
   {
-    id: "2023-april",
-    year: "2023",
-    month: "April",
-    content: "Automation layer connects insight, publishing, and sales motion",
+    id: "fase-5-qa",
+    year: "FASE 05",
+    month: "Pruebas de Calidad",
+    content: "Probamos que todo abra rapidísimo y funcione a la perfección en celulares, tablets y computadoras.",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
-    imageAlt: "Arquitectura de automatización y flujos de datos",
+    imageAlt: "Control de calidad y pruebas multidispositivo",
+    order: 5,
   },
   {
-    id: "2026-may",
-    year: "2026",
-    month: "May",
-    content: "New markets open with localized launches and faster onboarding",
+    id: "fase-7-soporte",
+    year: "FASE 07",
+    month: "Soporte y Crecimiento",
+    content: "Te enseño paso a paso a usar tu proyecto y te brindo soporte continuo para que sigas creciendo sin límites.",
     image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop",
-    imageAlt: "Expansión global y despliegues en la nube",
+    imageAlt: "Mantenimiento, soporte y acompañamiento",
+    order: 7,
   },
 ];
 
 const bottomJourneyData: JourneyItem[] = [
   {
-    id: "2020-november",
-    year: "2020",
-    month: "November",
-    content: "Prototype sprint validates the experience with real operators",
-    image: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=800&auto=format&fit=crop",
-    imageAlt: "Prototipado interactivo y validación con usuarios",
+    id: "fase-2-planificacion",
+    year: "FASE 02",
+    month: "Plan de Trabajo",
+    content: "Organizamos el cronograma de entregas, las funciones clave y un presupuesto cerrado y claro sin sorpresas.",
+    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&auto=format&fit=crop",
+    imageAlt: "Planificación técnica, requerimientos y fechas",
+    order: 2,
   },
   {
-    id: "2022-october",
-    year: "2022",
-    month: "October",
-    content: "Community feedback reshapes the roadmap into sharper releases",
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop",
-    imageAlt: "Colaboración en equipo y roadmap de producto",
+    id: "fase-4-desarrollo",
+    year: "FASE 04",
+    month: "Construcción del Software",
+    content: "Programamos cada sección con la mejor tecnología, compartiéndote avances continuos para tu tranquilidad.",
+    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop",
+    imageAlt: "Programación de software y desarrollo ágil",
+    order: 4,
   },
   {
-    id: "2025-september",
-    year: "2025",
-    month: "September",
-    content: "Companion mobile workflows make the timeline travel-ready",
-    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800&auto=format&fit=crop",
-    imageAlt: "Desarrollo multiplataforma y flujos móviles",
+    id: "fase-6-despliegue",
+    year: "FASE 06",
+    month: "Lanzamiento Oficial",
+    content: "Conectamos tu propio dominio en internet (.com), activamos la seguridad y tu proyecto queda abierto al mundo.",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
+    imageAlt: "Publicación en internet y lanzamiento oficial",
+    order: 6,
   },
 ];
 
 const allJourneyItems: JourneyItem[] = [
   ...topJourneyData,
   ...bottomJourneyData,
-].sort((a, b) => {
-  const yearDiff = Number(a.year) - Number(b.year);
-  if (yearDiff !== 0) return yearDiff;
-  return monthOrder[a.month] - monthOrder[b.month];
-});
+].sort((a, b) => a.order - b.order);
 
 export default function Timeline({
-  title = "Product Storyline",
-  periodLabel = "2020-2026",
+  title = "Cómo trabajamos",
+  periodLabel = "Fase 01 — Fase 07",
   textColor = "var(--text-main, #ffffff)",
   mutedTextColor = "var(--text-muted, #9CA3AF)",
   activeColor = "#00E676",
   backgroundColor = "transparent",
-  imageUrl = "https://cdn.21st.dev/assets/mirror/b0/b0c41784074f76ac5fb6b447da87780c901135841317a096241371f24bc13ddd.jpg",
-  imageAlt = "Modern office workspace",
+  imageUrl = "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
+  imageAlt = "Equipo colaborando en desarrollo de software",
   duration,
   scrollDuration = 1.2,
 }: TimelineProps) {

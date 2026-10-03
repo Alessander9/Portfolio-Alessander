@@ -14,36 +14,39 @@ const settings = {
 export default function TimelineDemo(props: Partial<typeof settings>) {
   const s = { ...settings, ...props };
   return (
-    <div id="sobre-mi" className="timeline-demo-root">
+    <div id="proceso" className="timeline-demo-root relative">
+      {/* Anchor for backward compatibility with #sobre-mi */}
+      <span id="sobre-mi" className="absolute top-0 left-0 pointer-events-none opacity-0" aria-hidden="true" />
+
       {/* Lead-in so the pinned timeline has somewhere to scroll in from. */}
       <section className="timeline-leadin">
         <span className="timeline-leadin-badge">
-          Trayectoria & Hitos
+          Metodología & Proceso
         </span>
         <h2 className="timeline-leadin-title">
-          Seis años, un recorrido interactivo.
+          De tu idea a producción, paso a paso.
         </h2>
         <p className="timeline-leadin-desc">
-          Sigue deslizando — la sección se fija en pantalla, la línea de tiempo avanza horizontalmente y cada hito revela su historia.
+          Un flujo transparente y estructurado: desde el primer contacto y la planificación, hasta el diseño interactivo, código ágil, pruebas, despliegue y soporte continuo.
         </p>
         <span className="timeline-leadin-arrow">&darr;</span>
       </section>
 
       {/* Realistic usage: custom copy, a branded accent, tuned reveal speed. */}
       <Timeline
-        title="Product Storyline"
-        periodLabel="2020 — 2026"
+        title="Proceso de Desarrollo"
+        periodLabel="Fase 01 — Fase 07"
         backgroundColor={s.backgroundColor}
         textColor={s.textColor}
         mutedTextColor={s.mutedTextColor}
         activeColor={s.activeColor}
-        imageUrl="https://cdn.21st.dev/assets/mirror/b0/b0c41784074f76ac5fb6b447da87780c901135841317a096241371f24bc13ddd.jpg"
-        imageAlt="Team at work in a bright studio"
+        imageUrl="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop"
+        imageAlt="Equipo colaborando en desarrollo de software"
         duration={s.duration}
       />
 
       <section className="timeline-leadout">
-        Desde las primeras notas de investigación hasta lanzamientos en producción y soluciones con IA.
+        ¿Tienes una idea o proyecto en mente? Contáctanos y lo transformamos en una solución digital de alto impacto.
       </section>
     </div>
   );

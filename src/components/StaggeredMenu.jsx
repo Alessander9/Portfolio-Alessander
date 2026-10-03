@@ -310,7 +310,7 @@ export default function StaggeredMenu() {
           onClick={() => closeMenu()}
         >
           <img
-            src="/logoAlex.webp"
+            src="/logoAlex.png"
             alt="Luis."
             className="sm-logo-img"
           />

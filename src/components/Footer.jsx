@@ -225,7 +225,7 @@ export default function Footer() {
           <div className="footer-brand-col">
             <a href="#inicio" className="footer-logo" aria-label="Luis - Inicio">
               <img
-                src="/logoAlex.webp"
+                src="/logoAlex.png"
                 alt="Luis."
                 className="footer-logo-img"
               />

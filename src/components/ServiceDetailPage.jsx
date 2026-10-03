@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { getServiceById, getAllServices, SERVICES_ROUTE_PREFIX } from '../data/servicesData'
 import { SITE_TITLE } from '../data/projects'
+import { getOptimizedVideoUrl, getCloudinaryPosterUrl } from '../utils/mediaOptimizer'
 import './ServiceDetailPage.css'
 
 /* ── Direction-aware Flowing Hover Card (FlowingMenu style) ── */
@@ -319,13 +320,13 @@ export default function ServiceDetailPage({ serviceId }) {
             <div className="service-video-frame">
               <video
                 key={service.id}
-                src={service.video}
-                poster={service.poster}
+                src={getOptimizedVideoUrl(service.video, 800)}
+                poster={service.poster || getCloudinaryPosterUrl(service.video, 800)}
                 autoPlay
                 loop
                 muted
                 playsInline
-                preload="auto"
+                preload="metadata"
                 className="service-video-player"
               />
 

@@ -296,7 +296,11 @@ export default function StaggeredMenu() {
       const targetEl = document.getElementById(targetId)
       if (targetEl) {
         e.preventDefault()
-        targetEl.scrollIntoView({ behavior: 'smooth' })
+        if (window.__lenis) {
+          window.__lenis.scrollTo(targetEl, { duration: 1.2 })
+        } else {
+          targetEl.scrollIntoView({ behavior: 'smooth' })
+        }
         window.history.pushState(null, '', link)
       }
     }

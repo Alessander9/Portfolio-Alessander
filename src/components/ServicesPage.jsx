@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { SERVICES_DATA, SERVICES_ROUTE_PREFIX } from '../data/servicesData'
 import { SITE_TITLE } from '../data/projects'
+import { getOptimizedVideoUrl, getCloudinaryPosterUrl } from '../utils/mediaOptimizer'
 import './ServicesPage.css'
 
 /* ── SVG Icons ── */
@@ -39,6 +40,66 @@ const CATEGORY_FILTERS = [
   { id: 'movil', label: 'Apps Móviles', count: 1 },
 ]
 
+/* ── Componente de Video con Intersection Observer (Lazy Loading) ── */
+function LazyVideoCard({ video, poster, accent }) {
+  const videoRef = useRef(null)
+  const containerRef = useRef(null)
+  const [isInView, setIsInView] = useState(false)
+
+  const optimizedVideo = getOptimizedVideoUrl(video, 720)
+  const dynamicPoster = poster || getCloudinaryPosterUrl(video, 600)
+
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true)
+          if (videoRef.current) {
+            videoRef.current.play().catch(() => {})
+          }
+        } else {
+          if (videoRef.current) {
+            videoRef.current.pause()
+          }
+        }
+      },
+      { rootMargin: '120px 0px', threshold: 0.15 }
+    )
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div ref={containerRef} className="product-video-wrapper">
+      <video
+        ref={videoRef}
+        src={isInView ? optimizedVideo : undefined}
+        poster={dynamicPoster}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="none"
+        className="product-video-element"
+      />
+
+      <div className="product-video-overlay" />
+
+      <div className="product-video-badge">
+        <span
+          className="product-video-dot"
+          style={{ backgroundColor: accent, boxShadow: `0 0 10px ${accent}` }}
+        />
+        <span>MIRA EL VIDEO</span>
+      </div>
+    </div>
+  )
+}
+
 /* ── Componente: Tarjeta de Solución Explicada Fácil con 2 Botones ── */
 export function ProductCard({
   id,
@@ -59,29 +120,8 @@ export function ProductCard({
 
   return (
     <article className="product-card" id={id} style={{ '--card-accent': accent }}>
-      {/* 1. Video Principal (Autoplay, Loop, Muted, Sin Controles) */}
-      <div className="product-video-wrapper">
-        <video
-          src={video}
-          poster={poster}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          className="product-video-element"
-        />
-
-        <div className="product-video-overlay" />
-
-        <div className="product-video-badge">
-          <span
-            className="product-video-dot"
-            style={{ backgroundColor: accent, boxShadow: `0 0 10px ${accent}` }}
-          />
-          <span>MIRA EL VIDEO</span>
-        </div>
-      </div>
+      {/* 1. Video Principal con Carga Perezosa e Intersection Observer */}
+      <LazyVideoCard video={video} poster={poster} accent={accent} />
 
       {/* Contenido de la Tarjeta */}
       <div className="product-card-body">

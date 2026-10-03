@@ -1,23 +1,27 @@
-import { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, Suspense, lazy } from 'react'
+import Lenis from 'lenis'
+import 'lenis/dist/lenis.css'
+
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import TechStack from './components/TechStack'
 import WhatsAppButton from './components/WhatsAppButton'
 import LoadingScreen from './components/LoadingScreen'
-import Skills from './components/Skills'
 import Projects from './components/Projects'
 import WebSites from './components/WebSites'
 import BentoGrid from './components/BentoGrid'
-import ProjectPage from './components/ProjectPage'
-import ServicesPage from './components/ServicesPage'
-import ServiceDetailPage from './components/ServiceDetailPage'
-import SitePolicy from './components/SitePolicy'
-import SiteTerms from './components/SiteTerms'
-import NotFoundPage from './components/NotFoundPage'
 import SiteConsent from './components/SiteConsent'
 import Footer from './components/Footer'
 import { PROJECT_ROUTE_PREFIX, SITE_TITLE } from './data/projects'
 import { SERVICES_ROUTE_PREFIX } from './data/servicesData'
+
+// ── Lazy Loaded Subpages for Optimal Initial Bundle Size ──
+const ProjectPage = lazy(() => import('./components/ProjectPage'))
+const ServicesPage = lazy(() => import('./components/ServicesPage'))
+const ServiceDetailPage = lazy(() => import('./components/ServiceDetailPage'))
+const SitePolicy = lazy(() => import('./components/SitePolicy'))
+const SiteTerms = lazy(() => import('./components/SiteTerms'))
+const NotFoundPage = lazy(() => import('./components/NotFoundPage'))
 
 export const SERVICES_ROUTE = '#/servicios'
 export const PRODUCTS_ROUTE = '#/productos'
@@ -80,6 +84,30 @@ function getRoute() {
   return { view: 'not-found' }
 }
 
+function SubpageLoader() {
+  return (
+    <div style={{
+      minHeight: '60vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      color: '#00E676',
+      fontFamily: 'sans-serif',
+      fontSize: '0.9rem',
+      letterSpacing: '0.05em'
+    }}>
+      <div style={{
+        width: '32px',
+        height: '32px',
+        border: '2px solid rgba(0, 230, 118, 0.2)',
+        borderTopColor: '#00E676',
+        borderRadius: '50%',
+        animation: 'spin 0.8s linear infinite'
+      }} />
+    </div>
+  )
+}
+
 function App() {
   const [route, setRoute] = useState(getRoute)
   const [showLoading, setShowLoading] = useState(() => {
@@ -88,6 +116,36 @@ function App() {
     return v === 'home'
   })
   const prevViewRef = useRef(route.view)
+
+  // ── Initialize Lenis Smooth Inertia Scroll ──
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.15,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 0.95,
+      touchMultiplier: 1.8,
+      infinite: false,
+    })
+
+    window.__lenis = lenis
+
+    let reqId
+    function raf(time) {
+      lenis.raf(time)
+      reqId = requestAnimationFrame(raf)
+    }
+
+    reqId = requestAnimationFrame(raf)
+
+    return () => {
+      cancelAnimationFrame(reqId)
+      lenis.destroy()
+      window.__lenis = null
+    }
+  }, [])
 
   useEffect(() => {
     const onHashChange = () => {
@@ -107,7 +165,11 @@ function App() {
     prevViewRef.current = route.view
 
     if (route.view !== 'home') {
-      window.scrollTo(0, 0)
+      if (window.__lenis) {
+        window.__lenis.scrollTo(0, { immediate: true })
+      } else {
+        window.scrollTo(0, 0)
+      }
       return
     }
 
@@ -116,38 +178,70 @@ function App() {
       const hash = window.location.hash
       if (hash && !hash.startsWith('#/')) {
         requestAnimationFrame(() => {
-          const el = document.querySelector(hash)
-          if (el) el.scrollIntoView({ behavior: 'smooth' })
+          if (window.__lenis) {
+            window.__lenis.scrollTo(hash, { duration: 1.2 })
+          } else {
+            const el = document.querySelector(hash)
+            if (el) el.scrollIntoView({ behavior: 'smooth' })
+          }
         })
       } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' })
+        if (window.__lenis) {
+          window.__lenis.scrollTo(0, { immediate: false, duration: 1 })
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        }
       }
     }
   }, [route])
 
   const renderContent = () => {
     if (route.view === 'privacy') {
-      return <SitePolicy />
+      return (
+        <Suspense fallback={<SubpageLoader />}>
+          <SitePolicy />
+        </Suspense>
+      )
     }
 
     if (route.view === 'terms') {
-      return <SiteTerms />
+      return (
+        <Suspense fallback={<SubpageLoader />}>
+          <SiteTerms />
+        </Suspense>
+      )
     }
 
     if (route.view === 'not-found') {
-      return <NotFoundPage />
+      return (
+        <Suspense fallback={<SubpageLoader />}>
+          <NotFoundPage />
+        </Suspense>
+      )
     }
 
     if (route.view === 'service-detail') {
-      return <ServiceDetailPage key={route.id} serviceId={route.id} />
+      return (
+        <Suspense fallback={<SubpageLoader />}>
+          <ServiceDetailPage key={route.id} serviceId={route.id} />
+        </Suspense>
+      )
     }
 
     if (route.view === 'services') {
-      return <ServicesPage />
+      return (
+        <Suspense fallback={<SubpageLoader />}>
+          <ServicesPage />
+        </Suspense>
+      )
     }
 
     if (route.view === 'project') {
-      return <ProjectPage key={route.slug} slug={route.slug} />
+      return (
+        <Suspense fallback={<SubpageLoader />}>
+          <ProjectPage key={route.slug} slug={route.slug} />
+        </Suspense>
+      )
     }
 
     return (
@@ -159,8 +253,6 @@ function App() {
         <div className="section-divider" />
         <WebSites />
         <div className="section-divider" />
-        {/* <Skills />
-        <div className="section-divider" /> */}
         <BentoGrid />
       </>
     )

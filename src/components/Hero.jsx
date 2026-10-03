@@ -31,7 +31,7 @@ export default function Hero() {
 
       <div className="container hero-container">
         <div className="hero-content">
-          <div ref={ref} className={`hero-text${visible ? ' visible' : ''}`}>
+          <div className="hero-text">
             {/* <span className="hero-badge">
             <span className="hero-badge-dot" />
             Disponible para trabajar

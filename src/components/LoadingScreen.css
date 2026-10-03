@@ -1,10 +1,14 @@
 /* ==========================================================================
-   Minimal & Luxury Loading Screen (Design Studio Aesthetic)
+   Tech HUD Curtain Loading Screen
+   - Enclosing rotating tech circle HUD around logo
+   - Scramble/cipher text forming "CARGANDO..."
+   - Smooth curtain drop exit (falling curtain effect)
    ========================================================================== */
 
-.loading-minimal-overlay {
+.tech-curtain-overlay {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
   height: 100dvh;
@@ -14,156 +18,251 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  transition: transform 0.65s cubic-bezier(0.76, 0, 0.24, 1),
-              opacity 0.65s cubic-bezier(0.76, 0, 0.24, 1);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+  /* Smooth curtain drop transition */
+  transition: transform 0.95s cubic-bezier(0.77, 0, 0.175, 1),
+              opacity 0.95s cubic-bezier(0.77, 0, 0.175, 1);
+  will-change: transform, opacity;
 }
 
-.loading-minimal-overlay.is-exit {
-  transform: translateY(-100%);
-  opacity: 0.98;
+/* Telón cayendo hacia abajo con movimiento smooth */
+.tech-curtain-overlay.curtain-drop {
+  transform: translateY(100%);
+  opacity: 0.96;
   pointer-events: none;
 }
 
-/* Soft Ambient Radial Light Behind Logo */
-.loading-ambient-light {
+/* Background Ambient Elements */
+.tech-curtain-ambient {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 460px;
-  height: 460px;
+  width: 500px;
+  height: 500px;
   background: radial-gradient(
     circle,
-    rgba(0, 230, 118, 0.12) 0%,
-    rgba(124, 58, 237, 0.08) 40%,
+    rgba(0, 230, 118, 0.14) 0%,
+    rgba(124, 58, 237, 0.1) 45%,
     transparent 70%
   );
-  filter: blur(60px);
+  filter: blur(70px);
   pointer-events: none;
-  animation: ambientFloat 4s ease-in-out infinite alternate;
+  animation: hudAmbientPulse 3s ease-in-out infinite alternate;
 }
 
-@keyframes ambientFloat {
-  0% {
-    transform: translate(-50%, -50%) scale(0.9);
-    opacity: 0.7;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(1.1);
-    opacity: 1;
-  }
+@keyframes hudAmbientPulse {
+  0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.7; }
+  100% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
 }
 
-/* Central Card */
-.loading-center-box {
+.tech-curtain-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 230, 118, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 230, 118, 0.03) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+  pointer-events: none;
+}
+
+/* Central Content */
+.tech-curtain-content {
   position: relative;
   z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1.6rem;
+  gap: 2.2rem;
   width: 100%;
-  max-width: 320px;
-  padding: 0 1.5rem;
-  animation: revealCenter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  max-width: 380px;
+  padding: 1.5rem;
+  text-align: center;
 }
 
-@keyframes revealCenter {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Brand Logo */
-.loading-logo-frame {
+/* ── Circular Tech HUD Ring ── */
+.tech-hud-ring-wrapper {
   position: relative;
+  width: 220px;
+  height: 220px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0.4rem;
 }
 
-.loading-brand-logo {
-  height: 56px;
+.tech-hud-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  filter: drop-shadow(0 0 10px rgba(0, 230, 118, 0.35));
+}
+
+.hud-circle-outer {
+  transform-origin: 120px 120px;
+  animation: hudRotateCw 9s linear infinite;
+}
+
+.hud-circle-mid {
+  transform-origin: 120px 120px;
+  animation: hudRotateCcw 6s linear infinite;
+}
+
+.hud-circle-inner {
+  transform-origin: 120px 120px;
+  animation: hudRotateCw 14s linear infinite;
+}
+
+@keyframes hudRotateCw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes hudRotateCcw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+.tech-hud-glow {
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 230, 118, 0.25) 0%, transparent 70%);
+  filter: blur(16px);
+  pointer-events: none;
+  animation: hudGlowBreath 2s ease-in-out infinite alternate;
+}
+
+@keyframes hudGlowBreath {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  100% { transform: scale(1.1); opacity: 1; }
+}
+
+.tech-hud-logo-box {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tech-hud-logo-img {
+  height: 68px;
   width: auto;
   object-fit: contain;
   display: block;
-  filter: drop-shadow(0 4px 20px rgba(0, 230, 118, 0.25));
-  animation: logoSoftFloat 3s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 18px rgba(0, 230, 118, 0.45));
+  animation: hudLogoPulse 2.5s ease-in-out infinite alternate;
 }
 
-@keyframes logoSoftFloat {
-  0% {
-    transform: translateY(0) scale(0.98);
-  }
-  100% {
-    transform: translateY(-4px) scale(1.02);
-  }
+@keyframes hudLogoPulse {
+  0% { transform: scale(0.97); }
+  100% { transform: scale(1.03); }
 }
 
-/* Minimalist Progress Line */
-.loading-line-wrapper {
+/* ── Scramble Text Box ── */
+.tech-scramble-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.tech-scramble-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #00E676;
+  text-shadow: 0 0 12px rgba(0, 230, 118, 0.6), 0 0 24px rgba(0, 230, 118, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.6rem;
+}
+
+.tech-scramble-prefix {
+  color: #7C3AED;
+  text-shadow: 0 0 10px rgba(124, 58, 237, 0.6);
+  margin-right: 0.35rem;
+}
+
+.tech-scramble-text {
+  display: inline-block;
+}
+
+.tech-scramble-cursor {
+  color: #00E676;
+  animation: hudBlinkCursor 0.6s infinite step-start;
+  margin-left: 2px;
+}
+
+@keyframes hudBlinkCursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Progress Line */
+.tech-hud-progress-bar {
   position: relative;
   width: 100%;
-  height: 2px;
+  height: 3px;
   background: rgba(255, 255, 255, 0.08);
   border-radius: 999px;
   overflow: hidden;
 }
 
-.loading-line-fill {
+.tech-hud-progress-fill {
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   background: linear-gradient(90deg, #7C3AED, #00E676);
   border-radius: 999px;
-  box-shadow: 0 0 10px rgba(0, 230, 118, 0.5);
-  transition: width 0.06s linear;
+  box-shadow: 0 0 12px rgba(0, 230, 118, 0.7);
+  transition: width 0.04s linear;
 }
 
-/* Caption Row */
-.loading-caption-row {
+/* Status Row */
+.tech-hud-status-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  font-size: 0.76rem;
-  color: #94A3B8;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.loading-tagline {
+  font-family: monospace;
+  font-size: 0.72rem;
   color: #64748B;
-  font-weight: 500;
+  letter-spacing: 0.08em;
 }
 
-.loading-counter {
+.tech-hud-percent {
+  color: #CBD5E1;
   font-weight: 700;
-  color: #F8FAFC;
-  letter-spacing: 0.05em;
-  font-variant-numeric: tabular-nums;
 }
 
 @media (max-width: 640px) {
-  .loading-brand-logo {
-    height: 48px;
+  .tech-hud-ring-wrapper {
+    width: 185px;
+    height: 185px;
   }
 
-  .loading-center-box {
-    max-width: 280px;
-    gap: 1.4rem;
+  .tech-hud-logo-img {
+    height: 56px;
   }
 
-  .loading-caption-row {
-    font-size: 0.7rem;
+  .tech-scramble-code {
+    font-size: 1rem;
+    letter-spacing: 0.18em;
+  }
+
+  .tech-curtain-content {
+    max-width: 320px;
+    gap: 1.8rem;
   }
 }

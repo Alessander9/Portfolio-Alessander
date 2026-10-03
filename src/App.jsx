@@ -3,7 +3,7 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import TechStack from './components/TechStack'
 import WhatsAppButton from './components/WhatsAppButton'
-import WelcomeScreen from './components/WelcomeScreen'
+import LoadingScreen from './components/LoadingScreen'
 import Skills from './components/Skills'
 import Projects from './components/Projects'
 import WebSites from './components/WebSites'
@@ -82,8 +82,8 @@ function getRoute() {
 
 function App() {
   const [route, setRoute] = useState(getRoute)
-  const [showWelcome, setShowWelcome] = useState(() => {
-    if (typeof window !== 'undefined' && sessionStorage.getItem('welcome_dismissed')) return false
+  const [showLoading, setShowLoading] = useState(() => {
+    if (typeof window !== 'undefined' && sessionStorage.getItem('portfolio_preloader_seen')) return false
     const v = getRoute().view
     return v === 'home'
   })
@@ -94,7 +94,7 @@ function App() {
       const next = getRoute()
       setRoute(next)
       if (next.view !== 'home') {
-        setShowWelcome(false)
+        setShowLoading(false)
       }
     }
     window.addEventListener('hashchange', onHashChange)
@@ -161,10 +161,6 @@ function App() {
       return <ProjectPage key={route.slug} slug={route.slug} />
     }
 
-    if (showWelcome) {
-      return <WelcomeScreen onDismiss={dismissWelcome} />
-    }
-
     return (
       <>
         <Hero />
@@ -183,6 +179,7 @@ function App() {
 
   return (
     <>
+      {showLoading && <LoadingScreen onComplete={() => setShowLoading(false)} />}
       <Navbar />
       <main id="main-content" tabIndex="-1">
         {renderContent()}

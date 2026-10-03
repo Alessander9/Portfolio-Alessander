@@ -1,0 +1,265 @@
+/* ==========================================================================
+   Loading Screen / Preloader Styles
+   Palette: #0B0B10 (Dark Void), #00E676 (Neon Green), #7C3AED (Neon Violet)
+   ========================================================================== */
+
+.loading-screen-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background-color: #0B0B10;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: transform 0.75s cubic-bezier(0.76, 0, 0.24, 1),
+              opacity 0.65s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.loading-screen-overlay.fade-out {
+  transform: translateY(-100%);
+  opacity: 0.95;
+  pointer-events: none;
+}
+
+/* Background Grids & Ambient Orbs */
+.loading-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+  pointer-events: none;
+}
+
+.loading-glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  opacity: 0.35;
+  animation: floatOrb 6s ease-in-out infinite alternate;
+}
+
+.loading-glow-green {
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(0, 230, 118, 0.4) 0%, transparent 70%);
+  top: 30%;
+  left: 35%;
+}
+
+.loading-glow-purple {
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.4) 0%, transparent 70%);
+  bottom: 25%;
+  right: 35%;
+  animation-delay: -3s;
+}
+
+@keyframes floatOrb {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(25px, -20px) scale(1.15); }
+}
+
+/* Central Card */
+.loading-content-card {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.2rem;
+  padding: 2.5rem;
+  max-width: 480px;
+  width: 90%;
+  animation: scaleInCard 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes scaleInCard {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Logo Animation with Neon Halo & Breathing */
+.loading-logo-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 2.5rem;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6),
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.loading-logo-aura {
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(circle, rgba(0, 230, 118, 0.22) 0%, rgba(124, 58, 237, 0.15) 50%, transparent 75%);
+  filter: blur(18px);
+  opacity: 0.8;
+  animation: pulseAura 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes pulseAura {
+  0% { transform: scale(0.92); opacity: 0.6; }
+  100% { transform: scale(1.1); opacity: 1; }
+}
+
+.loading-logo-img {
+  position: relative;
+  z-index: 2;
+  height: 64px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 16px rgba(0, 230, 118, 0.35));
+  animation: logoBreath 3s ease-in-out infinite alternate;
+}
+
+@keyframes logoBreath {
+  0% { transform: scale(0.98); }
+  100% { transform: scale(1.03); }
+}
+
+.loading-shimmer-sweep {
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.15),
+    rgba(0, 230, 118, 0.25),
+    transparent
+  );
+  transform: skewX(-25deg);
+  animation: shimmerSweep 2.8s infinite ease-in-out;
+}
+
+@keyframes shimmerSweep {
+  0% { left: -150%; }
+  50%, 100% { left: 150%; }
+}
+
+/* Progress Bar Container */
+.loading-progress-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.loading-progress-track {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.loading-progress-fill {
+  position: relative;
+  height: 100%;
+  background: linear-gradient(90deg, #7C3AED 0%, #00E676 100%);
+  border-radius: 999px;
+  box-shadow: 0 0 14px rgba(0, 230, 118, 0.6);
+  transition: width 0.08s ease-out;
+}
+
+.loading-progress-glow-head {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #00E676, 0 0 18px #00E676;
+}
+
+/* Info Row */
+.loading-info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  color: #9CA3AF;
+  font-family: monospace, system-ui, sans-serif;
+}
+
+.loading-status-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #CBD5E1;
+  letter-spacing: 0.02em;
+}
+
+.loading-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00E676;
+  box-shadow: 0 0 8px #00E676;
+  animation: dotPulseLoading 1.2s infinite ease-in-out;
+}
+
+@keyframes dotPulseLoading {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(0.6); opacity: 0.4; }
+}
+
+.loading-percent-text {
+  font-weight: 700;
+  color: #00E676;
+  text-shadow: 0 0 8px rgba(0, 230, 118, 0.4);
+  font-size: 0.95rem;
+}
+
+.loading-percent-symbol {
+  font-size: 0.78rem;
+  opacity: 0.8;
+  margin-left: 1px;
+}
+
+@media (max-width: 640px) {
+  .loading-logo-img {
+    height: 52px;
+  }
+
+  .loading-logo-wrapper {
+    padding: 1.25rem 2rem;
+  }
+
+  .loading-status-text {
+    font-size: 0.75rem;
+  }
+
+  .loading-percent-text {
+    font-size: 0.88rem;
+  }
+}

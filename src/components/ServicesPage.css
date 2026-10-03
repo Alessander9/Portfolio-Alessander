@@ -765,7 +765,11 @@
     width: 100%;
     justify-content: center;
   }
+  .product-video-badge {
+    display: none;
+  }
   .services-cta-banner {
     padding: 3rem 1.5rem;
   }
 }
+

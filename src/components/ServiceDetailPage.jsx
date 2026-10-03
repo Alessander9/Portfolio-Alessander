@@ -177,7 +177,8 @@ export default function ServiceDetailPage({ serviceId }) {
         "provider": {
           "@type": "Person",
           "name": "Luis Alexander Fernandez Paz",
-          "url": "https://alessanderdev.com/"
+          "url": "https://alessanderdev.com/",
+          "image": "https://alessanderdev.com/logoAlex.png"
         },
         "areaServed": "Worldwide",
         "category": service.category,

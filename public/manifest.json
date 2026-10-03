@@ -8,9 +8,9 @@
   "theme_color": "#00E676",
   "icons": [
     {
-      "src": "/production/ninjahouse.jpg",
+      "src": "/logoAlex.png",
       "sizes": "512x512",
-      "type": "image/jpeg"
+      "type": "image/png"
     }
   ]
 }

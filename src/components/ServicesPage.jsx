@@ -31,12 +31,12 @@ function ArrowUpRightIcon() {
 }
 
 const CATEGORY_FILTERS = [
-  { id: 'all', label: 'Todos', count: 9 },
-  { id: 'web', label: 'Páginas Web', count: 2 },
-  { id: 'mobile', label: 'Apps Celulares', count: 1 },
-  { id: 'ecommerce', label: 'Tiendas & Catálogos', count: 2 },
-  { id: 'ai', label: 'Inteligencia Artificial', count: 2 },
-  { id: 'edtech', label: 'Cursos & Asesoría', count: 2 },
+  { id: 'all', label: 'Todos', count: 10 },
+  { id: 'software', label: 'Sistemas & ERP', count: 3 },
+  { id: 'salud', label: 'Salud & Veterinarias', count: 2 },
+  { id: 'ia', label: 'Redes & Marketing', count: 2 },
+  { id: 'web', label: 'Citas & Educación', count: 2 },
+  { id: 'movil', label: 'Apps Móviles', count: 1 },
 ]
 
 /* ── Componente: Tarjeta de Solución Explicada Fácil con 2 Botones ── */

@@ -60,16 +60,21 @@
 }
 
 .footer-logo {
-  font-size: 1.6rem;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  color: #fff;
+  display: inline-flex;
+  align-items: center;
   text-decoration: none;
   transition: transform 0.3s ease;
 }
 
 .footer-logo:hover {
   transform: scale(1.05);
+}
+
+.footer-logo-img {
+  height: 42px;
+  width: auto;
+  object-fit: contain;
+  display: block;
 }
 
 .footer-logo-dot {

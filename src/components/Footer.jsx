@@ -223,8 +223,12 @@ export default function Footer() {
         <div className="footer-top-grid">
           {/* Brand col */}
           <div className="footer-brand-col">
-            <a href="#inicio" className="footer-logo">
-              Luis<span className="footer-logo-dot">.</span>
+            <a href="#inicio" className="footer-logo" aria-label="Luis - Inicio">
+              <img
+                src="/logoAlex.webp"
+                alt="Luis."
+                className="footer-logo-img"
+              />
             </a>
             <p className="footer-bio">
               Desarrollador de software especializado en crear sitios web modernos, sistemas y aplicaciones móviles de alto rendimiento.

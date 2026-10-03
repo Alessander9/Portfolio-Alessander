@@ -306,12 +306,14 @@ export default function StaggeredMenu() {
         <a
           href="#inicio"
           className={`sm-logo ${!inHero ? 'hidden-outside-hero' : ''}`}
-          aria-label="Logo"
+          aria-label="Luis - Inicio"
           onClick={() => closeMenu()}
         >
-          <span className="sm-logo-text">
-            Luis<span className="sm-logo-accent">.</span>
-          </span>
+          <img
+            src="/logoAlex.webp"
+            alt="Luis."
+            className="sm-logo-img"
+          />
         </a>
 
         <button

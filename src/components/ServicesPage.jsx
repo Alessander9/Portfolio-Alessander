@@ -1,8 +1,103 @@
 import { useState, useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
 import { SERVICES_DATA, SERVICES_ROUTE_PREFIX } from '../data/servicesData'
 import { SITE_TITLE } from '../data/projects'
 import { getOptimizedVideoUrl, getCloudinaryPosterUrl } from '../utils/mediaOptimizer'
 import './ServicesPage.css'
+
+/* ── Direction-aware Flowing Hover Card (FlowingMenu style) ── */
+function FlowingHoverCard({ children, className = '', style = {}, accentColor }) {
+  const cardRef = useRef(null)
+  const flowLayerRef = useRef(null)
+
+  const getClosestEdge = (x, y, w, h) => {
+    const top = y * y
+    const bottom = (h - y) * (h - y)
+    const left = x * x
+    const right = (w - x) * (w - x)
+    const min = Math.min(top, bottom, left, right)
+    if (min === top) return 'top'
+    if (min === bottom) return 'bottom'
+    if (min === left) return 'left'
+    return 'right'
+  }
+
+  const getTransformForEdge = (edge) => {
+    switch (edge) {
+      case 'top':
+        return { x: '0%', y: '-101%' }
+      case 'bottom':
+        return { x: '0%', y: '101%' }
+      case 'left':
+        return { x: '-101%', y: '0%' }
+      case 'right':
+        return { x: '101%', y: '0%' }
+      default:
+        return { x: '0%', y: '101%' }
+    }
+  }
+
+  const handleMouseEnter = (e) => {
+    if (!cardRef.current || !flowLayerRef.current) return
+    const rect = cardRef.current.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    const edge = getClosestEdge(x, y, rect.width, rect.height)
+    const startPos = getTransformForEdge(edge)
+
+    gsap.killTweensOf(flowLayerRef.current)
+    gsap.set(flowLayerRef.current, { ...startPos, opacity: 1 })
+    gsap.to(flowLayerRef.current, {
+      x: '0%',
+      y: '0%',
+      duration: 0.45,
+      ease: 'power3.out',
+    })
+  }
+
+  const handleMouseLeave = (e) => {
+    if (!cardRef.current || !flowLayerRef.current) return
+    const rect = cardRef.current.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    const edge = getClosestEdge(x, y, rect.width, rect.height)
+    const endPos = getTransformForEdge(edge)
+
+    gsap.killTweensOf(flowLayerRef.current)
+    gsap.to(flowLayerRef.current, {
+      ...endPos,
+      duration: 0.45,
+      ease: 'power3.out',
+      onComplete: () => {
+        if (flowLayerRef.current) {
+          gsap.set(flowLayerRef.current, { opacity: 0 })
+        }
+      },
+    })
+  }
+
+  return (
+    <div
+      ref={cardRef}
+      className={`flowing-hover-card-wrap ${className}`}
+      style={style}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div
+        ref={flowLayerRef}
+        className="flowing-hover-card-layer"
+        style={{
+          background: accentColor
+            ? `radial-gradient(circle at 50% 30%, ${accentColor}25 0%, ${accentColor}0e 60%, transparent 100%), linear-gradient(135deg, ${accentColor}18 0%, rgba(255, 255, 255, 0.03) 100%)`
+            : undefined,
+          borderColor: accentColor ? `${accentColor}44` : undefined,
+        }}
+      />
+      <div className="flowing-hover-card-inner">{children}</div>
+    </div>
+  )
+}
 
 /* ── SVG Icons ── */
 function ArrowLeftIcon() {
@@ -119,7 +214,7 @@ export function ProductCard({
   const targetDetailUrl = detailUrl || `${SERVICES_ROUTE_PREFIX}${id}`
 
   return (
-    <article className="product-card" id={id} style={{ '--card-accent': accent }}>
+    <FlowingHoverCard className="product-card" accentColor={accent}>
       {/* 1. Video Principal con Carga Perezosa e Intersection Observer */}
       <LazyVideoCard video={video} poster={poster} accent={accent} />
 
@@ -195,7 +290,7 @@ export function ProductCard({
           </a>
         </div>
       </div>
-    </article>
+    </FlowingHoverCard>
   )
 }
 
@@ -205,7 +300,11 @@ export default function ServicesPage() {
 
   useEffect(() => {
     document.title = 'Servicios y Soluciones Digitales | Luis Alexander Fernandez Paz'
-    window.scrollTo(0, 0)
+    if (window.__lenis) {
+      window.__lenis.scrollTo(0, { immediate: true })
+    } else {
+      window.scrollTo(0, 0)
+    }
     return () => {
       document.title = SITE_TITLE
     }
@@ -218,25 +317,29 @@ export default function ServicesPage() {
   return (
     <div className="services-page">
       {/* Botón Volver */}
-      <a href="#inicio" className="services-back">
-        <ArrowLeftIcon />
-        <span>Volver al inicio</span>
-      </a>
+      <div className="services-top-nav">
+        <a href="#inicio" className="services-back-link">
+          <ArrowLeftIcon />
+          <span>Volver al inicio</span>
+        </a>
+      </div>
 
-      {/* Hero Header */}
-      <header className="services-hero">
-        <div className="services-badge">
-          <span className="services-badge-dot" />
-          Servicios para tu Negocio
+      {/* Header Principal */}
+      <header className="services-hero-header">
+        <div className="services-hero-badge">
+          <span className="services-badge-pulse" />
+          <span>SOLUCIONES DIGITALES EXPLICADAS SIMPLE</span>
         </div>
-        <h1 className="services-title">
-          Soluciones digitales para <span className="text-gradient">vender más</span> y trabajar mejor
+
+        <h1 className="services-page-title">
+          Servicios diseñados para que tu negocio <span className="text-gradient">venda más</span> y trabaje en automático.
         </h1>
-        <p className="services-subtitle">
-          Elige la solución que tu negocio necesita. Puedes ver los videos demostrativos, revisar qué incluye cada servicio y cotizar directamente por WhatsApp sin rodeos.
+
+        <p className="services-page-subtitle">
+          Sin términos técnicos ni confusiones. Mira los videos demostrativos de cada herramienta, descubre qué soluciona para tu empresa y cotiza en un clic.
         </p>
 
-        {/* Filtros de Categoría */}
+        {/* Pestañas de Filtro */}
         <div className="services-filter-tabs">
           {CATEGORY_FILTERS.map((f) => (
             <button
@@ -252,7 +355,7 @@ export default function ServicesPage() {
         </div>
       </header>
 
-      {/* Grid de Tarjetas de Producto con Video */}
+      {/* Grid de Tarjetas de Producto con Video y Flowing Hover */}
       <section className="products-grid" aria-label="Catálogo de productos con video">
         {filteredProducts.map((product) => {
           const whatsappUrl = `https://wa.me/51999999999/?text=${encodeURIComponent(product.quoteMsg)}`
@@ -276,7 +379,7 @@ export default function ServicesPage() {
         })}
       </section>
 
-      {/* Metodología de Trabajo Explicada Simple */}
+      {/* Metodología de Trabajo Explicada Simple con Flowing Hover */}
       <section className="services-process-section" aria-label="Cómo trabajamos">
         <div className="services-process-header">
           <h2 className="section-title">
@@ -288,37 +391,37 @@ export default function ServicesPage() {
         </div>
 
         <div className="services-process-grid">
-          <div className="process-step-card">
+          <FlowingHoverCard className="process-step-card" accentColor="#00E676">
             <div className="process-step-number">01</div>
             <h3 className="process-step-title">1. Me cuentas tu idea</h3>
             <p className="process-step-desc">
               Conversamos sobre lo que vendes, a quién quieres llegar y qué necesitas para darte la solución más adecuada.
             </p>
-          </div>
+          </FlowingHoverCard>
 
-          <div className="process-step-card">
+          <FlowingHoverCard className="process-step-card" accentColor="#7C3AED">
             <div className="process-step-number">02</div>
             <h3 className="process-step-title">2. Te muestro la propuesta</h3>
             <p className="process-step-desc">
               Diseñamos una vista previa visual para que veas cómo lucirá tu proyecto antes de escribir código.
             </p>
-          </div>
+          </FlowingHoverCard>
 
-          <div className="process-step-card">
+          <FlowingHoverCard className="process-step-card" accentColor="#3B82F6">
             <div className="process-step-number">03</div>
             <h3 className="process-step-title">3. Lo construimos</h3>
             <p className="process-step-desc">
               Programamos todo para que abra rapidísimo en celulares, reciba pagos y funcione sin fallos.
             </p>
-          </div>
+          </FlowingHoverCard>
 
-          <div className="process-step-card">
+          <FlowingHoverCard className="process-step-card" accentColor="#10B981">
             <div className="process-step-number">04</div>
             <h3 className="process-step-title">4. ¡Lanzamiento y apoyo!</h3>
             <p className="process-step-desc">
               Publicamos tu proyecto en internet, te enseño paso a paso a usarlo y te acompaño en cada duda.
             </p>
-          </div>
+          </FlowingHoverCard>
         </div>
       </section>
 

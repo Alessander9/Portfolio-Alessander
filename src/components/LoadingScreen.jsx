@@ -1,35 +1,29 @@
 import { useState, useEffect } from 'react'
 import './LoadingScreen.css'
 
-const STATUS_MESSAGES = [
-  'Iniciando plataforma digital...',
-  'Cargando portafolio y soluciones...',
-  'Optimizando experiencia interactiva...',
-  'Listo. Bienvenido a alessanderdev.com'
-]
-
 export default function LoadingScreen({ onComplete }) {
   const [progress, setProgress] = useState(0)
-  const [statusIndex, setStatusIndex] = useState(0)
   const [isFinishing, setIsFinishing] = useState(false)
 
   useEffect(() => {
-    // Lock background scroll during preloader
     document.body.style.overflow = 'hidden'
 
-    let currentProgress = 0
-    const interval = setInterval(() => {
-      // Increments with smooth easing
-      const step = Math.floor(Math.random() * 8) + 3
-      currentProgress += step
+    const startTime = performance.now()
+    const duration = 1400 // Smooth, fast, non-intrusive 1.4s
 
-      if (currentProgress >= 100) {
-        currentProgress = 100
+    const updateProgress = (now) => {
+      const elapsed = now - startTime
+      const rawProgress = Math.min(elapsed / duration, 1)
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - rawProgress, 3)
+      const currentPercent = Math.round(eased * 100)
+
+      setProgress(currentPercent)
+
+      if (rawProgress < 1) {
+        requestAnimationFrame(updateProgress)
+      } else {
         setProgress(100)
-        setStatusIndex(3)
-        clearInterval(interval)
-
-        // Trigger finish animation
         setTimeout(() => {
           setIsFinishing(true)
           setTimeout(() => {
@@ -39,63 +33,48 @@ export default function LoadingScreen({ onComplete }) {
               sessionStorage.setItem('welcome_dismissed', 'true')
             } catch {}
             onComplete?.()
-          }, 700)
-        }, 350)
-      } else {
-        setProgress(currentProgress)
-        if (currentProgress > 70) {
-          setStatusIndex(2)
-        } else if (currentProgress > 30) {
-          setStatusIndex(1)
-        }
+          }, 600)
+        }, 200)
       }
-    }, 45)
+    }
+
+    const frameId = requestAnimationFrame(updateProgress)
 
     return () => {
-      clearInterval(interval)
+      cancelAnimationFrame(frameId)
       document.body.style.overflow = ''
     }
   }, [onComplete])
 
   return (
-    <div className={`loading-screen-overlay ${isFinishing ? 'fade-out' : ''}`}>
-      {/* Background Animated Glow Spheres */}
-      <div className="loading-glow-orb loading-glow-green" />
-      <div className="loading-glow-orb loading-glow-purple" />
-      <div className="loading-grid-bg" />
+    <div className={`loading-minimal-overlay ${isFinishing ? 'is-exit' : ''}`}>
+      {/* Soft Ambient Radial Light */}
+      <div className="loading-ambient-light" />
 
-      <div className="loading-content-card">
-        {/* Animated Logo Container with Neon Halo */}
-        <div className="loading-logo-wrapper">
-          <div className="loading-logo-aura" />
+      <div className="loading-center-box">
+        {/* Logo with Soft Glowing Aura */}
+        <div className="loading-logo-frame">
           <img
             src="/logoAlex.png"
             alt="Luis Alexander"
-            className="loading-logo-img"
+            className="loading-brand-logo"
           />
-          <div className="loading-shimmer-sweep" />
         </div>
 
-        {/* Progress Bar Container */}
-        <div className="loading-progress-container">
-          <div className="loading-progress-track">
-            <div
-              className="loading-progress-fill"
-              style={{ width: `${progress}%` }}
-            >
-              <span className="loading-progress-glow-head" />
-            </div>
-          </div>
-          
-          <div className="loading-info-row">
-            <span className="loading-status-text">
-              <span className="loading-pulse-dot" />
-              {STATUS_MESSAGES[statusIndex]}
-            </span>
-            <span className="loading-percent-text">
-              {progress}<span className="loading-percent-symbol">%</span>
-            </span>
-          </div>
+        {/* Minimalist Progress Line */}
+        <div className="loading-line-wrapper">
+          <div
+            className="loading-line-fill"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+
+        {/* Tagline & Percentage in Clean Sans-Serif */}
+        <div className="loading-caption-row">
+          <span className="loading-tagline">Desarrollo Web & Software</span>
+          <span className="loading-counter">
+            {progress < 10 ? `0${progress}` : progress}
+          </span>
         </div>
       </div>
     </div>

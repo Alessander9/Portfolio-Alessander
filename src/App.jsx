@@ -117,24 +117,13 @@ function App() {
       if (hash && !hash.startsWith('#/')) {
         requestAnimationFrame(() => {
           const el = document.querySelector(hash)
-          if (el) el.scrollIntoView()
+          if (el) el.scrollIntoView({ behavior: 'smooth' })
         })
       } else {
-        window.scrollTo(0, 0)
+        window.scrollTo({ top: 0, behavior: 'smooth' })
       }
     }
   }, [route])
-
-  const dismissWelcome = () => {
-    setShowWelcome(false)
-    const hash = window.location.hash
-    if (hash && !hash.startsWith('#/')) {
-      requestAnimationFrame(() => {
-        const el = document.querySelector(hash)
-        if (el) el.scrollIntoView()
-      })
-    }
-  }
 
   const renderContent = () => {
     if (route.view === 'privacy') {

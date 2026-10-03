@@ -289,6 +289,19 @@ export default function StaggeredMenu() {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [open, closeMenu])
 
+  const handleNavClick = (e, link) => {
+    closeMenu()
+    if (link.startsWith('#') && !link.startsWith('#/')) {
+      const targetId = link.slice(1)
+      const targetEl = document.getElementById(targetId)
+      if (targetEl) {
+        e.preventDefault()
+        targetEl.scrollIntoView({ behavior: 'smooth' })
+        window.history.pushState(null, '', link)
+      }
+    }
+  }
+
   return (
     <div
       className="staggered-menu-wrapper fixed-wrapper"
@@ -307,7 +320,7 @@ export default function StaggeredMenu() {
           href="#inicio"
           className={`sm-logo ${!inHero ? 'hidden-outside-hero' : ''}`}
           aria-label="Luis - Inicio"
-          onClick={() => closeMenu()}
+          onClick={(e) => handleNavClick(e, '#inicio')}
         >
           <img
             src="/logoAlex.png"
@@ -348,7 +361,7 @@ export default function StaggeredMenu() {
                   className="sm-panel-item"
                   href={it.link}
                   data-index={idx + 1}
-                  onClick={() => closeMenu()}
+                  onClick={(e) => handleNavClick(e, it.link)}
                 >
                   <span className="sm-panel-itemLabel">{it.label}</span>
                 </a>
